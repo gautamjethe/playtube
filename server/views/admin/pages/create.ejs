@@ -1,0 +1,37 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button> or <a href="javascript:history.go(-1);">cancel</a>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+<%- include('../includes/scripts.ejs') %>
+<script src="/bower_components/ckeditor/ckeditor.js"></script>
+<script type="application/javascript">
+$(document).ready(function(e){
+    CKEDITOR.replace('id_content')
+});
+</script>
+<%- include('../includes/footer.ejs') %>

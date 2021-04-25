@@ -1,0 +1,190 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                    <form id="category_add" method="post" enctype="multipart/form-data">
+                  <div class="box-body">
+                            <div class="categories-form-field" id="name-required">
+                                <div class="categories-form-field-label">
+                                <label for="tag-name">Name</label>
+                                </div>
+                                <div class="categories-data-form">
+                                <input class="form-control" name="category_name" autocomplete="off" value="<%- categoryData.title %>" id="tag-name" type="text" size="40">
+                                <p>Category Name.</p>
+                                </div>
+                            </div>
+                            <div class="categories-form-field" id="slug-required">
+                                <div class="categories-form-field-label">
+                                <label for="category-slug">Category Slug</label>
+                                </div>
+                                <div class="categories-data-form">
+                                <input class="form-control" name="slug" value="<%- categoryData.slug %>" id="category-slug" type="text" value="" size="40">
+                                <p id="error-msg" style="color:red"></p>
+                                <p>Must be all lowercase and contains only letters, numbers, and hyphens.</p>
+                                </div>
+                            </div>
+                            <%if(categoryData.subcategory_id == 0 && categoryData.subsubcategory_id == 0){%>
+                            <div class="categories-form-field" id="slug-required">
+                                <div class="categories-form-field-label">
+                                <label for="category-slug">Show Category on Home Page</label>
+                                </div>
+                                <div class="categories-data-form">
+                                <select name="show_home">
+                                    <option value="1" <%if(categoryData.show_home == 1){%> selected="selected" <%}%> >
+                                        Yes
+                                    </option>
+                                    <option value="0" <%if(categoryData.show_home == 0){%> selected="selected" <%}%> >
+                                        No
+                                    </option>
+                                </select>
+                                <p id="error-msg" style="color:red"></p>
+                                <p>Must be all lowercase and contains only letters, numbers, and hyphens.</p>
+                                </div>
+                            </div>
+                            <%}%>
+                            <div class="categories-form-field" style="margin-bottom: 20px">
+                                <div class="categories-form-field-label">
+                                <label>Category Image</label>
+                                </div>
+                                <div class="categories-data-form">
+                                <input type="file" name="thumbnail" id="category_id" onchange="readImageUrl(this,'category_image')">
+                                <span style="display:none" class="error" id="category_id-msg"></span>
+                                </div>
+                            </div>
+                            <% if(categoryData.image){ %>
+                            <div class="form-wrapper" id="category_image-cnt">
+                                <div class="form-label" id="category_image-label">&nbsp;</div>
+                                <div  id="category_image-element">
+                                    <input width="100" type="image" height="100" src="<%- imageSuffix+categoryData.image %>" id="category_image" name="category_image">
+                                </div>
+                            </div>
+                            <%}else{%>
+                                <div class="form-wrapper" id="category_image-cnt" style="display: none;">
+                                        <div class="form-label" id="category_image-label">&nbsp;</div>
+                                        <div  id="category_image-element">
+                                            <input width="100" type="image" height="100" src="" id="category_image" name="category_image">
+                                        </div>
+                                    </div>
+                            <%}%>
+                            <div class="submit categories-form-field">
+                                <button type="button" id="submitcategory_add" class="btn btn-success">Edit Category</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+  <script type="application/javascript">
+  function readImageUrl(input,id) {
+        var url = input.value;
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        var idMsg = 'category_id';
+        if (input.files && input.files[0] && (ext == "png" || ext == "jpeg" || ext == "jpg" || ext == 'gif' || ext == 'GIF')) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#'+id+'-wrapper').show();
+               $('#'+id).attr('src', e.target.result);
+            }
+            $('#'+id+'-wrapper').show();
+            $('#'+idMsg+'-msg').hide();
+            reader.readAsDataURL(input.files[0]);
+        }else{
+            $('#'+id+'-wrapper').hide();
+            $('#'+idMsg+'-msg').show();
+            $('#'+idMsg+'-msg').html("<br>Please select png,jpeg,jpg and gif image only.");
+             $('#'+idMsg).val('');
+            }
+      }
+        $ (document).on('submit','#category_add',(function(e) {
+                var error = false;
+                var nameFieldRequired = $('#tag-name').val();
+                var slugFieldRequired = $('#category-slug').val();
+                if(!nameFieldRequired){
+                    $('#name-required').css('background-color','#ffebe8');
+                    $('#tag-name').css('border','1px solid red');
+                    error = true;
+                }else{
+                    $('#name-required').css('background-color','');
+                    $('#tag-name').css('border','');
+                }
+                if(!slugFieldRequired){
+                    $('#slug-required').css('background-color','#ffebe8');
+                        $('#category-slug').css('border','1px solid red');
+                         $('html, body').animate({
+                scrollTop: $('#category_add').position().top },
+                1000
+                    );
+                        error = true;
+                }else{
+                    $('#slug-required').css('background-color','');
+                    $('#category-slug').css('border','');
+                }
+                if(error){
+                    $('html, body').animate({
+                scrollTop: $('#category_add').position().top },
+                1000
+                    );
+                    return false;
+                }
+            $('#add-category-overlay').css('display','block');
+            e.preventDefault();
+            var form = $('#category_add');
+            var formData = new FormData(this);
+            formData.append('is_ajax', 1);
+            formData.append('type', "video");
+            $ .ajax({
+                type:'POST',
+                url: "<%= process.env.ADMIN_SLUG %>/videos/categories/add/<%= category_id %>",
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    $('#category_image-cnt').css('display','none');
+                    $('#add-category-overlay').css('display','none');
+                    if(data.slugError){
+                        $('#error-msg').html('Unavailable');
+                        $('#slug-required').css('background-color','#ffebe8');
+                        $('#category-slug').css('border','1px solid red');
+                            $('html, body').animate({
+                            scrollTop: $('#category_add').position().top },
+                            1000
+                            );
+                        return false;
+                    }else{
+                        $('#error-msg').html('');
+                        $('#slug-required').css('background-color','');
+                        $('#category-slug').css('border','');
+                        window.location.href = "<%= process.env.ADMIN_SLUG %>/videos/categories"
+                    }
+                    
+                },
+                error: function(data){
+                    //silence
+                }
+            });
+        }));
+        $("#submitcategory_add").on("click", function() {
+           $("#category_add").trigger('submit');
+           
+        });
+    
+  </script>
+  <%- include('../includes/footer.ejs') %>

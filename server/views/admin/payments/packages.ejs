@@ -1,0 +1,181 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                  <h3 class="box-title"><%- title %></h3>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          
+          <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">  
+                    <h3 class="box-title form-search_title">Search</h3>
+                    <div class="form-search">
+                        <div class="clear">
+                          <div class="search">
+                            <form   method="GET">
+                              <div>
+                                <label for="search" tag="" class="optional">Search</label>
+                                <input type="text" value="<%- query.search %>" class="form-control" name="search" id="search" value="">
+                              </div>
+                              
+                              <div>
+                                <label for="level_id" tag="" class="optional">Member Role</label>
+                                <select name="level_id" class="form-control" id="level_id">
+                                    <option value=""> </option>
+                                    <%for (var i=0;i<memberLevels.length;i++){ %>
+                                    <option <% if(query.level_id == memberLevels[i].level_id){ %> selected="selected" <% } %> value="<%- memberLevels[i].level_id %>"><%- memberLevels[i].title %></option>
+                                    <% } %>
+                                </select>
+                              </div>
+                              <div>
+                                  <label for="downgrade_level_id" tag="" class="optional">Downgrade Member Role</label>
+                                  <select name="downgrade_level_id" class="form-control" id="downgrade_level_id">
+                                      <option value=""> </option>
+                                      <%for (var i=0;i<memberLevels.length;i++){ %>
+                                          <option <% if(query.downgrade_level_id == memberLevels[i].level_id){ %> selected="selected" <% } %>  value="<%- memberLevels[i].level_id %>"><%- memberLevels[i].title %></option>
+                                      <% } %>
+                                  </select>
+                                </div>
+                              <div>
+                                <label for="enabled" tag="" class="optional">Enabled</label>
+                                <select name="enabled" class="form-control" id="enabled">
+                                    <option value=""> </option>
+                                    <option value="1" <% if(query.enabled == 1){ %> selected="selected" <% } %> >Yes</option>
+                                    <option value="2" <% if(query.enabled && (query.enabled == 2 || query.enabled == 0)){ %> selected="selected" <% } %>>No</option>
+                                </select>
+                              </div>
+                              <div>
+                                <div class="buttons">
+                                  <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                                </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4">
+              <div class="btnanchor">
+                <a href="<%= process.env.ADMIN_SLUG %>/payments/packages/create" type="button" class="btn btn-success">Create New Package</a>
+              </div>
+            </div>
+        </div>
+        <%if(results.length > 0){%>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="callout callout-warning">
+                  <p><%- totalCount %> Total Packages</p>
+                </div>
+              <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Member Role</th>
+                      <th>Downgrade Member Role</th>
+                      <th>Price</th>
+                      <th>Billing</th>
+                      <th>Enabled</th>
+                      <th>Default</th>
+                      <th>Active members</th>
+                      <th>Options</th>
+                    </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                    <tr>
+                      <td><%- results[i].package_id %></td>
+                      <td><%- results[i].title %></td>
+                      <td><a href="<%= process.env.ADMIN_SLUG %>/levels/edit/<%= results[i].packageLevelId %>"><%- results[i].level_title %></a></td>
+                      <td><a href="<%= process.env.ADMIN_SLUG %>/levels/edit/<%= results[i].downgrade_level_id %>"><%- results[i].downgrade_level_title %></a></td>
+                      <td><%- results[i].price ? (defaultCurrency)+parseFloat(results[i].price).toFixed(1) : "FREE" %></td>
+                      <td>
+                        <%- recurringPaypal.getDescription(req,results[i]) %>
+                      </td>
+                      <td><%= results[i].enabled == 1 ? "Yes" : "No"  %></td>
+                      <td><%= results[i].default == 1 ? "Yes" : "No"  %></td>
+                      <td><%- results[i].activeMembers ? parseInt(results[i].activeMembers) : 0  %></td>
+                      <td>
+                          <%if(parseInt(results[i].activeMembers) == 0 && results[i].default != 1){%>
+                          <a  class="btn btn-danger btn-xs" onclick="preDeleteFn(this)" data-id="<%-results[i].package_id;%>" data-toggle="modal" data-target="#modal-danger" >Delete</a>
+                          <%}%>
+                          <a  class="btn btn-primary btn-xs" href="<%= process.env.ADMIN_SLUG %>/payments/packages/create/<%= results[i].package_id %>">Edit</a>
+                          <a  class="btn btn-danger btn-xs" href="<%= process.env.ADMIN_SLUG %>/payments/subscriptions?package_id=<%= results[i].package_id %>" >Subscriptions</a>
+                      </td>
+                    </tr>
+                   <% } %>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <%if (paggingData) { %>
+              <div class="box-footer clearfix">
+                  <%- paggingData %>
+              </div>
+              <% } %>
+
+              <div class="modal model-dialog-hide" id="modal-danger">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+                    </div>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+
+              <!-- /.box -->
+            </div>
+          </div>
+        <% }else{%>
+            <% if(Object.keys(query).length){%>
+              <div class="callout callout-info">  
+                  <p>No record found with your matching criteria.</p>
+              </div>
+            <% }else{ %>
+              <div class="callout callout-info">  
+                  <p>No Package created by you yet.</p>
+              </div>
+            <% } %>
+        <% } %>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <script>
+    var deleteObjectId;
+    function preDeleteFn(obj){
+      deleteObjectId = $(obj).attr('data-id');
+      
+    }
+    function deleteFunction(){
+      window.location.href = "<%= process.env.ADMIN_SLUG %>/payments/packages/delete/%>"+deleteObjectId;
+    }
+  </script>
+  <%- include('../includes/scripts.ejs') %>
+  <%- include('../includes/footer.ejs') %>

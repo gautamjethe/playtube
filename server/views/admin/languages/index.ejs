@@ -1,0 +1,226 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title"><%- title %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="btnanchor">
+          <a href="<%= process.env.ADMIN_SLUG %>/languages/add" type="button"
+            class="btn btn-success upload-btn">Create New Language
+          </a>
+        </div>
+      </div>
+    </div>
+    <%if(results.length > 0){%>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="callout callout-danger">
+          <p style="text-align: center; font-size: 20px;">You have to restart the server after every change.</p>
+        </div>
+        <div class="callout callout-warning">
+          <p><%- results.length %> Languages Found.</p>
+        </div>
+        <div class="box">
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Code</th>
+                <th>Enabled</th>
+                <th>Options</th>
+              </tr>
+              <%for(var i=0;i<results.length;i++){%>
+              <tr>
+                <td><%- results[i].language_id %></td>
+                <td><%- results[i].title; %></td>
+                <td>
+                  <%- results[i].code; %>
+                </td>
+                <td>
+                  <%- results[i].enabled ? "Yes" : "No"; %>
+                </td>
+                <td>
+                  <a class="btn btn-primary btn-xs"
+                    href="<%= process.env.ADMIN_SLUG %>/languages/add/<%-results[i].language_id;%>">Edit</a>
+                  <a class="btn btn-primary btn-xs"
+                    href="<%= process.env.ADMIN_SLUG %>/languages/edit/<%-results[i].code;%>">Edit Phrases</a>
+                  <a class="btn btn-primary btn-xs"
+                    href="<%= process.env.ADMIN_SLUG %>/languages/download/<%-results[i].code;%>">Download</a>
+                  <a class="btn btn-success btn-xs upload-csv"
+                    href="javascript:;" data-id="<%-results[i].code;%>">Import</a>
+
+                  <%if(results[i].code != "en"){%>
+                      <a class="btn btn-danger btn-xs" href="<%= process.env.ADMIN_SLUG %>/languages/missing-translation/<%-results[i].code;%>" >Add Missing Translation</a>
+                  <%}%>
+                  
+                  <% if(results[i].code != "en"){ %>
+                    <%if(APIkey){%>
+                    <a class="btn btn-success btn-xs" onclick="translateFn(this)" data-id="<%-results[i].code;%>"
+                      data-toggle="modal" data-target="#modal-translate">Translate</a>
+                    <%}else{%>
+                      <a class="btn btn-success btn-xs" onclick="missingKEY(this)">Translate</a>
+                    <%}%>
+                  <% } %>
+                  <%if(results[i].default == 0 && results[i].code != "en"){%>
+                  <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)" data-id="<%-results[i].language_id;%>"
+                    data-toggle="modal" data-target="#modal-danger">Delete</a>
+                  <%}%>
+                  <%if(results[i].default == 0 && results[i].enabled == 1){%>
+                  <a class="btn btn-danger btn-xs" onclick="preDefault(this)" data-id="<%-results[i].language_id;%>"
+                    data-toggle="modal" data-target="#modal-default">Make Default</a>
+                  <%}%>
+                </td>
+                    </tr>
+                   <% } %>
+            </table>
+          </div>
+        </div>
+        <div class="modal model-dialog-hide" id="modal-danger">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal model-dialog-hide" id="modal-translate">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Translate</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure want to translate language? This will translate all right side translation values.<br><br>
+                  This action will take 15-20 minutes approx.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" onclick="translateFunction()" class="btn btn-success">Start Translation</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal model-dialog-hide" id="modal-default">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure want to mark this language as default.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" onclick="defaultFunction()" class="btn btn-success">Make Default</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }else{%>
+    <div class="callout callout-info">
+      <p>No languages created by you yet.</p>
+    </div>
+    <% } %>
+  </section>
+</div>
+<input type="file" style="display: none" id="upload-csv" onchange="return uploadCSV(this)" >
+<%- include('../includes/scripts.ejs') %>
+
+<script type="application/javascript">
+
+let status = "<%-status ? status : 2%>"
+if(status == 0){
+  alert("Error in Translation, your api key is wrong or your language code is wrong.");
+}else if(status == 1){
+  alert("Language Translated Successfully.");
+}
+function missingKEY(){
+  alert("Google API key is missing.Go to Settings => Settings menu and enter Google Language Translate API key." )
+}
+var apiKEY = "<%-APIkey%>"
+var csvCode;
+$(document).on("click",".upload-csv",function(e) {
+  csvCode = $(this).attr("data-id");
+  $("#upload-csv").trigger("click");
+});
+function uploadCSV(obj) {
+    var file = obj.files[0];
+    if(file.type != "application/json"){
+      alert("Upload csv file only.")
+      return
+    }
+    var formdata = new FormData();
+    formdata.append("file", file);
+    var ajax = new XMLHttpRequest();
+    ajax.addEventListener("load", completeZipHandler, false);
+    ajax.addEventListener("error", errorZipHandler, false);
+    ajax.addEventListener("abort", abortZipHandler, false);
+    ajax.open("POST", "<%= process.env.ADMIN_SLUG %>/languages/import/"+csvCode);
+    ajax.send(formdata);
+}
+function completeZipHandler() {
+  $('#upload-csv').val("")
+}
+function errorZipHandler(){
+  $('#upload-csv').val("")
+}
+function abortZipHandler(){
+  $('#upload-csv').val("")
+}
+  var deleteObjectId;
+  function preDeleteFn(obj) {
+    deleteObjectId = $(obj).attr('data-id');
+
+  }
+  function deleteFunction() {
+    window.location.href = "<%= process.env.ADMIN_SLUG %>/languages/delete/%>" + deleteObjectId;
+  }
+  function translateFn(obj) {
+    deleteObjectId = $(obj).attr('data-id');
+
+  }
+  function translateFunction() {
+    window.location.href = "<%= process.env.ADMIN_SLUG %>/languages/add-translation/%>" + deleteObjectId;
+  }
+  var defaultObjectId;
+  function preDefault(obj) {
+    defaultObjectId = $(obj).attr('data-id');
+
+  }
+  function defaultFunction() {
+    window.location.href = "<%= process.env.ADMIN_SLUG %>/languages/default/%>" + defaultObjectId;
+  }
+</script>
+
+
+
+<%- include('../includes/footer.ejs') %>

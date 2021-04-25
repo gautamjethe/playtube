@@ -1,0 +1,46 @@
+:root {
+    /* Background Colours */
+    --Bgcolor-main: Bgcolor_main;
+    --Bgcolor-primary:Bgcolor_primary;
+    --Bgcolor-secondry:Bgcolor_secondry;
+    --Bgcolor-tertiary:Bgcolor_tertiary;
+    --Bgcolor-success: #28a745;
+    --Bgcolor-danger:#dc3545;
+    --Bgcolor-warning:#ffc107;
+    --Bgcolor-info:#17a2b8;
+    --Bgcolor-light:Bgcolor_light;
+    --Bgcolor-white:Bgcolor_white;
+    --Bgcolor-black:Bgcolor_black;
+    
+
+    /* Text Colours */
+    --Textcolor-main:Textcolor_main;
+    --Textcolor-primary:Textcolor_primary;
+    --Textcolor-secondry:Textcolor_secondry;
+    --Textcolor-tertiary:Textcolor_tertiary;
+    --Textcolor-success: #28a745;
+    --Textcolor-danger:#dc3545;
+    --Textcolor-warning:#ffc107;
+    --Textcolor-info:#17a2b8;
+    --Textcolor-white:Textcolor_white;
+    --Textcolor-black:Textcolor_black;
+
+    /* Other colours */
+    --red-color:red_color;
+    --border-color:border_color;
+    --color-rating-yellow:#ffcc66;
+    --color-rating-orange: #ea731c;    
+    --facebook-color: #455CA8;
+    --facebook-hover-color:#6E83CD;
+    --google-color: #F74933;
+    --google-hover-color:#FF7566;
+    --twitter-color: #1da1f2;
+    --twitter-hover-color:#1da1f2;
+    --instagram-color:#a32e73;
+    --pintrest-color:#d50c22;
+    --vimeo-color:#ffa800;    
+    --username-varify-color: username_varify_color;
+    --loadmore-button-color: #ba6c67;
+    --loadmore-button-hvr-color: #7c7878;
+    --black-opacity8:#0000008f;
+}

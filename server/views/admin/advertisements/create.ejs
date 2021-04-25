@@ -1,0 +1,159 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info"> 
+                    <form method="POST" class="ajaxForm">
+                        <div class="box-body">
+                            <%- reg_form.toHTML(); %>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button> or <a href="javascript:history.go(-1);">cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script>
+    $(document).ready(function (e) {
+        $("#id_type").trigger("change");
+    })
+    $('#id_type').change(function (e) {
+        if ($('#id_type').val() == 1) {
+            $('#id_link').parent().show()
+            $('#id_link2').parent().hide()
+            $("#id_click_link").parent().show()
+            $("#id_skip").parent().show()
+        } else {
+            $('#id_link').parent().hide()
+            $('#id_link2').parent().show()
+            $("#id_click_link").parent().hide()
+            $("#id_skip").parent().hide()
+        }
+    })
+    $(document).on("change", '#id_category_id', function (e) {
+        if ($(this).val()) {
+            const subCategories = getItemCategory($(this).val())
+            let subCategoriesData = ""
+            if (subCategories && subCategories.subcategories) {
+                subCategories.subcategories.forEach(sub => {
+                    subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+                });
+                subCategoriesData = "<option></option>" + subCategoriesData
+                $('#id_subcategory_id').html(subCategoriesData)
+                $('#id_subcategory_id').parent().show()
+            }else{
+                $('#id_subcategory_id').html()
+                $('#id_subcategory_id').val('')
+                $('#id_subcategory_id').parent().hide()
+            }
+            $('#id_subsubcategory_id').html()
+            $('#id_subsubcategory_id').val('')
+            $('#id_subsubcategory_id').parent().hide()
+        } else {
+            $('#id_subcategory_id').html()
+            $('#id_subcategory_id').parent().hide()
+            $('#id_subcategory_id').val('')
+            $('#id_subsubcategory_id').html()
+            $('#id_subsubcategory_id').val('')
+            $('#id_subsubcategory_id').parent().hide()
+        }
+    })
+    $(document).on("change", '#id_subcategory_id', function (e) {
+        if ($(this).val()) {
+            const subCategories = getSubItemCategory($('#id_category_id').val(), $('#id_subcategory_id').val())
+            let subCategoriesData = ""
+            if (subCategories && subCategories.subsubcategories) {
+                subCategories.subsubcategories.forEach(sub => {
+                    subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+                });
+                subCategoriesData = "<option></option>" + subCategoriesData
+                $('#id_subsubcategory_id').html(subCategoriesData)
+                $('#id_subsubcategory_id').parent().show()
+            }else{
+                $('#id_subsubcategory_id').html()
+                $('#id_subsubcategory_id').val('')
+                $('#id_subsubcategory_id').parent().hide()
+            }
+            
+        } else {
+            $('#id_subsubcategory_id').html()
+            $('#id_subsubcategory_id').val('')
+            $('#id_subsubcategory_id').parent().hide()
+        }
+    })
+    function getItemCategory(category_id) {
+        return categoriesData.find(elem => elem.category_id == category_id)
+    }
+    function getSubItemCategory(category_id, subcategory_id) {
+        const categoryData = getItemCategory(category_id)
+        let subCat = []
+        if (categoryData) {
+            subCat = categoryData.subcategories.find(elem => elem.category_id == subcategory_id)
+        }
+        return subCat
+    }
+    var categoriesData = <%- JSON.stringify(categories) %>;
+
+    var category_id = <%- query.category_id ? query.category_id : 0 %>;
+    var subcategory_id = <%- query.subcategory_id ? query.subcategory_id : 0 %>;
+    var subsubcategory_id = <%- query.subsubcategory_id ? query.subsubcategory_id : 0 %>;
+
+    $(document).ready(function (e) {
+        if (category_id != 0) {
+            $('#id_category_id').val(category_id)
+            //if (subcategory_id != 0) {
+                const subCategories = getItemCategory(category_id)
+                let subCategoriesData = ""
+                if (subCategories && subCategories.subcategories) {
+                    subCategories.subcategories.forEach(sub => {
+                        subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+                    });
+                }
+                if (subCategoriesData != "") {
+                    subCategoriesData = "<option></option>" + subCategoriesData
+                    $('#id_subcategory_id').html(subCategoriesData)
+                    $('#id_subcategory_id').parent().show()
+                    $('#id_subcategory_id').val(subcategory_id)
+                    //if (subsubcategory_id != 0) {
+                        const subsubCategories = getSubItemCategory(category_id, subcategory_id)
+                        let subsubCategoriesData = ""
+                        if (subsubCategories && subsubCategories.subsubcategories) {
+                            subsubCategories.subsubcategories.forEach(sub => {
+                                subsubCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+                            });
+                        }
+                        if (subsubCategoriesData != "") {
+                            subsubCategoriesData = "<option></option>" + subsubCategoriesData
+                            $('#id_subsubcategory_id').html(subsubCategoriesData)
+                            $('#id_subsubcategory_id').parent().show()
+                            $('#id_subsubcategory_id').val(subsubcategory_id)
+                        }
+                    //} else {
+                   //     $('#cat_subsubcategory_id').hide()
+                   // }
+                } else {
+                    $('#id_subcategory_id').parent().hide()
+                }
+            //}
+        }else{
+            $('#id_subcategory_id').parent().hide()
+            $('#id_subsubcategory_id').parent().hide()
+        }
+    })
+</script>
+<%- include('../includes/footer.ejs') %>

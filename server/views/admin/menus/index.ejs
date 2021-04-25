@@ -1,0 +1,408 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                  <a href="javascript:;" type="button" class="btnanchor btn  btn-success add-menu">Add Menu</a>
+                  
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <div>
+                            <b>Menu Type </b>&nbsp;&nbsp;
+                                <select id="type">
+                                    <option value="1" <%- type == 1 ? "selected" : "" %>>Main Menu</option>
+                                    <!-- <option value="2" <%- type == 2 ? "selected" : "" %>>Footer Menu</option> -->
+                                    <option value="3" <%- type == 3 ? "selected" : "" %>>Bottom Footer Menu</option>
+                                    <option value="4" <%- type == 4 ? "selected" : "" %>>Social Share Menu</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="script-form">
+                            <div class="menus-add-form" style="display: none;">
+                                <form id="category_add" method="post" enctype="multipart/form-data">
+                                    <div class="menus-form-field" id="name-required">
+                                        <div class="menus-form-field-label">
+                                            <label for="tag-name">Menu Name</label>
+                                        </div>
+                                        <div class="menus-data-form">
+                                            <input class="form-control" name="category_name" autocomplete="off"
+                                                id="tag-name" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="menus-form-field" id="slug-required">
+                                        <div class="menus-form-field-label">
+                                            <label for="category-slug">Menu Url</label>
+                                        </div>
+                                        <div class="menus-data-form">
+                                            <input class="form-control" name="url" id="category-slug" type="text" value="">
+                                            <p id="error-msg" style="color:red"></p>
+                                        </div>
+                                    </div>
+                                    <div class="menus-form-field" id="icon-required">
+                                        <div class="menus-form-field-label">
+                                            <label for="icon-slug">Icon Class</label>
+                                        </div>
+                                        <div class="menus-data-form">
+                                            <input class="form-control" name="icon" id="icon-slug" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <%if(type != 4){ %>
+                                    <div class="menus-form-field">
+                                        <div class="menus-form-field-label">
+                                            <label for="target">Target</label>
+                                        </div>
+                                        <div class="menus-data-form">
+                                            <select name="target" id="target" class="postform">
+                                                <option value="_self">Open in same window</option>
+                                                <option value="_blank">Open in new window</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <%if(type == 1){ %>
+                                    <div class="menus-form-field">
+                                        <div class="menus-form-field-label">
+                                            <label for="parent">Parent Menu</label>
+                                        </div>
+                                        <div class="menus-data-form">
+                                            <select name="parent" id="parent" class="postform">
+                                                <option value="-1">None</option>
+                                                <%menus.forEach(category => {%>
+                                                <option value="<%- category.menu_id %>"><%- category.label %></option>
+                                                <%
+                                                        if(0){
+                                                            category.submenus.forEach(subcategory => {%>
+                                                <option value="<%- subcategory.menu_id %>">
+                                                    -&nbsp;<%- subcategory.label %></option>
+                                                <%
+                                                                if(0){
+                                                                    subcategory.subsubmenus.forEach(subsubcategory => {%>
+                                                <option value="<%- subsubcategory.menu_id %>">
+                                                    --&nbsp;<%- subsubcategory.label %></option>
+                                                <%
+                                                                    })
+                                                                }
+                                                            %>
+                                                <%
+                                                            })
+                                                        }
+                                                    %>
+                                                <%
+                                                })%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <div class="submit menus-form-field">
+                                        <button type="button" id="submitcategory_add" class="btn btn-success">Add New
+                                            Menu</button>
+                                    </div>
+                                </form>
+                                <div class="menus-add-form-overlay" id="add-category-overlay" style="display:none">
+                                </div>
+                            </div>
+                            <div class="menus-listing" style="width: 100%;">
+                                <div id="error_message_delete"></div>
+                                <form id="multimodify_form" method="post">
+                                    <table class="category-table" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Url</th>
+                                                <th>Icon Class</th>
+                                                <th>Enabled</th>
+                                                <th>Options</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%menus.forEach(category => {%>
+                                            <tr id="categoryid-<%- category.menu_id %>"
+                                                data-category-id="<%- category.menu_id %>" style="cursor: move;">
+                                                <td style="display: none;">
+                                                    <input type="checkbox" class="checkbox check-category-id"
+                                                        name="delete_tag[]" value="<%- category.menu_id %>">
+                                                </td>
+                                                <td> <%- category.label %>
+                                                    <div class="hidden" style="display:none"
+                                                        id="inline_<%- category.menu_id %>">
+                                                        <div class="parent">0</div>
+                                                    </div>
+                                                </td>
+                                                <td><%- category.url %></td>
+                                                <td>
+                                                    <%if(category.icon){ %>
+                                                    <%- category.icon %>
+                                                    <%}else{%>
+                                                    ---
+                                                    <%}%>
+                                                </td>
+                                                <td>
+                                                    <%if(category.enabled == 1){ %>
+                                                    <%- "YES" %>
+                                                    <%}else{%>
+                                                    NO
+                                                    <%}%>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-xs" href="<%- process.env.ADMIN_SLUG %>/menus/add/<%- category.menu_id %>">Edit</a>
+                                                    <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                                        data-id="<%-category.menu_id;%>" data-toggle="modal"
+                                                        data-target="#modal-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <%
+                                                if(category.submenus){
+                                                    category.submenus.forEach(subcategory => {%>
+                                            <tr id="categoryid-<%- subcategory.menu_id %>"
+                                                data-category-id="<%- subcategory.menu_id %>" style="cursor: move;">
+                                                <td style="display: none;">
+                                                    <input type="checkbox" class="checkbox check-category-id"
+                                                        name="delete_tag[]" value="<%- subcategory.menu_id %>">
+                                                </td>
+                                                <td> -&nbsp;<%- subcategory.label %>
+                                                    <div class="hidden" style="display:none"
+                                                        id="inline_<%- subcategory.menu_id %>">
+                                                        <div class="parent"><%- category.menu_id %></div>
+                                                    </div>
+                                                </td>
+                                                <td><%- subcategory.url %></td>
+                                                <td>
+                                                    <%if(subcategory.icon){ %>
+                                                    <%- subcategory.icon %>
+                                                    <%}else{%>
+                                                    ---
+                                                    <%}%>
+                                                        </td>
+                                                        <td>
+                                                            <%if(subcategory.enabled == 1){ %>
+                                                            <%- "YES" %>
+                                                            <%}else{%>
+                                                            NO
+                                                            <%}%>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-primary btn-xs" href="<%- process.env.ADMIN_SLUG %>/menus/add/<%- subcategory.menu_id %>">Edit</a>
+                                                    <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                                        data-id="<%-subcategory.menu_id;%>" data-toggle="modal"
+                                                        data-target="#modal-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <%
+                                                        if(subcategory.subsubmenus){
+                                                            subcategory.subsubmenus.forEach(subsubcategory => {%>
+                                            <tr id="categoryid-<%- subsubcategory.menu_id %>"
+                                                data-category-id="<%- subsubcategory.menu_id %>" style="cursor: move;">
+                                                <td style="display: none;">
+                                                    <input type="checkbox" class="checkbox check-category-id"
+                                                        name="delete_tag[]" value="<%- subsubcategory.menu_id %>">
+                                                </td>
+                                                <td> --&nbsp;<%- subsubcategory.label %>
+                                                    <div class="hidden" style="display:none"
+                                                        id="inline_<%- subsubcategory.menu_id %>">
+                                                        <div class="parent"><%- subcategory.menu_id %></div>
+                                                    </div>
+                                                </td>
+                                                <td><%- subsubcategory.url %></td>
+                                                <td>
+                                                    <%if(subsubcategory.icon){ %>
+                                                    <%- subsubcategory.icon %>
+                                                    <%}else{%>
+                                                    ---
+                                                    <%}%>
+                                                                </td>
+                                                                <td>
+                                                                    <%if(subsubcategory.enabled == 1){ %>
+                                                                    <%- "YES" %>
+                                                                    <%}else{%>
+                                                                    NO
+                                                                    <%}%>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="btn btn-primary btn-xs" href="<%- process.env.ADMIN_SLUG %>/menus/add/<%- subsubcategory.menu_id %>">Edit</a>
+                                                    <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                                        data-id="<%-subsubcategory.menu_id;%>" data-toggle="modal"
+                                                        data-target="#modal-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <%
+                                                            })
+                                                        }
+                                                    %>
+                                            <%
+                                                    })
+                                                }
+                                            %>
+                                            <%
+                                        })%>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+<div class="modal model-dialog-hide" id="modal-danger">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script type="application/javascript">
+ $(".add-menu").click(function(e){
+        $(".menus-add-form").show();
+        $(".menus-listing").css("width",'70%')
+    })
+    var deleteObjectId;
+    function preDeleteFn(obj) {
+        deleteObjectId = $(obj).attr('data-id');
+
+    }
+    function deleteFunction() {
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/menus/delete/%>" + deleteObjectId;
+    }
+</script>
+<script src="/dist/js/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script src="/dist/js/odering.js"></script>
+
+<script type="application/javascript">
+    ajaxurl = "<%= process.env.ADMIN_SLUG %>/menus/change-order?type="+$('#type').val();
+    $(document).on('change','#type',function(e){
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/menus?type="+$(this).val();
+    })
+    $(document).ready(function (e) {
+        $('#category_add').on('submit', (function (e) {
+            var error = false;
+            var nameFieldRequired = $('#tag-name').val();
+            var slugFieldRequired = $('#category-slug').val();
+            if (!nameFieldRequired) {
+                $('#name-required').css('background-color', '#ffebe8');
+                $('#tag-name').css('border', '1px solid red');
+                error = true;
+            } else {
+                $('#name-required').css('background-color', '');
+                $('#tag-name').css('border', '');
+            }
+            if (!slugFieldRequired) {
+                $('#slug-required').css('background-color', '#ffebe8');
+                $('#category-slug').css('border', '1px solid red');
+                $('html, body').animate({
+                    scrollTop: $('#category_add').position().top
+                },
+                    1000
+                );
+                error = true;
+            } else {
+                $('#slug-required').css('background-color', '');
+                $('#category-slug').css('border', '');
+            }
+            if (error) {
+                $('html, body').animate({
+                    scrollTop: $('#category_add').position().top
+                },
+                    1000
+                );
+                return false;
+            }
+            $('#add-category-overlay').css('display', 'block');
+            e.preventDefault();
+            var form = $('#category_add');
+            var formData = new FormData(this);
+            formData.append('is_ajax', 1);
+            formData.append('type',$('#type').val());
+            $.ajax({
+                type: 'POST',
+                url: "<%= process.env.ADMIN_SLUG %>/menus/add",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('#add-category-overlay').css('display', 'none');
+                    if (data.slugError) {
+                        $('#error-msg').html('Unavailable');
+                        $('#slug-required').css('background-color', '#ffebe8');
+                        $('#category-slug').css('border', '1px solid red');
+                        $('html, body').animate({
+                            scrollTop: $('#category_add').position().top
+                        },
+                            1000
+                        );
+                        return false;
+                    } else {
+                        $('#error-msg').html('');
+                        $('#slug-required').css('background-color', '');
+                        $('#category-slug').css('border', '');
+                    }
+                    parent = $('#parent').val();
+                    if (parent > 0 && $('#categoryid-' + parent).length > 0) { // If the parent exists on this page, insert it below. Else insert it at the top of the list.
+                        var scrollUpTo = '#categoryid-' + parent;
+                        $('.category-table #categoryid-' + parent).after(data.tableData); // As the parent exists, Insert the version with - - - prefixed
+                    } else {
+                        var scrollUpTo = '#multimodify_form';
+                        $('.category-table').prepend(data.tableData); // As the parent is not visible, Insert the version with Parent - Child - ThisTerm					
+                    }
+                    if ($('#parent')) {
+                        // Create an indent for the Parent field
+                        indent = data.seprator;
+                        if (indent != 3)
+                            form.find('select#parent option:selected').after('<option value="' + data.id + '">' + indent + data.name + '</option>');
+                    }
+                    $('html, body').animate({
+                        scrollTop: $(scrollUpTo).position().top
+                    },
+                        1000
+                    );
+                    $('#category_add')[0].reset();
+                },
+                error: function (data) {
+                    //silence
+                }
+            });
+        }));
+        $("#submitcategory_add").on("click", function () {
+            $("#category_add").submit();
+        });
+    });
+
+</script>
+<%- include('../includes/footer.ejs') %>

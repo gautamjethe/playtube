@@ -1,0 +1,336 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="<%- imageSuffix+reqObject.user.avtar %>" class="img-circle" alt="<%- reqObject.user.displayname %>">
+      </div>
+      <div class="pull-left info">
+        <p><%- reqObject.user.displayname %></p>
+        <a target="_blank" href="/<%- reqObject.user.username %>"> View Profile </a>
+      </div>
+    </div>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">MAIN NAVIGATION</li>
+      <li class="<%= nav == "/" ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+      </li>
+      <li data="<%- nav;%>"
+        class="treeview <%= nav.indexOf("/settings/email") > -1 || nav == ("/settings") || nav == ("/settings/signup") || nav.indexOf("/settings/email") > -1 || nav.indexOf("/settings/login") > -1 || nav.indexOf("/settings/s3") > -1 || nav.indexOf("/settings/contact") > -1 || nav.indexOf("/settings/newsletter") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-edit"></i>
+          <span>Settings</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/settings"><i class="fa fa-circle-o"></i>Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/settings/email"><i class="fa fa-circle-o"></i> Email Settings</a>
+          </li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/settings/login"><i class="fa fa-circle-o"></i> Social Login
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/settings/s3"><i class="fa fa-circle-o"></i> Amazon S3 Settings</a>
+            <li><a href="<%= process.env.ADMIN_SLUG %>/settings/contact"><i class="fa fa-circle-o"></i> Contact-Us Settings</a>
+            </li>
+            <li><a href="<%= process.env.ADMIN_SLUG %>/settings/newsletter"><i class="fa fa-circle-o"></i> Newsletter Settings</a>
+            </li>
+            <li><a href="<%= process.env.ADMIN_SLUG %>/settings/signup"><i class="fa fa-circle-o"></i> Signup Settings</a>
+            </li>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= nav.indexOf("slideshow") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/slideshow">
+          <i class="fa fa-file-image-o"></i> <span>Welcome Slideshow</span>
+        </a>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/payments") > -1 || nav.indexOf("/packages") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-money"></i>
+          <span>Payments</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/payments"><i class="fa fa-circle-o"></i>Payments Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/payments/packages"><i class="fa fa-circle-o"></i> Payments
+              Packages</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/payments/transactions"><i class="fa fa-circle-o"></i> Payments
+              Transactions</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/payments/subscriptions"><i class="fa fa-circle-o"></i> Payments
+              Subscriptions</a></li>
+        </ul>
+      </li>
+      <li class="treeview <%= nav.indexOf("/languages") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-globe"></i>
+          <span>Languages</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/languages"><i class="fa fa-circle-o"></i> Manage Languages</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/languages/add"><i class="fa fa-circle-o"></i> Add New Language</a>
+          </li>
+        </ul>
+      </li>
+      <li class="<%= nav == "earnings" ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/earnings">
+          <i class="fa fa-usd"></i> <span>Earnings</span>
+        </a>
+      </li>
+      <li class="<%= nav == "file-manager" ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/file-manager">
+          <i class="fa fa-file"></i> <span>File Storage</span>
+        </a>
+      </li>
+      <li class="<%= nav.indexOf("/levels") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/levels">
+          <i class="fa fa-users"></i> <span>Member Roles</span>
+        </a>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/users") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-user"></i>
+          <span>Users</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users/settings"><i class="fa fa-circle-o"></i> Settings</a>
+          </li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users"><i class="fa fa-circle-o"></i> Manage Users</a></li>
+          <!-- <li><a href="<%= process.env.ADMIN_SLUG %>/users/custom-field"><i class="fa fa-circle-o"></i> Manage Custom
+              Fields</a></li> -->
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users/invite"><i class="fa fa-circle-o"></i> Invite Users</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users/verification"><i class="fa fa-circle-o"></i> Verifications Requests</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users/monetization"><i class="fa fa-circle-o"></i> Monetization Requests</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/users/withdraw"><i class="fa fa-circle-o"></i>Users Withdraw Requests</a></li>
+        </ul>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/videos") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-video-camera"></i> <span>Videos</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/artists"><i class="fa fa-circle-o"></i> Video Artists</a>
+          </li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos"><i class="fa fa-circle-o"></i> Manage Videos</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/categories"><i class="fa fa-circle-o"></i> Manage
+              Categories</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/sold-videos"><i class="fa fa-circle-o"></i> Sold Videos</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/import/youtube"><i class="fa fa-circle-o"></i> Import Youtube Videos</a>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/videos/import/dailymotion"><i class="fa fa-circle-o"></i> Import Dailymotion Videos</a>
+          </li>
+        </ul>
+      </li>
+      <%if(process.env.NODE_ENV != "production"){%>
+      <li
+      class="treeview <%= nav.indexOf("/movies") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-video-camera"></i> <span>Movies & Series</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies/cast-crew"><i class="fa fa-circle-o"></i> Cast & Crew Members</a>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies"><i class="fa fa-circle-o"></i> Manage Movies & Series</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies/categories"><i class="fa fa-circle-o"></i> Manage
+              Categories</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/movies/sold-movies"><i class="fa fa-circle-o"></i> Sold Movies</a></li>
+          </li>
+        </ul>
+      </li>
+      <%}%>
+      <li
+        class="treeview <%= nav.indexOf("/live-streaming") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-video-camera"></i> <span>Live Streaming</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/live-streaming/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/live-streaming/levels"><i class="fa fa-circle-o"></i> Member Role Settings</a></li>
+          </li>
+        </ul>
+      </li>
+
+      <li
+        class="treeview <%= nav.indexOf("/channels") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-file-video-o"></i> <span>Channels</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/channels/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/channels/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/channels/artists"><i class="fa fa-circle-o"></i> Channels
+              Artists</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/channels"><i class="fa fa-circle-o"></i> Manage Channels</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/channels/categories"><i class="fa fa-circle-o"></i> Manage
+              Categories</a></li>
+        </ul>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/playlists") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-play-circle"></i> <span>Playlists</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/playlists/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/playlists/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/playlists"><i class="fa fa-circle-o"></i> Manage Playlists</a></li>
+        </ul>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/audio") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-headphones"></i> <span>Audio</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/audio/settings"><i class="fa fa-circle-o"></i>
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/audio/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/audio"><i class="fa fa-circle-o"></i> Manage Audio</a></li>
+        </ul>
+      </li>
+      <li
+        class="treeview <%= nav.indexOf("/blogs")  > -1 || nav == "/blogs" || nav == "/blogs/categories" ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-rss"></i> <span>Blogs</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/blogs/settings"><i class="fa fa-circle-o"></i> Settings</a>
+          </li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/blogs/levels"><i class="fa fa-circle-o"></i> Member Role
+              Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/blogs"><i class="fa fa-circle-o"></i> Manage Blogs</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/blogs/categories"><i class="fa fa-circle-o"></i> Manage
+              Categories</a></li>
+        </ul>
+      </li>
+      <li class="<%= nav.indexOf("slideshow") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/pages/content">
+          <i class="fa fa-file-o"></i> <span>Browse Pages Content</span>
+        </a>
+      </li>
+      <li class="<%= nav.indexOf("/mail/templates") > -1  ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/mail/templates">
+          <i class="fa fa-envelope"></i> <span>Manage Email Templates</span>
+        </a>
+      </li>
+      <li class="treeview <%= nav.indexOf("/comments") > -1  ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/comments">
+          <i class="fa fa-comment"></i> <span>Manage Comments</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/comments/settings"><i class="fa fa-circle-o"></i> Settings</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/comments"><i class="fa fa-circle-o"></i> Comments</a></li>
+          </li>
+        </ul>
+      </li>
+
+      <li class="treeview <%= nav.indexOf("/designs") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-code"></i> <span>Design</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<%= process.env.ADMIN_SLUG %>/designs/assets"><i class="fa fa-circle-o"></i> Change Assets</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/designs/color"><i class="fa fa-circle-o"></i> Change Color Scheme</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/designs/custom-design"><i class="fa fa-circle-o"></i> Custom JS/CSS</a>
+          </li>
+        </ul>
+      </li>
+
+      <li
+        <%= nav.indexOf("/reports") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/reports">
+            <i class="fa fa-bug"></i> <span>Reports</span>
+          </a>
+      </li>
+      <li class="treeview <%= nav.indexOf("/advertisements") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>">
+          <i class="fa fa-money"></i> <span>Advertisement</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="<%= process.env.ADMIN_SLUG %>/advertisements/settings"><i class="fa fa-circle-o"></i> Website Advertisement Settings</a></li>
+            <li><a href="<%= process.env.ADMIN_SLUG %>/advertisements/user"><i class="fa fa-circle-o"></i> Manage
+              User Ads</a></li>
+              <li><a href="<%= process.env.ADMIN_SLUG %>/advertisements/website"><i class="fa fa-circle-o"></i> Manage
+                Website Ads</a></li>
+          <li><a href="<%= process.env.ADMIN_SLUG %>/advertisements"><i class="fa fa-circle-o"></i> Manage Video Ads</a>
+          </li>
+          
+        </ul>
+      </li>
+      <li class="<%= nav.indexOf("/pages") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/pages">
+          <i class="fa fa-file-text-o"></i> <span>Pages</span>
+        </a>
+      </li>
+      <li class="<%= nav.indexOf("/menus") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/menus">
+          <i class="fa fa-bars"></i> <span>Menus</span>
+        </a>
+      </li>
+      <li class="<%= nav.indexOf("/pwa") > -1 ? "active" : "" %>">
+        <a href="<%= process.env.ADMIN_SLUG %>/pwa">
+          <i class="fa fa-paw"></i> <span>PWA Settings</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,77 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<style>
+.box-body .field {
+  width: 23%;
+  margin: 15px 1%;
+  float: left;
+}
+.box-body .form-description {
+  width: 100%!important;
+  background: #f5f5f5;
+  margin: 30px 0px!important;
+}
+.box-body .form-description h3{
+    margin: 0px!important;
+    text-decoration: none!important;
+    font-size: 25px;
+    padding: 15px;
+}
+
+.box-body .field button, .box-body .field input, .box-body .field select, .box-body .field textarea {
+  border-radius: 5px;
+    padding: 5px 15px;
+}
+</style>
+<script src="/jscolor/jscolor.js"></script>
+<link rel="stylesheet" href="/dist/js/codemirror/codemirror.css">
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <%- include('../includes/footer.ejs') %>
+
+<script type="application/javascript">
+$("#id_font_style").change(function(e){
+  var font = $(this).val()
+  if(font == "web"){
+    $("#id_fontFamily_default_web").parent().show();
+    $("#id_fontFamily_heading_web").parent().show();
+    $("#id_fontFamily_default").parent().hide();
+    $("#id_fontFamily_heading").parent().hide();
+  }else{
+    $("#id_fontFamily_default").parent().show();
+    $("#id_fontFamily_heading").parent().show();
+    $("#id_fontFamily_default_web").parent().hide();
+    $("#id_fontFamily_heading_web").parent().hide();
+  }
+})
+$("#id_mode").change(function(e){
+  window.location.href = "<%= process.env.ADMIN_SLUG %>/designs/color/"+$(this).val()
+})
+$("#id_font_style").trigger("change");
+</script>

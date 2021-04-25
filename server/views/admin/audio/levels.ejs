@@ -1,0 +1,36 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <script type="application/javascript">
+    $(document).on('change','#id_level_id',function(e){
+      window.location.href = "<%= process.env.ADMIN_SLUG %>/audio/levels/" +$(this).val()
+    })
+    </script>
+  <%- include('../includes/footer.ejs') %>

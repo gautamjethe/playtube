@@ -1,0 +1,150 @@
+:root {
+    /* Theme coloures */
+    /* Background Colours */
+    --Bgcolor-default: #f5f5f5; 
+    --Bgcolor-primary: #ff1744;
+    --Bgcolor-secondry: #ffffff;
+    --Bgcolor-tertiary: #f1f1f1;
+
+    --Bgcolor-light: #f9f9f9;
+    --Bgcolor-white: #ffffff;
+    --Bgcolor-black: #000000;
+    --border-color: #e0e0e0;
+    /* Text Colours */
+    --Textcolor-default: #000000;
+    --Textcolor-primary: #ff1744;
+    --Textcolor-secondry: #9b9b9b;
+    --Textcolor-tertiary: #d4d3d3;
+
+    --Textcolor-light: #ececec;
+    --Textcolor-white: #ffffff;
+    --Textcolor-black: #000000;
+    /* Fonts family and size */
+    --fontFamily-default: 'Roboto', sans-serif;
+    --fontFamily-heading: 'Roboto', sans-serif;
+
+    --fontSize-default: 14px;
+
+    --fontSize-h1: 25px;
+    --fontSize-h2: 22px;
+    --fontSize-h3: 20px;
+    --fontSize-h4: 18px;
+    --fontSize-h5: 16px;
+    --fontSize-h6: 14px;
+    /* Header styles */
+
+    --menu-FontSize: 15px;
+    --MenuDropDown-Bg: #ffffff;
+
+    /* Other colours */
+    --red-color: #ff1744;
+    --color-rating-yellow: #ffcc66;
+    --color-rating-orange: #ea731c;
+    --facebook-color: #455CA8;
+    --facebook-hover-color: #6E83CD;
+    --google-color: #F74933;
+    --google-hover-color: #FF7566;
+    --twitter-color: #1da1f2;
+    --twitter-hover-color: #1da1f2;
+    --instagram-color: #a32e73;
+    --pintrest-color: #d50c22;
+    --vimeo-color: #ffa800;
+    --username-varify-color: #1da1f2;
+    --loadmore-button-color: #ba6c67;
+    --loadmore-button-hvr-color: #7c7878;
+    --black-opacity8: #0000008f;
+    --labelTitle-fontsiz: 25px;
+    
+    /* Label Hot */
+    --lableHot-bg: #ff1744;
+    --lableHot-color: #ffffff;
+    --lableHot-font: 18px;
+    --lableHot-widhtHight: 35px;
+    /* Label Featured  */
+    --lableFeatured-bg: darkblue;
+    --lableFeatured-color: #ffffff;
+    --lableFeatured-font: 18px;
+    --lableFeatured-widhtHight: 35px;
+    /* Label Sponsored  */
+    --lableSponsored-bg: orange;
+    --lableSponsored-color: #ffffff;
+    --lableSponsored-font: 18px;
+    --lableSponsored-widhtHight: 35px;
+    /* VideoBox */
+    --thmbVideo-height: 400px;
+    --thmbVideo-borderRadius: 15px;
+    --thmbVideo-overlayColor: #000000;
+    --thmbVideo-overlayOpacity: 0.7;
+    --thmbVideo-watchPlaylistIcon-Bg: #000000;
+    --thmbVideo-watchPlaylistIcon-FontSize: 18px;
+    --thmbVideo-watchPlaylistIcon-Color: #ffffff;
+    --thmbVideo-watchPlaylistIcon-widthHeight: 30px;
+    --thmbVideo-Name-Color: #ffffff;
+    --thmbVideo-Name-fontSize: 18px;
+    --thmbVideo-Name-lineNo: 2;
+    --thmbVideo-bg: #333333;
+    /* Channel listing new */
+    --chanlThmb-bg: #ffffff;
+    --chanlThmb-borderRadius: 15px;
+    --chanlThmb-coverImgHeight: 200px;
+    --chanlThmb-profileImgHeight: 130px;
+    --chanlThmb-profileImgTop: -65px;
+    --chanlThmb-nameFontSize: 18px;
+    --chanlThmb-nameColor: #333333;
+    --chanlThmb-color: #333333;
+    --chanlThmb-subsBtnBg: #cccccc;
+    --chanlThmb-subsBtnColor: #fff;
+    --chanlThmb-likeDislikeListColor: #333333;
+    /* Artist listing */
+    --artist-bg: #ffffff;
+    --artist-borderRadius: 15px;
+    --artist-imgHeight: 250px;
+    --artist-nameFontSize: 18px;
+    --artist-nameColor: #000000;
+    /* Member Listing */
+    --member-bg: #ffffff;
+    --member-borderRadius: 15px;
+    --member-imgHeight: 250px;
+    --member-nameFontSize: 18px;
+    --member-nameColor: #000000;
+    --member-overlayColor: #000000;
+    --member-overlayOpacity: 0.5;
+    /* Playlist listing */
+    --playList-height: 350px;
+    --playList-overlayColor: rgba(0, 0, 0, 0.5);
+    --playList-color: #ffffff;
+    --playList-titleFontsize: 18px;
+    --playList-subTitle: 14px;
+    --playList-borderRadius: 15px;
+    /* Gategory listing */
+    --category-height: 200px;
+    --category-overlayColor: rgba(0, 0, 0, 0.5);
+    --category-color: #ffffff;
+    --category-titleFontsize: 18px;
+    --category-subTitle: 14px;
+    --category-borderRadius: 15px;
+    /* Blog Listing */
+    --blogBox-bg: #ffffff;
+    --blogBox-imgHeight: 250px;
+    --blogBox-borderRadius: 15px;
+    --blogBox-titleFontSize: 18px;
+    --blogBox-Color: #000000;
+    --blogBox-lightColor: #cccccc;
+    /* Tabs */
+    --tabsBtn-bg: #ffff;
+    --tabsBtn-bgActive: #ff1744;
+    --tabsBtn-color: #00000;
+    --tabsBtn-Activecolor: #fff;
+    --tabsBtn-fontSize: 14px;
+    /* Form Fields */
+    --formField-lableFont: 15px;
+    --formField-lableFontColor: #000000;
+    --formField-inputBg: #f9f9f9;
+    --formField-inputColor: #000000;
+    --formField-inputBdrColor: #a8a8a8;
+    --formField-inputFont: 14px;
+    /* Form page */
+    --formPage-bg: #ffffff;
+    --formPage-color: #00000;
+    --formPage-inputbg: #f9f9f9;
+}

@@ -1,0 +1,183 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title form-search_title">Search</h3>
+                        <div class="form-search">
+                            <div class="clear">
+                                <div class="search">
+                                    <form   method="GET">
+                                        <div>
+                                            <label for="title" tag="" class="optional">Video Title</label>
+                                            <input type="text" value="<%- query.title %>" class="form-control"
+                                                name="title" id="title">
+                                        </div>
+
+                                        <div>
+                                            <label for="displayname" tag="" class="optional">Owner Name</label>
+                                            <input type="text" value="<%- query.displayname %>" class="form-control"
+                                                name="displayname" id="displayname">
+                                        </div>
+                                        <div>
+                                            <label for="email" tag="" class="optional">Owner Email</label>
+                                            <input type="text" value="<%- query.email %>" class="form-control"
+                                                name="email" id="email">
+                                        </div>
+                               
+                               
+                                <div>
+                                    <div class="buttons">
+                                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<%if(results.length > 0){%>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="callout callout-warning">
+            <p><%- totalCount %> Sold Video(s) Found</p>
+        </div>
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Video</th>
+                        <th>Owner</th>
+                        <th>Amount</th>
+                        <th>Site Commission</th>
+                        <th>Net Earning</th>
+                        <th>Creation Date</th>
+                        <th>Options</th>
+                    </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                    <tr>
+                        <td><%- results[i].transaction_id %></td>
+
+                        <%
+                            let title = results[i].videoTitle
+                            let length = 50
+                            if (title.length > length) {
+                                title =  title.substring(0, length - 4) + " ...";
+                            } 
+                        %>
+
+                        <td><a href="/watch/<%= results[i].video_url %>" target="_blank"><%- title %></a></td>
+                        <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].displayname %></a></td>
+                        <td>
+                            <% let amount = (results[i].amount ? parseFloat(results[i].amount) : 0).toFixed(2); %>
+                            <%- getSymbolFromCurrency(results[i].currency)+amount %>
+
+                        </td>
+                        <td>
+                            <% let commission = (results[i].admin_commission ? parseFloat(results[i].admin_commission) : 0).toFixed(2); %>
+                            <%- getSymbolFromCurrency(results[i].currency)+commission %>
+
+                        </td>
+                        <td> 
+                            <% let netAmount = (parseFloat(results[i].admin_commission ? results[i].admin_commission : 0) + parseFloat(results[i].amount)).toFixed(2);%>
+                            <%- getSymbolFromCurrency(results[i].currency)+netAmount %>
+
+                        </td>
+                        <td>
+                            <%let dateS = moment(results[i].creation_date).locale("en")%>
+                            <%= 
+                                    dateS.tz(defaultTimezone).format(formatDate)
+                            
+                            %>
+                        </td>
+                        
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/watch/<%= results[i].video_url %>"
+                                target="_blank">View Video</a>
+                            <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                data-id="<%-results[i].transaction_id;%>" data-toggle="modal"
+                                data-target="#modal-danger">Delete</a>
+                            
+                </td>
+              </tr>
+              <% } %>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <div class="modal model-dialog-hide" id="modal-danger">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure want to delete this transaction? It will not be recoverable after being deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <%if (paggingData) { %>
+        <div class="box-footer clearfix">
+            <%- paggingData %>
+        </div>
+        <% } %>
+        <!-- /.box -->
+    </div>
+</div>
+<% }else{%>
+<% if(Object.keys(query).length){%>
+<div class="callout callout-info">
+    <p>No record found with your matching criteria.</p>
+</div>
+<% }else{ %>
+<div class="callout callout-info">
+    <p>No sold videos found on your website.</p>
+</div>
+<% } %>
+<% } %>
+<!-- /.error-page -->
+</section>
+<!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+
+<script type="application/javascript">
+var deleteObjectId;
+    function preDeleteFn(obj) {
+        deleteObjectId = $(obj).attr('data-id');
+    }
+    function deleteFunction() {
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/videos/sold-video/delete/%>" + deleteObjectId;
+    }
+</script>
+<%- include('../includes/footer.ejs') %>

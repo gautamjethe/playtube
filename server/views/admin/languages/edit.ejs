@@ -1,0 +1,114 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="btnanchor">
+                    <a href="javascript:;" type="button" class="btn btn-success upload-btn addNewPhrase">Add
+                        New Phrase</a> 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title form-search_title">Search</h3>
+                  <div class="form-search">
+                    <div class="clear">
+                      <div class="search">
+                        <form   method="GET">
+                          <div>
+                            <label for="text" tag="" class="optional">Search Text</label>
+                            <input type="text" value="<%- query.text %>" class="form-control" name="text"
+                              id="text">
+                          </div>
+                         
+                          <div>
+                            <div class="buttons">
+                                <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%if(results && results.length > 0){%>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="callout callout-warning">
+                    <p><%- totalCount %> phrases found.</p>
+                </div>
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <%for(var i=0;i<results.length;i++){%>
+                                <div class="field form-group">
+                                    <textarea style="width: 100%;"
+                                        name="<%- results[i][0]; %>"><%- results[i][1] %></textarea>
+                                    <br>
+                                    <p style="padding: 2px 5px 4px 0px;  font-size: .8em; color: #aaa;">
+                                        <%- results[i][0]; %></p>
+                                </div>
+                                <% } %>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary">Submit</button> or <a href="javascript:history.go(-1);">cancel</a>
+                                </div>
+
+                        </form>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+
+                <%if (paggingData) { %>
+                <div class="box-footer clearfix">
+                    <%- paggingData %>
+                </div>
+                <% } %>
+                <!-- /.box -->
+            </div>
+        </div>
+        <% }else{%>
+        <div class="callout callout-info">
+            <p>No phrases found.</p>
+        </div>
+        <% } %>
+        <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script>
+    jQuery(document).on("click", '.addNewPhrase', function (e) {
+        var url = '<%- adminURL %>/languages/add-phrase/<%- languageCode %>';
+        var phrase = prompt('Type your new phrase below:');
+        var redirect = '<%- adminURL %>/languages/edit/<%- languageCode %>?search=' + phrase;
+        if (!phrase || phrase === null || phrase === '') {
+            return;
+        }
+        jQuery.post(url,{phrase:phrase},function(response) {
+            window.location.href = redirect;
+        })
+    });
+</script>
+<%- include('../includes/footer.ejs') %>

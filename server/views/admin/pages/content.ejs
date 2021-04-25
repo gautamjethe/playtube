@@ -1,0 +1,54 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<style>
+  .box-body .field {
+  width: 23%;
+  margin: 15px 1%;
+  float: left;
+}
+.box-body .form-description {
+  width: 100%!important;
+  background: #f5f5f5;
+  margin: 30px 0px!important;
+}
+.box-body .form-description h3{
+    margin: 0px!important;
+    text-decoration: none!important;
+    font-size: 25px;
+    padding: 15px;
+}
+
+.box-body .field button, .box-body .field input, .box-body .field select, .box-body .field textarea {
+  border-radius: 5px;
+    padding: 5px 15px;
+}
+</style>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+<%- include('../includes/scripts.ejs') %>
+<%- include('../includes/footer.ejs') %>

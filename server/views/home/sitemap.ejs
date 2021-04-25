@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    
+    <% itemResults.forEach(item => { %>
+        <url>
+            <%if(item.item == "users"){%>
+            <loc><%-rootPath%>/<%=item.custom_url%></loc>
+            <%}else if(item.item == "blogs"){%>
+                <loc><%-rootPath%>/blog/<%=item.custom_url%></loc>
+            <%}else if(item.item == "videos"){%>
+                <loc><%-rootPath%>/watch/<%=item.custom_url%></loc>
+            <%}else if(item.item == "channels"){%>
+                <loc><%-rootPath%>/channel/<%=item.custom_url%></loc>
+            <%}else{%>
+                <loc><%-rootPath%>/<%=item.custom_url%></loc>
+            <%}%>
+            <%if(item.modified_date){%>
+            <lastmod><%=item.modified_date.replace(new RegExp('/', 'g'), "-")%></lastmod>
+            <%}%>
+            <changefreq><%- item.frequency ? item.frequency : "daily" %></changefreq>
+            <priority><%-item.priority ? item.priority : "1.0" %></priority>
+        </url>
+    <% }) %>
+
+</urlset>

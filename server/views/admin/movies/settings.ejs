@@ -1,0 +1,71 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <script type="application/javascript">
+  $('input[name="enable_iframely"]').change(function(){
+    if($(this).val() == 1){
+      $('#id_iframely_api_key').closest('.field').show();
+      $('#id_enable_youtube_import_0').closest('.field').hide();
+      $('label[for=id_enable_youtube_import_label]').closest('.field').hide();
+      $('#id_youtube_api_key').closest('.field').hide();
+      $('#id_enable_twitch_import_0').closest('.field').hide();
+      $('label[for=id_enable_twitch_import_label]').closest('.field').hide();
+      $('#id_twitch_api_key').closest('.field').hide();
+      $('#id_enable_facebook_import_0').closest('.field').hide();
+      $('label[for=id_enable_facebook_import_label]').closest('.field').hide();
+      $('#id_facebook_client_id').closest('.field').hide();
+      $('#id_facebook_client_secret').closest('.field').hide();
+      $('#id_enable_facebook_import_0').closest('.field').hide();
+      $('#id_enable_facebook_import_0').closest('.field').hide();
+
+      $('#id_iframely_disallow_sources').closest('.field').show();
+      $('label[for=id_iframely_disallow_sources_label]').closest('.field').show();
+    }else{
+      $('#id_iframely_api_key').closest('.field').hide();
+      $('#id_iframely_disallow_sources').closest('.field').hide();
+      $('label[for=id_iframely_disallow_sources_label]').closest('.field').hide();
+      $('#id_enable_youtube_import_0').closest('.field').show();
+      $('label[for=id_enable_youtube_import_label]').closest('.field').show();
+      $('#id_youtube_api_key').closest('.field').show();
+      $('#id_enable_twitch_import_0').closest('.field').show();
+      $('#label[for=id_enable_twitch_import_label]').closest('.field').show();
+      $('#id_twitch_api_key').closest('.field').show();
+      $('#id_enable_facebook_import_0').closest('.field').show();
+
+      $('label[for=id_enable_facebook_import_label]').closest('.field').show();
+      $('#id_facebook_client_id').closest('.field').show();
+      $('#id_facebook_client_secret').closest('.field').show();
+      $('#id_enable_facebook_import_0').closest('.field').show();
+      $('#id_enable_facebook_import_0').closest('.field').show();
+    }
+  })
+  $('input[name="enable_iframely"]:checked').trigger('change');
+  </script>
+  <%- include('../includes/footer.ejs') %>

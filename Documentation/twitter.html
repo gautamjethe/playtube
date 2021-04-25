@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PlayTubeVideo Docs</title>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.css">
+  <link rel="stylesheet" href="styles/fonts/fontawesome/css/all.min.css">
+
+  <link id="theme-style" rel="stylesheet" href="styles/css/styles.css">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header id="header" class="HomeHeaderWrap">
+      <div class="HomeHeaderContent">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="logo">
+                <a href="index"><img src="images/logo.png" alt="Logo"></a>
+              </div>
+
+              <!-- Breadcrumb -->
+              <ol class="breadcrumb">
+                <li><a href="index">Home</a></li>
+                <li class="active">Twitter Login</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="pageContentWrap">
+
+      <div class="container position-relative" id="content">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="docsTitle">
+              <h1>Twitter Login Api Key</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- License -->
+                <div class="anchor DocsSect" id="License">
+                    <div class="jumbotron textfont">
+                      <p>Follow the below steps to <strong>create a Google App</strong> and generate Client ID &amp; Client Secret.</p>
+                      <p>The first thing you need to do is head on down to <a title="Twitter Developers" href="http://developer.twitter.com/">developer.twitter.com</a>. In order to create an account, all you need to do is click on the "Sign In" link at the top right.</p>
+                      <p>Next, sign in with the Twitter account you want to associate with your app. You do have a Twitter account don't you?!</p>
+                      <p>Once you're logged in,&nbsp;you will need to visit Twitter's app website. This can be found at <a title="Twitter Apps" href="http://apps.twitter.com/" target="_blank" >apps.twitter.com</a> (it can also be found by clicking "manage your apps" in the footer of the Twitter Developers site.</p>
+                      <p><a class="imgPopup" href="images/twitter/1.jpg"><img  src="images/twitter/1.jpg"  /></a></p>
+                      <p>If you are new to the Developers site you won't see any applications registered. Either way, it's time to create our first application. To do this, click on the big "Create a new application" button.</p>
+                      <p><a class="imgPopup" href="images/twitter/2.jpg"><img  src="images/twitter/2.jpg" /></a></p>
+                      <p><a class="imgPopup" href="images/twitter/3.jpg"><img src="images/twitter/3.jpg" /></a></p>
+                      <p>It's been easy so far, but this screen often makes people confused. Don't worry, it's a lot easier than you think...</p>
+                      <ul class="step_list">
+                        <li><strong>Name:</strong><br />First of all you need to give your app a <strong>unique name</strong> (one that no one else has used for their Twitter app). Since we're going to be an creating app for personal use and not one that other people can register and use, just put your domain name in or perhaps even your name.</li>
+                        <li><strong>Description:<br /></strong>You don't have to worry much about the description- you can change this later, but it can help to distinguish this app from others that you might create in the future. I've put "a set of Twitter tools for personal use".</li>
+                        <li><strong>Website:<br /></strong>Put <strong>your website</strong> in the website field. It's supposed to be your application's publicly accessible home page.</li>
+                        <li><strong>Callback URL:<br /></strong>&nbsp;Just&nbsp;<strong>ignore the Callback URL field</strong></li>
+                      </ul>
+                      <p>Once you've done this, make sure you've read the "Developer Rules Of The Road" blurb, check the "Yes, I agree" box, fill in the CAPTCHA (don't you just love them) and click the "create your Twitter Application" button. Hurrah!</p>
+                      <p><a class="imgPopup" href="images/twitter/4.jpg"><img src="images/twitter/4.jpg" /></a></p>
+                      <p>You'll then be presented with lots of information, but we're not quite done yet. We now need to authorise the Twitter app for your Twitter account. To do this, click the "Create my access token" button. This takes a few seconds, so if you don't see the access tokens on the next screen, you may have to refresh the page a few times.</p>
+                      <p>This access token will allow your Twitter application to read Twitter information. You'll be able to get data of your tweets, mentions, lists and more.</p>
+                      <p><a class="imgPopup" href="images/twitter/5.jpg"><img src="images/twitter/5.jpg" /></a></p>
+                      <p><a class="imgPopup" href="images/twitter/6.jpg"><img src="images/twitter/6.jpg" /></a></p>
+                      <p>Once you've done this, make a note of your OAuth settings. You will need these long horrible strings of characters for your Twitter app. The ones you will need are:</p>
+                      <ul class="step_list">
+                        <li>Consumer Key</li>
+                        <li>Consumer Secret</li>
+                      </ul>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+  <!--//page-wrapper-->
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <small class="copyright">Powered By PlayTubeVideo</small>
+    </div>
+  </footer>
+
+
+  <!-- Javascript -->
+  <script type="text/javascript" src="scripts/jquery-1.12.3.min.js"></script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js"></script>
+  <script type="text/javascript" src="scripts/jquery.matchHeight-min.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
+
+</body>
+
+</html>

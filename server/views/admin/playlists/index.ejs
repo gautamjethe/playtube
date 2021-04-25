@@ -1,0 +1,328 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title form-search_title">Search</h3>
+                        <div class="form-search">
+                            <div class="clear">
+                                <div class="search">
+                                    <form   method="GET">
+                                        <div>
+                                            <label for="title" tag="" class="optional">Title</label>
+                                            <input type="text" value="<%- query.title %>" class="form-control"
+                                                name="title" id="title">
+                                        </div>
+
+                                        <div>
+                                            <label for="displayname" tag="" class="optional">Owner Name</label>
+                                            <input type="text" value="<%- query.displayname %>" class="form-control"
+                                                name="displayname" id="displayname">
+                                        </div>
+                                        <div>
+                                            <label for="email" tag="" class="optional">Owner Email</label>
+                                            <input type="text" value="<%- query.email %>" class="form-control"
+                                                name="email" id="email">
+                                        </div>
+                                        
+                                <div>
+                                    <label for="approve" tag="" class="optional">Approved</label>
+                                    <select name="approve" class="form-control" id="approve">
+                                        <option value=""> </option>
+                                        <option value="1" <% if(query.approve == 1){ %> selected="selected" <% } %>>Yes</option>
+                                            <option value="0"
+                                                <% if(query.approve && (query.approve == 2 || query.approve == 0)){ %>
+                                                selected="selected" <% } %>>No</option>
+                                        </select>
+                                </div>
+                                <div>
+                                    <label for="adult" tag="" class="optional">Adult</label>
+                                    <select name="adult" class="form-control" id="adult">
+                                        <option value=""> </option>
+                                        <option value="1" <% if(query.adult == 1){ %> selected="selected" <% } %>>Yes
+                                        </option>
+                                        <option value="0"
+                                            <% if(query.adult && (query.adult == 2 || query.adult == 0)){ %>
+                                            selected="selected" <% } %>>No</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label for="featured" tag="" class="optional">Featured</label>
+                                    <select name="featured" class="form-control" id="featured">
+                                        <option value=""> </option>
+                                        <option value="1" <% if(query.featured == 1){ %> selected="selected" <% } %>>Yes
+                                        </option>
+                                        <option value="0"
+                                            <% if(query.featured && (query.featured == 2 || query.featured == 0)){ %>
+                                            selected="selected" <% } %>>No</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="sponsored" tag="" class="optional">Sponsored</label>
+                                    <select name="sponsored" class="form-control" id="sponsored">
+                                        <option value=""> </option>
+                                        <option value="1" <% if(query.sponsored == 1){ %> selected="selected" <% } %>>
+                                            Yes</option>
+                                        <option value="0"
+                                            <% if(query.sponsored && (query.sponsored == 2 || query.sponsored == 0)){ %>
+                                            selected="selected" <% } %>>No</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="hot" tag="" class="optional">Hot</label>
+                                    <select name="hot" class="form-control" id="hot">
+                                        <option value=""> </option>
+                                        <option value="1" <% if(query.hot == 1){ %> selected="selected" <% } %>>Yes
+                                        </option>
+                                        <option value="0" <% if(query.hot && (query.hot == 2 || query.hot == 0)){ %>
+                                            selected="selected" <% } %>>No</option>
+                                    </select>
+                                </div>
+                               
+                                <div>
+                                    <div class="buttons">
+                                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<%if(results.length > 0){%>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="callout callout-warning">
+            <p><%- totalCount %> Playlists Found</p>
+        </div>
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Owner</th>
+                        <th>Creation Date</th>
+                        <th title="Approved">A</th>
+                        <th title="Featured">F</th>
+                        <th title="Sponsored">S</th>
+                        <th title="Hot">H</th>
+                        <th>Options</th>
+                    </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                    <tr>
+                        <td><%- results[i].playlist_id %></td>
+
+                        <%
+                            let title = results[i].title
+                            let length = 50
+                            if (title.length > length) {
+                                title =  title.substring(0, length - 4) + " ...";
+                            } 
+                        %>
+
+                        <td><a href="/playlist/<%= results[i].custom_url %>" target="_blank"><%- title %></a></td>
+                        <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].displayname %></a>
+                        
+                        <td>
+                            <%let dateS = moment(results[i].creation_date).locale("en")%>
+                            <%= 
+                                    dateS.tz(defaultTimezone).format(formatDate)
+                            
+                            %>
+                        </td>
+                        <td><%if(results[i].approve == 1){ %>
+                            <a title="Mark as Un-Approved" class="approve" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/check_image.png" />
+                            </a> <%}else{%> <a title="Mark as Approved" class="approve" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/error_image.png" />
+                            </a> <% } %></td>
+
+                        <td><%if(results[i].is_featured == 1){ %>
+                            <a title="Remove Featured" class="is_featured" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/check_image.png" />
+                            </a> <%}else{%> <a title="Mark as Featured" class="is_featured" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/error_image.png" />
+                            </a> <% } %></td>
+
+                        <td><%if(results[i].is_sponsored == 1){ %>
+                            <a title="Remove Sponsored" class="is_sponsored" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/check_image.png" />
+                            </a> <%}else{%> <a title="Mark as Sponsored" class="is_sponsored" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/error_image.png" />
+                            </a> <% } %></td>
+                        <td><%if(results[i].is_hot == 1){ %>
+                            <a title="Remove Hot" class="is_hot" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/check_image.png" />
+                            </a> <%}else{%> <a title="Mark as Hot" class="is_hot" href="javascript:;"
+                                data-id="<%- results[i].playlist_id %>">
+                                <img style="height: 20px;" src="/images/admin/error_image.png" />
+                            </a> <% } %></td>
+                        <td>
+                            <a class="btn btn-primary btn-xs" href="/playlist/<%= results[i].custom_url %>"
+                                target="_blank">View</a>
+                            <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                data-id="<%-results[i].playlist_id;%>" data-toggle="modal"
+                                data-target="#modal-danger">Delete</a>
+                            <a class="btn btn-primary btn-xs" target="_blank"
+                                href="/create-playlist/<%= results[i].custom_url %>">Edit</a>
+                </td>
+              </tr>
+              <% } %>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <div class="modal model-dialog-hide" id="modal-danger">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Delete</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <%if (paggingData) { %>
+        <div class="box-footer clearfix">
+            <%- paggingData %>
+        </div>
+        <% } %>
+        <!-- /.box -->
+    </div>
+</div>
+<% }else{%>
+<% if(Object.keys(query).length){%>
+<div class="callout callout-info">
+    <p>No record found with your matching criteria.</p>
+</div>
+<% }else{ %>
+<div class="callout callout-info">
+    <p>No playlists created on your website.</p>
+</div>
+<% } %>
+<% } %>
+<!-- /.error-page -->
+</section>
+<!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+
+<script>
+   
+    $(document).on('click', '.approve', function (e) {
+        e.preventDefault()
+        var imageData = $(this).find("img").attr('src')
+        $(this).find("img").attr("src", '/images/admin/loading.gif');
+        var that = this
+        $.post("<%= process.env.ADMIN_SLUG %>/playlists/approve/" + $(this).attr("data-id"), {}, function (respose) {
+            if (respose.error) {
+                $(that).find('img').attr('src', imageData)
+            } else {
+                if (respose.status) {
+                    $(that).find('img').attr('src', "/images/admin/check_image.png")
+                } else {
+                    $(that).find('img').attr('src', "/images/admin/error_image.png")
+                }
+            }
+        })
+    })
+    $(document).on('click', '.is_featured', function (e) {
+        e.preventDefault()
+        var imageData = $(this).find("img").attr('src')
+        $(this).find("img").attr("src", '/images/admin/loading.gif');
+        var that = this
+        $.post("<%= process.env.ADMIN_SLUG %>/playlists/featured/" + $(this).attr("data-id"), {}, function (respose) {
+            if (respose.error) {
+                $(that).find('img').attr('src', imageData)
+            } else {
+                if (respose.status) {
+                    $(that).find('img').attr('src', "/images/admin/check_image.png")
+                } else {
+                    $(that).find('img').attr('src', "/images/admin/error_image.png")
+                }
+            }
+        })
+    })
+    $(document).on('click', '.is_hot', function (e) {
+        e.preventDefault()
+        var imageData = $(this).find("img").attr('src')
+        $(this).find("img").attr("src", '/images/admin/loading.gif');
+        var that = this
+        $.post("<%= process.env.ADMIN_SLUG %>/playlists/hot/" + $(this).attr("data-id"), {}, function (respose) {
+            if (respose.error) {
+                $(that).find('img').attr('src', imageData)
+            } else {
+                if (respose.status) {
+                    $(that).find('img').attr('src', "/images/admin/check_image.png")
+                } else {
+                    $(that).find('img').attr('src', "/images/admin/error_image.png")
+                }
+            }
+        })
+    })
+    $(document).on('click', '.is_sponsored', function (e) {
+        e.preventDefault()
+        var imageData = $(this).find("img").attr('src')
+        $(this).find("img").attr("src", '/images/admin/loading.gif');
+        var that = this
+        $.post("<%= process.env.ADMIN_SLUG %>/playlists/sponsored/" + $(this).attr("data-id"), {}, function (respose) {
+            if (respose.error) {
+                $(that).find('img').attr('src', imageData)
+            } else {
+                if (respose.status) {
+                    $(that).find('img').attr('src', "/images/admin/check_image.png")
+                } else {
+                    $(that).find('img').attr('src', "/images/admin/error_image.png")
+                }
+            }
+        })
+    })
+    var deleteObjectId;
+    function preDeleteFn(obj) {
+        deleteObjectId = $(obj).attr('data-id');
+    }
+    function deleteFunction() {
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/playlists/delete/%>" + deleteObjectId;
+    }
+</script>
+<%- include('../includes/footer.ejs') %>

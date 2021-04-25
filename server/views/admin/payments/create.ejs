@@ -1,0 +1,72 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button> or <a href="javascript:history.go(-1);">cancel</a>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <script type="application/javascript">
+  $(document).ready(function(e){
+    $("#id_interval").parent().css("float",'left').css("margin-right",'10px').css("height",'50px');
+    $("#id_duration").parent().css("float",'left').css("margin-right",'10px').css("height",'50px');
+    $("#id_alert_number").parent().css("float",'left').css("margin-right",'10px').css("height",'50px');
+
+    $(".type_label").closest(".field").css("clear",'both');
+    $("label[for='id_type']").hide();
+    $("label[for='id_duration_type']").hide();
+    $("#id_duration_type").parent().css("margin-top",'40px');
+    $("#id_type").parent().css("margin-top",'40px');
+    $('#id_type').trigger('change');
+    $('#id_duration_type').trigger('change');
+
+    $(".id_alert_type_label").closest(".field").css("clear",'both');
+    $("label[for='id_alert_type']").hide();
+    $("#id_alert_type").parent().css("margin-top",'40px');
+  })
+  $(document).on('change','#id_type',function(e){
+    if($(this).val() == "forever"){
+      $('#id_interval').hide();
+      $("#id_type").css("left",10).css("position",'absolute');
+    }else{
+      $('#id_interval').show();
+      $("#id_type").css("left",'').css("position",'');
+    }
+  })
+  $(document).on('change','#id_duration_type',function(e){
+    if($(this).val() == "forever"){
+      $('#id_duration').hide();
+      //$("#id_setup_fee").parent().hide();
+      //$("label[for='id_setup_fee_label']").parent().hide();
+      $("#id_duration_type").css("left",10).css("position",'absolute');
+    }else{
+      //$("#id_setup_fee").parent().show();
+      $('#id_duration').show();
+      //$("label[for='id_setup_fee_label']").parent().show();
+      $("#id_duration_type").css("left",'').css("position",'');
+    }
+  })
+  </script>
+  <%- include('../includes/footer.ejs') %>

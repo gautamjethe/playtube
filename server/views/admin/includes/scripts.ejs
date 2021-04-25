@@ -1,0 +1,26 @@
+<!-- jQuery 3 -->
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/js/admin/jquery.form.js"></script>
+  <%if(typeof ALLOWALLUSERINADMIN == "undefined" || !ALLOWALLUSERINADMIN){%>
+  <script src="/js/admin/core.js"></script>
+  <%}else{%>
+<script type="application/javascript">
+  $(document).ready(function(e){
+    $(".box-footer").find('button').attr("disabled",'disabled');
+    $(".btn-danger").removeAttr("onClick").attr("onClick",'alert("disabled");');
+    $("#modal-danger, #modal-default").remove();
+  });
+  $(document).on('submit','.ajaxForm',function(e) {
+    e.preventDefault();
+    return false;
+  });
+</script>
+  <%}%>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- FastClick -->
+  <script src="/bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/dist/js/adminlte.js"></script>
+  <!-- Sparkline -->
+  <script src="/bower_components/PACE/pace.min.js"></script>

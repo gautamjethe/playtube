@@ -1,0 +1,54 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="cnt  active">
+                                   <div class="name">Default</div>
+                                   <div class="version">Version: 1.0</div>
+                                    <div class="active">
+                                        <i class="fa fa-check"></i> Activated
+                                    </div>
+                                </div>
+                             </div>
+                            <div class="col-lg-6">
+                                <div class="cnt ">
+                                    <div class="name">Advanced Theme</div>
+                                    <div class="version">Version: 1.0</div>
+                                    <div class="active">
+                                        <a href="#" id="active" value="advanced">Activate</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="activated_theme" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<style>
+.cnt{
+    border: 1px solid #ededed;
+    padding: 10px;
+    border-radius: 3px;
+}
+</style>
+<%- include('../includes/scripts.ejs') %>
+
+<%- include('../includes/footer.ejs') %>

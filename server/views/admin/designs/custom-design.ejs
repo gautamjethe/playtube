@@ -1,0 +1,61 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<script src="/dist/js/codemirror/codemirror.js"></script>
+<script src="/dist/js/codemirror/css.js"></script>
+<script src="/dist/js/codemirror/javascript.js"></script>
+<link rel="stylesheet" href="/dist/js/codemirror/codemirror.css">
+  <div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                  <div class="box-header">
+                      <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-info">
+                <form method="POST" class="ajaxForm">
+                  <div class="box-body">
+                        <%- reg_form.toHTML(); %>
+                    </div>
+                    <div class="box-footer">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+    </section>
+  </div>
+  <%- include('../includes/scripts.ejs') %>
+  <%- include('../includes/footer.ejs') %>
+<script>
+    $(function() {
+            CodeMirror.fromTextArea(document.getElementById('id_custom_header_js'), {
+                mode: "javascript",
+                theme: "default",
+                lineNumbers: true,
+                readOnly: false
+            });
+    
+            // CodeMirror.fromTextArea(document.getElementById('id_custom_footer_js'), {
+            //     mode: "javascript",
+            //     theme: "default",
+            //     lineNumbers: true,
+            //     readOnly: false
+            // });
+    
+            CodeMirror.fromTextArea(document.getElementById('id_custom_css'), {
+                mode: "css",
+                theme: "default",
+                lineNumbers: true,
+                readOnly: false
+            });   
+    
+    });
+    
+    </script>

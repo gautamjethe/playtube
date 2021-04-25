@@ -1,0 +1,208 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title form-search_title">Search</h3>
+                        <div class="form-search">
+                            <div class="clear">
+                                <div class="search">
+                                    <form   method="GET">
+
+
+                                        <div>
+                                            <label for="displayname" tag="" class="optional">Owner Name</label>
+                                            <input type="text" value="<%- query.displayname %>" class="form-control"
+                                                name="displayname" id="displayname">
+                                        </div>
+                                        <div>
+                                            <label for="email" tag="" class="optional">Owner Email</label>
+                                            <input type="text" value="<%- query.email %>" class="form-control"
+                                                name="email" id="email">
+                                        </div>
+
+                                        <div>
+                                                <label for="type" tag="" class="optional">Type</label>
+                                                <select name="type" class="form-control" id="type">
+                                                    <option value=""> </option>
+                                                    <option value="members"
+                                                        <% if(query.type && (query.type == 'members')){ %>
+                                                        selected="selected" <% } %>>Members</option>
+                                                    <option value="videos" <% if(query.type == "videos"){ %> selected="selected" <% } %>>Videos
+                                                    </option>
+                                                    <option value="channels"
+                                                        <% if(query.type && (query.type == 'channels')){ %>
+                                                        selected="selected" <% } %>>Channels</option>
+                                                    <option value="blogs"
+                                                        <% if(query.type && (query.type == 'blogs')){ %>
+                                                        selected="selected" <% } %>>Blogs</option>
+                                                    <option value="playlists"
+                                                        <% if(query.type && (query.type == 'playlists')){ %>
+                                                        selected="selected" <% } %>>Playlists</option>
+                                                    <option value="artists"
+                                                        <% if(query.type && (query.type == 'artists')){ %>
+                                                        selected="selected" <% } %>>Artists</option>
+                                                    
+                                                </select>
+                                            </div>
+
+                                        <div>
+                                            <div class="buttons">
+                                                <button id="search" class="btn btn-primary"
+                                                    type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%if(results.length > 0){%>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="callout callout-warning">
+                    <p><%- totalCount %> Comments Found</p>
+                </div>
+                <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Owner</th>
+                                <th>Image</th>
+                                <th>Message</th>
+                                <th>Creation Date</th>
+                                <th>Options</th>
+                            </tr>
+                            <%for(var i=0;i<results.length;i++){%>
+                            <tr>
+                                <td><%- results[i].comment_id %></td>
+                                <td><a href="/<%= results[i].username %>"
+                                        target="_blank"><%- results[i].displayname %></a>
+                                </td>
+                                <td>
+                                    <%if(results[i].image){%>
+                                    <img src="<%- imageSuffix+results[i].image %>" style="height: 50px;width: 50px;" />
+                                    <%}else{%>
+                                    -
+                                    <%}%>
+                        </td>
+                        <td>
+                            <%- results[i].message %>
+                                </td>
+                                <td>
+                                    <%let dateS = moment(results[i].creation_date).locale("en")%>
+                            <%= 
+                                    dateS.tz(defaultTimezone).format(formatDate)
+                            
+                            %>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-primary btn-xs" target="_blank"
+                                        href="/comment/<%= results[i].comment_id %>" target="_blank">View</a>
+                                    <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)"
+                                        data-id="<%-results[i].comment_id;%>" data-toggle="modal"
+                                        data-target="#modal-danger">Delete</a>
+                                    <%if(results[i].reply_count > 0){%>
+                                    <a class="btn btn-primary btn-xs" href="<%= admin_slug+"/comments/reply/"+results[i].comment_id %>">View
+                                        Replies</a>
+                                    <%}%>
+                                    <%if(results[i].type == "users"){%>
+                                    <a class="btn btn-primary btn-xs" href="/<%= results[i].custom_url %>" target="_blank">View
+                                        Content</a>
+                                    <%}else if(results[i].type == "playlists"){%>
+                                    <a class="btn btn-primary btn-xs" href="/playlist/<%= results[i].custom_url %>"
+                                        target="_blank">View Content</a>
+                                    <%}else if(results[i].type == "channels"){%>
+                                    <a class="btn btn-primary btn-xs" href="/channel/<%= results[i].custom_url %>"
+                                        target="_blank">View Content</a>
+                                    <%}else if(results[i].type == "videos"){%>
+                                    <a class="btn btn-primary btn-xs" href="/watch/<%= results[i].custom_url %>"
+                                        target="_blank">View Content</a>
+                                    <%}else if(results[i].type == "blogs"){%>
+                                    <a class="btn btn-primary btn-xs" href="/blog/<%= results[i].custom_url %>"
+                                        target="_blank">View Content</a>
+                                    <%}%>
+                            </tr>
+                            <% } %>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <div class="modal model-dialog-hide" id="modal-danger">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Delete</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <%if (paggingData) { %>
+                <div class="box-footer clearfix">
+                    <%- paggingData %>
+                </div>
+                <% } %>
+                <!-- /.box -->
+            </div>
+        </div>
+        <% }else{%>
+        <% if(Object.keys(query).length){%>
+        <div class="callout callout-info">
+            <p>No record found with your matching criteria.</p>
+        </div>
+        <% }else{ %>
+        <div class="callout callout-info">
+            <p>No comments created on your website.</p>
+        </div>
+        <% } %>
+        <% } %>
+        <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+
+<script>
+
+    var deleteObjectId;
+    function preDeleteFn(obj) {
+        deleteObjectId = $(obj).attr('data-id');
+    }
+    function deleteFunction() {
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/comments/delete/%>" + deleteObjectId;
+    }
+</script>
+<%- include('../includes/footer.ejs') %>

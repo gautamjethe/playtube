@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/installer/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/installer/styles/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/installer/styles/css/style.css">
+
+    <title>Install</title>
+</head>
+
+<body class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="heading mt-5 mb-5 text-center heading">Installation</h1>
+            </div>
+ 
+            <div class="col-md-12">
+                <!-- Steps -->
+                <div class="install_step">
+                    <ul class="install_steps">
+                        <li class="step-one active">
+                            <span>1
+                                <i class="fas fa-check"></i>
+                            </span>Terms of use
+                        </li>
+
+                        <li class="step-two">
+                            <span>2
+                                <i class="fas fa-check"></i>
+                            </span>Installation
+                        </li>
+                        <li class="step-three ">
+                            <span>3
+                                <i class="fas fa-check"></i>                            
+                            </span>Finish
+                        </li>
+                    </ul>
+                    <div class="line">
+                        <div class="line_sec"></div>
+                    </div>
+                </div>
+
+                <!-- Step 1 -->
+                <div class="contentWrap step1">
+                    <h2 class="heading2">Terms of use</h2>
+                    <h5 class="heading5">LICENSE AGREEMENT: one (1) Domain (site) Install</h5>
+                    <p>
+                        <b class="bold">You CAN:</b><br>
+                        1) Use on one (1) domain only, additional license purchase required for each additional
+                        domain.<br>
+                        2) Modify or edit as you see fit.<br>
+                        3) Delete sections as you see fit.<br>
+                        4) Translate to your choice of language.<br> <br>
+
+                        <b class="bold">You CANNOT:</b> <br>
+                        1) Resell, distribute, give away or trade by any
+                        means to any third party or individual without permission.<br>
+                        2) Use on more than one
+                        (1) domain.
+                    </p>
+                    <div class="formbox">
+                        <form>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="agree" name="example1">
+                                <label class="custom-control-label" for="agree">Yes, I am agree.</label>
+                            </div>
+                            <button type="button" class="btn btn-main" onclick="steps(1);" id="accept-terms" disabled="">Continue</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Step 2 (add class="step_two_done" in body)-->
+                <div class="contentWrap step2" style="display: none;">
+                    <h2 class="heading2">Installation</h2>                    
+                    <div class="formbox">
+                        <form class="instalform" onsubmit="steps(2);return false;">
+                            <div class="form-group row" style="display: none;">
+                              <label class="col-sm-2 col-form-label col-form-label-sm" for="Purchasecode">Purchase code</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" name="purchase_code" id="Purchasecode" placeholder="Purchase code">
+                              </div>
+                            </div>
+                              
+
+                              <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <p><b>*Note: Installation process may take few minutes.</b></p>
+                                    <button type="submit" class="btn btn-main install-query">Click to Install</button>
+                                </div>
+                              </div>
+
+                          </form>
+
+                    </div>
+                </div>
+
+                <!-- Step 3 (add class="step_three_done" in body)-->
+                <div class="contentWrap step3" style="display: none;">
+                    <h2 class="heading2">Installation Finished</h2>                    
+                    <p>
+                        Congratulations! PlayTubeVideo script has been successfully installed and your website is ready.<br><br>
+                        Signup now to make changes and modify any default content according to your needs.<br><br>
+                        If you have any question, please <a href="mailto:softwareservitium@gmail.com" class="main">let us know</a>.
+                    </p>
+                    <a href="/signup" class="btn btn-main install-query">Let's Start!</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/installer/scripts/jquery-3.4.1.min.js"></script>
+    <script src="/installer/scripts/bootstrap.bundle.min.js"></script>
+    <script>
+       
+        
+        function steps(step){
+            if(step == 1){
+                $('body').addClass("step_one_done");
+                $(".step1").hide();
+                $(".step2").show();
+            }else if(step == 2){
+                let valid = false;
+                var isValid = validation();
+                if(!isValid){
+                    return;
+                }
+                runQueries();
+            }
+        }
+        function runQueries(){
+            var $form = $('.instalform');
+
+            // Let's select and cache all the fields
+            var $inputs = $form.find("input, select");
+
+            // Serialize the data in the form
+            var serializedData = $form.serialize();
+            $(".install-query").attr('disabled', true);
+            $.post("/install/run-queries",{data:serializedData},function(response) {
+                if(response.status && response.status == 1){
+                    $('body').addClass("step_three_done");
+                    $(".step2").hide();
+                    $(".step3").show();
+                }else{
+                    alert("Error during installation.")
+                    //error
+                }
+                $(".install-query").attr('disabled', false);
+            })
+        }
+        function validation(){
+            var isValid = true;
+            $(".instalform input.required").each(function(){
+                if(!$(this).val()){
+                    $(this).parent().append('<span class="form_error">*This is a required field.</span>');
+                    isValid = false;
+                }else{
+                    $(this).parent().find(".form_error").remove();
+                }
+            })
+            return isValid;
+        }
+        $('#agree').change(function () {
+            if ($(this).is(":checked")) {
+                $('#accept-terms').attr('disabled', false);
+            } else {
+                $('#accept-terms').attr('disabled', true);
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                  <h3 class="box-title"><%- title %></h3>
+                </div>
+            </div>
+          </div>
+      </div>
+        <div class="row">
+          <div class="col-xs-12">
+                <a href="javascript:;" type="button" class="btnanchor btn  btn-success upload-btn">Upload New File</a>
+                 <a href="<%= process.env.ADMIN_SLUG %>/file-manager/download-files" type="button" class="btnanchor btn  btn-success">Export Files</a>
+                 <a href="javascript:;" type="button" class="btnanchor btn  btn-success upload-zip">Import Files</a>
+            </div>
+           
+        </div>
+        <div class="col-xs-6">
+          <form id="upload_form" enctype="multipart/form-data" method="post">
+            <input type="file" style="display: none" id="upload-image" onchange="return uploadFile(this)" >
+            <progress id="progressBar" style="display: none;width: 100%"  value="0" max="100"></progress>
+            <h3 id="status"></h3>
+            <p id="loaded_n_total"></p>
+          </form>    
+          <form id="upload_zip" enctype="multipart/form-data" method="post">
+            <input type="file" style="display: none" id="upload-zip" onchange="return uploadZip(this)" >
+            <progress id="progressBarZip" style="display: none;width: 100%"  value="0" max="100"></progress>
+            <h3 id="statusZip"></h3>
+            <p id="loaded_zip_total"></p>
+          </form>         
+        </div>
+        <%if(results.length > 0){%>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="callout callout-warning">
+                  <p><%- totalCount %> Files Uploaded.</p>
+                </div>
+              <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th>ID</th>
+                      <th>Filename</th>
+                      <th>File Path</th>
+                      <th>Options</th>
+                    </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                    <tr>
+                      <td><%- results[i].file_id %></td>
+                      <%
+                      let url = results[i].path.split(/(\\|\/)/g).pop().split("_")
+                        if(url.length > 1){
+                            url.splice(0, 2)
+                            url = url.join("_")
+                        }else{
+                            url = url[0]
+                        }
+                        
+                      %>
+                      <td><%- url %></td>
+                      <td>
+                        <%if(results[i].path.toLowerCase().indexOf('.gif') > -1 || results[i].path.toLowerCase().indexOf('.jpg') > -1 || results[i].path.toLowerCase().indexOf('.jpeg') > -1 || results[i].path.toLowerCase().indexOf('.png') > -1){ %>
+                          <img src="<%- (imageSuffix ? imageSuffix : baseURL)+results[i].path; %>" height="100px" width="100px" >
+                        <%}else{%>
+                          <img src="/images/default.png" height="100px" width="100px" >
+                        <%}%>
+                      </td>
+                      <td>
+                          <span style="display: none;" id="copy_text_<%- results[i].file_id; %>"><%- (imageSuffix ? imageSuffix : baseURL)+results[i].path; %></span>
+                          <a  class="btn btn-primary btn-xs" onclick="copyLink('copy_text_<%- results[i].file_id; %>')">Copy Link</a>
+                          <%if(imageSuffix){%>
+                            <a  class="btn btn-success btn-xs" target="_blank" href="<%= imageSuffix %><%= results[i].path %>" >Download</a>
+                          <%}else{%>
+                          <a  class="btn btn-success btn-xs" href="<%= process.env.ADMIN_SLUG %>/file-manager/download/<%= results[i].file_id %>" >Download</a>
+                          <%}%>
+                          <a  class="btn btn-danger btn-xs" onclick="preDeleteFn(this)" data-id="<%-results[i].file_id;%>" data-toggle="modal" data-target="#modal-danger" >Delete</a>
+                      </td>
+                    </tr>
+                   <% } %>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <div class="modal model-dialog-hide" id="modal-danger">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Delete</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+                      </div>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+              <%if (paggingData) { %>
+              <div class="box-footer clearfix">
+                  <%- paggingData %>
+              </div>
+              <% } %>
+              <!-- /.box -->
+            </div>
+          </div>
+        <% }else{%>
+              <div class="callout callout-info">  
+                  <p>No File created by you yet.</p>
+              </div>
+        <% } %>
+      <!-- /.error-page -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <script type="application/javascript">
+    var deleteObjectId;
+    function preDeleteFn(obj){
+      deleteObjectId = $(obj).attr('data-id');
+      
+    }
+    function deleteFunction(){
+      window.location.href = "<%= process.env.ADMIN_SLUG %>/file-manager/delete/%>"+deleteObjectId;
+    }
+  </script>
+  
+  <%- include('../includes/scripts.ejs') %>
+  <script>
+      $(document).ready(function(e){
+        $('.upload-btn').click(function(e){
+          $('#upload-image').trigger('click');
+        })
+      });
+      $(".upload-zip").click(function(e){
+        $('#upload-zip').trigger('click');
+      })
+      function _(el) {
+        return document.getElementById(el);
+      }
+
+      function uploadZip(obj) {
+        var file = obj.files[0];
+        if(file.type != "application/zip"){
+          alert("Upload zip file only.")
+          return
+        }
+        // alert(file.name+" | "+file.size+" | "+file.type);
+        var formdata = new FormData();
+        formdata.append("file", file);
+        var ajax = new XMLHttpRequest();
+        ajax.upload.addEventListener("progress", progressZipHandler, false);
+        ajax.addEventListener("load", completeZipHandler, false);
+        ajax.addEventListener("error", errorZipHandler, false);
+        ajax.addEventListener("abort", abortZipHandler, false);
+        ajax.open("POST", "<%= process.env.ADMIN_SLUG %>/file-manager/upload-zip");
+        ajax.send(formdata);
+      }
+      function completeZipHandler(event) {
+        var response = JSON.parse(event.currentTarget.response)        
+        _("statusZip").innerHTML = response.message;
+        _("progressBarZip").value = 0; //wil clear progress bar after successful upload
+        if(response.error == 0){
+          _("statusZip").innerHTML = ""
+          _('progressBarZip').style.display = "none";
+          _("loaded_zip_total").innerHTML = ""
+          _("upload-zip").value = ""
+        }
+        //
+      }
+      function errorZipHandler(event) {
+        _("statusZip").innerHTML = "Upload Failed";
+      }
+      function abortZipHandler(event) {
+        _("statusZip").innerHTML = "Upload Aborted";
+      }
+      function progressZipHandler(event) {
+        _('progressBarZip').style.display = "block";
+        _("loaded_zip_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+        var percent = (event.loaded / event.total) * 100;
+        _("progressBarZip").value = Math.round(percent);
+        _("statusZip").innerHTML = Math.round(percent) + "% uploaded... please wait";
+      }
+      function uploadFile(obj) {
+        var file = obj.files[0];
+        // alert(file.name+" | "+file.size+" | "+file.type);
+        var formdata = new FormData();
+        formdata.append("file", file);
+        var ajax = new XMLHttpRequest();
+        ajax.upload.addEventListener("progress", progressHandler, false);
+        ajax.addEventListener("load", completeHandler, false);
+        ajax.addEventListener("error", errorHandler, false);
+        ajax.addEventListener("abort", abortHandler, false);
+        ajax.open("POST", "<%= process.env.ADMIN_SLUG %>/file-manager/upload-file%>");
+        ajax.send(formdata);
+      }
+
+      function progressHandler(event) {
+        _('progressBar').style.display = "block";
+        _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+        var percent = (event.loaded / event.total) * 100;
+        _("progressBar").value = Math.round(percent);
+        _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+      }
+
+      function completeHandler(event) {
+        var response = JSON.parse(event.currentTarget.response)        
+        _("status").innerHTML = response.message;
+        _("progressBar").value = 0; //wil clear progress bar after successful upload
+        if(response.error == 0){
+          window.location.reload();
+        }
+        //
+      }
+
+      function errorHandler(event) {
+        _("status").innerHTML = "Upload Failed";
+      }
+
+      function abortHandler(event) {
+        _("status").innerHTML = "Upload Aborted";
+      }
+       function copyLink(id) {
+         let copyText = document.getElementById(id) 
+         copyText.style.display = "block";
+         var selection = window.getSelection();
+     
+         var range = document.createRange();
+     
+         range.selectNodeContents(copyText);
+     
+         selection.removeAllRanges();
+     
+         selection.addRange(range);
+     
+         document.execCommand('copy');
+         copyText.style.display = "none";
+       }
+     </script>
+  <%- include('../includes/footer.ejs') %>

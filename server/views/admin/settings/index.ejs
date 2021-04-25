@@ -1,0 +1,96 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title"><%- title %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <form method="POST" class="ajaxForm">
+            <div class="box-body">
+              <%- reg_form.toHTML(); %>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script type="application/javascript">
+function hideShowField(){
+  if (jQuery('#id_email_type').length > 0) {
+        var value = jQuery('select[name="email_type"]').val()
+        jQuery('#id_gmail_xauth_email').parent().hide();
+        jQuery('#id_gmail_xauth_clientid').parent().hide();
+        jQuery('#id_gmail_xauth_refreshtoken').parent().hide();
+        jQuery('#id_gmail_xauth_clientsecret').parent().hide();
+        jQuery("#id_gmailxauth2_label").parent().hide();
+
+        jQuery('#id_sendgrid_username').parent().hide();
+        jQuery('#id_sendgrid_password').parent().hide();
+        if(value == "gmail"){
+          jQuery("#id_email_smtp_username").parent().show()
+          jQuery("#id_email_smtp_password").parent().show()
+          jQuery('#id_email_smtp_host').parent().hide();
+          jQuery('#id_email_smtp_port').parent().hide();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().hide()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').hide()
+          jQuery('#id_sendgrid_username').parent().hide();
+          jQuery('#id_sendgrid_password').parent().hide();
+        }else if(value == "gmailxauth2"){
+          jQuery('#id_email_smtp_host').parent().hide();
+          jQuery('#id_email_smtp_port').parent().hide();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().hide()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').hide()
+          jQuery("#id_email_smtp_username").parent().hide()
+          jQuery("#id_email_smtp_password").parent().hide()
+          jQuery('#id_gmail_xauth_email').parent().show();
+          jQuery('#id_gmail_xauth_clientid').parent().show();
+          jQuery('#id_gmail_xauth_refreshtoken').parent().show();
+          jQuery('#id_gmail_xauth_clientsecret').parent().show();
+          jQuery("#id_gmailxauth2_label").parent().show();
+          jQuery('#id_sendgrid_username').parent().hide();
+          jQuery('#id_sendgrid_password').parent().hide();
+        }else if(value == "sendgrid"){
+          jQuery("#id_email_smtp_username").parent().hide()
+          jQuery("#id_email_smtp_password").parent().hide()
+          jQuery('#id_email_smtp_host').parent().hide();
+          jQuery('#id_email_smtp_port').parent().hide();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().hide()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').hide()
+          jQuery('#id_sendgrid_username').parent().show();
+          jQuery('#id_sendgrid_password').parent().show();
+          
+          
+        }else{
+          jQuery("#id_email_smtp_username").parent().show()
+          jQuery("#id_email_smtp_password").parent().show()
+          jQuery('#id_email_smtp_host').parent().show();
+          jQuery('#id_email_smtp_port').parent().show();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().show()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').show()
+          jQuery('#id_sendgrid_username').parent().hide();
+          jQuery('#id_sendgrid_password').parent().hide();
+        }
+    }
+}
+  jQuery(document).ready(function () {
+    hideShowField();
+  })
+  jQuery(document).on('change','select[name="email_type"]',function(){
+    hideShowField()
+  })
+</script>
+<%- include('../includes/footer.ejs') %>

@@ -1,0 +1,199 @@
+:root {
+    /* Theme coloures */
+     
+    /* Background Colours */
+    --Bgcolor-default: #F5F5F5;
+    --Bgcolor-primary: #FF1744;
+    --Bgcolor-secondry: #F1F1F1;
+    --Bgcolor-tertiary: #F1F1F1;
+    --Bgcolor-light: #f9f9f9;
+    --Bgcolor-white: #ffffff;
+    --Bgcolor-black: #000000;
+    --border-color: #CCCCCC;
+    /* Text Colours */
+    --Textcolor-default: #000000;
+    --Textcolor-primary: #FF1744;
+    --Textcolor-secondry: #000000;
+    --Textcolor-tertiary: #D4D3D3;
+    --Textcolor-light: #ececec;
+    --Textcolor-white: #ffffff;
+    --Textcolor-black: #000000;
+    /* Fonts family and size */
+    --fontFamily-default: 'Roboto', sans-serif;
+    --fontFamily-heading: 'Roboto', sans-serif;
+    --fontSize-default: 16px;
+    --fontSize-h1: 25px;
+    --fontSize-h2: 22px;
+    --fontSize-h3: 20px;
+    --fontSize-h4: 18px;
+    --fontSize-h5: 16px;
+    --fontSize-h6: 14px;
+    /* Header styles */
+    --menu-FontSize: 16px;
+    --MenuDropDown-Bg: #FFFFFF;
+    /* Other colours */
+    --red-color: #ff1744;
+    --color-rating-yellow: #ffcc66;
+    --color-rating-orange: #ea731c;
+    --facebook-color: #455CA8;
+    --facebook-hover-color: #6E83CD;
+    --google-color: #F74933;
+    --google-hover-color: #FF7566;
+    --twitter-color: #1da1f2;
+    --twitter-hover-color: #1da1f2;
+    --instagram-color: #a32e73;
+    --pintrest-color: #d50c22;
+    --vimeo-color: #ffa800;
+    --channel-varify-color: #5f5f5f;
+    --channel-varify-textcolor: #FFFFFF;
+ 
+    --username-varify-color: #2296F3;
+    --username-varify-textcolor: #ffffff;
+    --loadmore-button-color: #ba6c67;
+    --loadmore-button-hvr-color: #7c7878;
+    --black-opacity8: #0000008f;
+    --labelTitle-fontsiz: 18px;
+    /* Label Hot */
+    --lableHot-bg: #FF1744;
+    --lableHot-color: #ffffff;
+    --lableHot-font: 18px;
+    --lableHot-widhtHight: 35px;
+    /* Label Featured  */
+    --lableFeatured-bg: #2296F3;
+    --lableFeatured-color: #ffffff;
+    --lableFeatured-font: 18px;
+    --lableFeatured-widhtHight: 35px;
+    /* Label Sponsored  */
+    --lableSponsored-bg: #369B39;
+    --lableSponsored-color: #ffffff;
+    --lableSponsored-font: 18px;
+    --lableSponsored-widhtHight: 35px;
+    /* Channel listing new */
+    --chanlThmb-bg: #E3E3E3;
+    --chanlThmb-borderRadius: 15px;
+    --chanlThmb-coverImgHeight: 200px;
+    --chanlThmb-profileImgHeight: 110px;
+    --chanlThmb-profileImgTop: -65px;
+    --chanlThmb-nameFontSize: 16px;
+    --chanlThmb-nameColor: #000000;
+    --chanlThmb-color: #333333;
+    --chanlThmb-subsBtnBg: #656060;
+    --chanlThmb-subsBtnColor: #fff;
+    --chanlThmb-likeDislikeListColor: #333333;
+    /* Artist listing */
+    --artist-bg: transparent;
+    --artist-imgHeight: 250px;
+    --artist-nameFontSize: 16px;
+    --artist-nameColor: #000000;
+    --artist-bordercolor: artist_bg;
+    /* Member Listing */
+    --member-bg: transparent;
+    --member-imgHeight: 200px;
+    --member-nameFontSize: 16px;
+    --member-nameColor: #000000;
+    --member-colorlight: #5f5f5f;
+    --member-followBtnBg: #656060;
+    --member-followBtnColor: #fff;
+    --member-bordercolor: #ECECEC;
+ 
+    /*Category*/
+    --category-height: 200px;
+    --category-overlayColor: rgba(0, 0, 0, 0.5);
+    --category-color: #FFFFFF;
+    --category-titleFontsize: 16px;
+    --category-subTitle: 14px;
+    --category-borderRadius: 15px;
+    /* Blog Listing */
+    --blogBox-bg: #E3E3E3;
+    --blogBox-imgHeight: 250px;
+    --blogBox-borderRadius: 15px;
+    --blogBox-titleFontSize: 16px;
+    --blogBox-Color: #FFFFFF;
+    --blogBox-lightColor: #333333;
+    /* Tabs */
+    --tabsBtn-bg: #FFFFFF;
+    --tabsBtn-bgActive: #FF1744;
+    --tabsBtn-color: #000000;
+    --tabsBtn-Activecolor: #FFFFFF;
+    --tabsBtn-fontSize: 14px;
+    /* Form Fields */
+    --formField-lableFont: 15px;
+    --formField-lableFontColor: #000000;
+    --formField-inputBg: #F5F5F5;
+    --formField-inputColor: #000000;
+    --formField-inputBdrColor: #A8A8A8;
+    --formField-inputFont: 16px;
+    /* Form page */
+    --formPage-bg: #FFFFFF;
+    --formPage-color: #00000;
+    --formPage-inputbg: #f9f9f9;
+    /* Video Grid new */
+    --videoGrid-bg: transparent;
+    --videoGrid-thumbImgHeight: 180px;
+    --videoGrid-titlefontSize: 16px;
+    --videoGrid-usertimeColor: #5f5f5f;
+    --videoGrid-btnwidthHeight: 35px;
+    --videoGrid-btnFontSize: 16px;
+    --videoGrid-btnBg: #e6e6e6;
+    --videoGrid-btnColor: #555;
+    --videoGrid-btnHoverColor: #FF1744;
+    --videogrid-info-height:180px;
+    --videogrid-text-color:#000000;
+    /* Playlist Grid new */
+    --playListGrid-bg: transparent;
+    --playListGrid-thumbImgHeight: 188px;
+    --playlist-content-height:35px;
+    --playListGrid-titlefontSize: 16px;
+    --playListGrid-titleColor:#000000;
+    --playListGrid-usertimeColor: #5f5f5f;
+    --playListGrid-btnwidthHeight: 35px;
+    --playListGrid-btnFontSize: 16px;
+    --playListGrid-btnBg: #e6e6e6;
+    --playListGrid-btnColor: #555;
+    --playListGrid-btnHoverColor: #FF1744;
+    /* LikeDislike Buttons */
+    --LikeDislike-Color: #5f5f5f;
+    /*comment*/
+    --commentimage-backgroundcolor: #ccc;
+    --comment-background: #ccc;
+    /* Header Button Bg */
+    --deskHeader-buttonBg: #e4e6eb;
+    --deskheader-buttoncolor:#000;
+    --hometitle-color:#333;
+    --hrline-home:#e8e8e8;
+    /*Menu*/
+    --MobMenuSidebarLvl1: #f3f3f3;
+    --MobMenuSidebarLvl2: #f5f5f5;
+    --MobMenuSidebarLvl3: #fdfdfd;
+ 
+    --loggedoutMenuColor:#5f5f5f;
+    /*Package Colors*/
+    --package-price-color: #000;
+    --package-price-info: #FFFFFF;
+     /*Artist Grid*/
+     --photogrid-thumbImgHeight: 188px;
+     --photogrid-btnColor:#cecece;
+     --photogrid-bg:transparent;
+     --photogrid-info-height:50px;
+
+     --header-sidebar-bg: #FFFFFF;
+     --header-sidebar-color: #000000;
+     --header-sidebar-hovercolor:#E5E5E5;
+     --header-sidebar-title-color: #000000;
+     --header-sidebar-icon-color: #8F908F;
+     --header-sidebar-fontsize: 16px;
+     
+     --scroll-track-bg: #ffffff;
+     --scroll-thumb-bg: #e5e5e5;
+     
+     --header-sidebar-search-bg:#E4E6EA;
+     --header-sidebar-search-border:#F5F5F5;
+     --header-sidebar-search-textcolor:#000000;
+
+     /* popup search */
+     --header-popup-inputborder:#F5F5F5;
+     --header-popup-inputbg:#E4E6EA;
+     --header-popup-inputtextcolor:#000000;
+     --header-popup-headbg: #F5F5F5;
+     --header-popup-bodybg:#FFFFFF;
+ }

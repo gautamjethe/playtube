@@ -1,0 +1,139 @@
+/* font-family: 'Roboto', sans-serif; */
+
+:root {
+    /* Background Colours */
+    --Bgcolor-main: #eeeeee;
+    --Bgcolor-primary:#ff1744;
+    --Bgcolor-secondry:#333333;
+    --Bgcolor-tertiary:#a5a5a5;
+    --Bgcolor-success: #28a745;
+    --Bgcolor-danger:#dc3545;
+    --Bgcolor-warning:#ffc107;
+    --Bgcolor-info:#17a2b8;
+    --Bgcolor-light:#cccccc;
+    --Bgcolor-white:#ffffff;
+    --Bgcolor-black:#000000;
+    
+
+    /* Text Colours */
+    --Textcolor-main: #333333;
+    --Textcolor-primary:#ff1744;
+    --Textcolor-secondry:#cccccc;
+    --Textcolor-tertiary:#d8d8d8;
+    --Textcolor-success: #28a745;
+    --Textcolor-danger:#dc3545;
+    --Textcolor-warning:#ffc107;
+    --Textcolor-info:#17a2b8;
+    --Textcolor-white:#ffffff;
+    --Textcolor-black:#000000;
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: 0;
+}
+
+body {
+    background: var(--Bgcolor-main);
+    font-weight: normal;
+    font-size: 15px;
+    letter-spacing:normal;
+    color: var(--Textcolor-main);
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+}
+.heading{
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.install_step {
+    position: relative;
+}
+.install_step {position: relative;}
+.install_step .install_steps {padding: 0;position: relative;height: 72px;margin-bottom: 30px;}
+.install_step .install_steps li {position: absolute;top: 0;display: flex;align-items: center;justify-content: center;flex-direction: column;font-weight: 500;}
+.install_step .install_steps li.step-one {left: 0;}
+.install_step .install_steps li.step-two {left: 29.333333%;}
+.install_step .install_steps li.step-three {left: 61.666667%;}
+.install_step .install_steps li.step-four {right: 0;}
+.install_step .install_steps li span {display: flex;align-items: center;justify-content: center;width: 45px;height: 45px;border: 2px solid var(--Bgcolor-tertiary);border-radius: 50%;margin-bottom: 7px;background-color: var(--Bgcolor-white);position: relative;z-index: 1;}
+.install_step .install_steps li span i {display:none;}
+.install_step .install_steps li.active span {border-color: var(--Bgcolor-success);}
+.install_step .line {width: 100%;height: 1.5px;background: var(--Bgcolor-tertiary);position: relative;border-radius: 8px;margin-top: -80px;margin-bottom: 80px;}
+.install_step .line .line_sec{height: 1.5px;width: 0;background: var(--Bgcolor-success);border-radius: 2em;position: absolute;transition: all 0.2s ease;}
+body.step_one_done .install_step .line .line_sec {width: 33%;}
+body.step_two_done .install_step .line .line_sec {width: 66%;}
+body.step_three_done .install_step .line .line_sec {width: 100%;}
+body.step_one_done .install_step .install_steps li.step-one span, body.step_two_done .install_step .install_steps li.step-one span, body.step_two_done .install_step .install_steps li.step-two span, body.step_three_done .install_step .install_steps li.step-one span, body.step_three_done .install_step .install_steps li.step-two span, body.step_three_done .install_step .install_steps li.step-three span {border-color: var(--Bgcolor-success);background-color: var(--Bgcolor-success);color:#fff;font-size:0px;}
+body.step_one_done .install_step .install_steps li.step-one span i, body.step_two_done .install_step .install_steps li.step-one span i, body.step_two_done .install_step .install_steps li.step-two span i, body.step_three_done .install_step .install_steps li.step-one span i, body.step_three_done .install_step .install_steps li.step-two span i, body.step_three_done .install_step .install_steps li.step-three span i {display:block; font-size: 18px;}
+body.finished .install_step .install_steps li span {background-color: #7ad09c;}
+
+.contentWrap {
+    position: relative;
+    background-color: var(--Bgcolor-white);
+    box-shadow: 0 1px 15px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px 30px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    margin-top: 30px;
+}
+.heading2{
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.heading5{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.custom-control-label::before{
+    border: var(--Bgcolor-secondry) solid 1px;
+}
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: var(--Bgcolor-primary);
+    background-color: var(--Bgcolor-primary);
+}
+.btn-main{
+    background: var(--Bgcolor-primary);
+    color: var(--Textcolor-white);
+    padding: 8px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.btn-main:hover{
+    color: var(--Textcolor-white);
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #495057;
+    outline: 0;
+    box-shadow: none;
+}
+.help-block{
+    font-size: 12px;
+}
+.instalform .col-form-label-sm{
+    font-size: 16px;
+}
+.instalform .form-control{
+    padding: 20px 15px;
+}
+.form_error{
+    color: var(--Textcolor-danger);
+    font-size: 14px;
+}

@@ -1,0 +1,165 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <form id="category_add" method="post" enctype="multipart/form-data">
+                        <div class="box-body">
+                            <div class="categories-form-field" id="name-required">
+                                <div class="categories-form-field-label">
+                                    <label for="tag-name">Menu Name</label>
+                                </div>
+                                <div class="categories-data-form">
+                                    <input class="form-control" name="category_name" autocomplete="off"
+                                        value="<%- menuData.label %>" id="tag-name" type="text" size="40">
+                                </div>
+                            </div>
+                            <div class="menus-form-field" id="slug-required" style="margin-top: 5px">
+                                <div class="menus-form-field-label">
+                                    <label for="category-slug">Menu Url</label>
+                                </div>
+                                <div class="menus-data-form">
+                                    <input class="form-control" name="url" id="category-slug" type="text"
+                                        value="<%- menuData.url %>">
+                                    <p id="error-msg" style="color:red"></p>
+                                </div>
+                            </div>
+                            <div class="menus-form-field" id="icon-required">
+                                <div class="menus-form-field-label">
+                                    <label for="icon-slug">Icon Class</label>
+                                </div>
+                                <div class="menus-data-form">
+                                    <input class="form-control" name="icon" id="icon-slug" type="text"
+                                        value="<%- menuData.icon %>">
+                                </div>
+                            </div>
+                            <div class="menus-form-field" style="margin-top: 5px">
+                                <div class="menus-form-field-label">
+                                    <label for="target">Target</label>
+                                </div>
+                                <div class="menus-data-form">
+                                    <select name="target" id="target" >
+                                        <option value="_self" <%if(menuData.target == "_self"){ %> selected <% } %>>Open
+                                            in same window</option>
+                                        <option value="_blank" <%if(menuData.target == "_blank"){ %> selected <% } %>>
+                                            Open in new window</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="menus-form-field" style="margin-top: 5px">
+                                <div class="menus-form-field-label">
+                                    <label for="target">Enabled</label>
+                                </div>
+                                <div class="menus-data-form">
+                                    <select name="enabled" id="enabled">
+                                        <option value="1" <%if(menuData.enabled == "1"){ %> selected <% } %>> Enabled</option>
+                                        <option value="0" <%if(menuData.enabled == "0"){ %> selected <% } %>>
+                                           Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="submit categories-form-field">
+                                <button type="button" id="submitcategory_add" class="btn btn-success">Edit Menu</button> or <a href="javascript:history.go(-1);">cancel</a>
+                            </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+</div>
+</section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<script type="application/javascript">
+
+    $(document).on('submit', '#category_add', (function (e) {
+        var error = false;
+        var nameFieldRequired = $('#tag-name').val();
+        var slugFieldRequired = $('#category-slug').val();
+        if (!nameFieldRequired) {
+            $('#name-required').css('background-color', '#ffebe8');
+            $('#tag-name').css('border', '1px solid red');
+            error = true;
+        } else {
+            $('#name-required').css('background-color', '');
+            $('#tag-name').css('border', '');
+        }
+        if (!slugFieldRequired) {
+            $('#slug-required').css('background-color', '#ffebe8');
+            $('#category-slug').css('border', '1px solid red');
+            $('html, body').animate({
+                scrollTop: $('#category_add').position().top
+            },
+                1000
+            );
+            error = true;
+        } else {
+            $('#slug-required').css('background-color', '');
+            $('#category-slug').css('border', '');
+        }
+        if (error) {
+            $('html, body').animate({
+                scrollTop: $('#category_add').position().top
+            },
+                1000
+            );
+            return false;
+        }
+        $('#add-category-overlay').css('display', 'block');
+        e.preventDefault();
+        var form = $('#category_add');
+        var formData = new FormData(this);
+        $.ajax({
+            type: 'POST',
+            url: "<%= process.env.ADMIN_SLUG %>/menus/add/<%= menu_id %>",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $('#add-category-overlay').css('display', 'none');
+                if (data.slugError) {
+                    $('#error-msg').html('Unavailable');
+                    $('#slug-required').css('background-color', '#ffebe8');
+                    $('#category-slug').css('border', '1px solid red');
+                    $('html, body').animate({
+                        scrollTop: $('#category_add').position().top
+                    },
+                        1000
+                    );
+                    return false;
+                } else {
+                    $('#error-msg').html('');
+                    $('#slug-required').css('background-color', '');
+                    $('#category-slug').css('border', '');
+                    window.location.href = "<%= process.env.ADMIN_SLUG %>/menus?type=<%- menuData.type %>"
+                }
+
+            },
+            error: function (data) {
+                //silence
+            }
+        });
+    }));
+
+    $("#submitcategory_add").on("click", function () {
+        $("#category_add").trigger('submit');
+
+    });
+
+</script>
+<%- include('../includes/footer.ejs') %>

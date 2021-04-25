@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PlayTubeVideo Docs</title>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.css">
+  <link rel="stylesheet" href="styles/fonts/fontawesome/css/all.min.css">
+
+  <link id="theme-style" rel="stylesheet" href="styles/css/styles.css">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+
+<body>
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header id="header" class="HomeHeaderWrap">
+      <div class="HomeHeaderContent">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="logo">
+                <a href="index"><img src="images/logo.png" alt="Logo"></a>
+              </div>
+
+              <!-- Breadcrumb -->
+              <ol class="breadcrumb">
+                <li><a href="index">Home</a></li>
+                <li class="active">Gmail Auth2</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="pageContentWrap">
+
+      <div class="container position-relative" id="content">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="docsTitle">
+              <h1>Gmail Auth2</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- License -->
+                <div class="anchor DocsSect" id="License">
+                    <div class="jumbotron textfont">
+                        <h3 id="bddc"  >Step 1: Creating a New Project</h3>
+                        <p>The first thing we have to do is make a new project in the <a  href="https://console.cloud.google.com/" target="_blank" rel="noopener nofollow">Google Developer Console</a>. Once in the console, press <strong >Select a project</strong> in the top left corner.</p>
+                        <p>&nbsp;</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/1.png"><img src="images/gmailauth2/1.png" alt="1"/></a></p>
+                        <p>Once the window opens, press the <strong >+ </strong>icon in the top right corner to create a new project.</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/2.png"><img src="images/gmailauth2/2.png" alt="2" /></a></p>
+                        <p>You&rsquo;ll be brought to a new page to name your project. Once you give your project a name, press <strong >Create</strong>. It&rsquo;ll take about 15 seconds for your project to be created, then go to <strong >Select a project</strong> again and select your project.</p>
+                        <h3 id="0231"  >Step 2: Create API Credentials</h3>
+                        <p>Now that you have a new project, we have to give your project credentials! You should be on the project dashboard. It looks kind of intimidating right? Most of it isn&rsquo;t necessary for what we need to do, all we have to do right now is open the project settings. Click <strong >Go to project settings</strong> at the bottom of the <strong >Project Info </strong>section of the dashboard.</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/3.png"><img src="images/gmailauth2/3.png" alt="3" /></a></p>
+                        <p id="3a15"  >In your project settings, there is a sidebar on the left with a bunch of different options. Click the last one that says <strong >API Credentials</strong>.</p>
+                        <p id="c183"  >(I noticed that in another account I didn&rsquo;t see the API Credentials tab on the sidebar in project settings. If this happens, go back to the dashboard and select <strong >Go to APIs overview</strong> under the <strong >APIs</strong> tab and select <strong >Credentials </strong>in the sidebar.)</p>
+                        <p  ><a class="imgPopup" href="images/gmailauth2/4.png"><img src="images/gmailauth2/4.png"  alt="4"/></a></p>
+                        <p  >Now you&rsquo;re in a pretty bare page with just one section called &ldquo;API Credentials&rdquo;. Click the dropdown that says <strong >Create Credentials </strong>and choose <strong >OAuth client ID</strong> from the list.</p>
+                        <p  ><a class="imgPopup" href="images/gmailauth2/5.png"><img src="images/gmailauth2/5.png" alt="5"/></a></p>
+                        <p id="a98a"  >You should see a little warning banner near the top of the page:</p>
+                        <blockquote>
+                        <p  >To create an OAuth client ID, you must first set a product name on the consent screen</p>
+                        </blockquote>
+                        <p  >&nbsp;</p>
+                        <p  >Just press the <strong >Configure consent screen </strong>button on the banner and it&rsquo;ll let you name your &ldquo;product&rdquo;. It doesn&rsquo;t matter what you call it, just give it a name and press <strong >Save</strong>, then you should be redirected back to the Create client ID page.</p>
+                        <p  >&nbsp;</p>
+                        <p  >Now under <strong >Application Type</strong>, choose <strong >Web Application </strong>and a small form will open up with sections for <strong >Name</strong> and <strong >Restrictions</strong>. You can give your client ID any name you like, but under <strong >Restrictions</strong> in the <strong >Authorized redirect URIs </strong>section add <a  href="https://developers.google.com/oauthplayground" target="_blank" rel="noopener nofollow"><strong >https://developers.google.com/oauthplayground</strong></a>. Now press <strong >Create</strong>!</p>
+                        <p  ><a class="imgPopup" href="images/gmailauth2/6.png"><img src="images/gmailauth2/6.png" alt="6" /></a></p>
+                        <h3 id="99d7"  >Step 3: Save your Client ID and Client Secret</h3>
+                        <p>You should&rsquo;ve been redirected to a page with a small &ldquo;card&rdquo; in the center with your <strong >client ID </strong>and <strong >client secret</strong>. Make sure to save these somewhere, you&rsquo;ll need them soon! If you accidentally clicked out of that card before you could save your ID and secret, just click the name of your client ID and it&rsquo;ll take you to its settings with the ID and secret at the top of the page!</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/7.png"><img src="images/gmailauth2/7.png"  alt="img" /></a></p>
+                        <h3 id="ed3f"  >Step 4: Configure OAuth</h3>
+                        <p>We need just a few more things before we get to the code. First, go to <a  href="https://developers.google.com/oauthplayground" target="_blank" rel="noopener nofollow">https://developers.google.com/oauthplayground</a> and click the tools icon in the top right. Check the box that says <strong >Use your own OAuth credentials</strong>and enter your client ID and secret. Without closing out of the settings, enter <a  href="https://mail.google.com/" target="_blank" rel="noopener nofollow"><strong >https://mail.google.com/</strong></a><strong > </strong>into the box in the <strong >Select and authorize APIs </strong>section and press <strong >Authorize APIs</strong>. You should get a very scary-looking screen that looks like this:</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/8.png"><img src="images/gmailauth2/8.png" alt="img" /></a></p>
+                        <p>Nothing to worry about, this just means Google hasn&rsquo;t confirmed our app is okay to use (duh, we just made it). Click the <strong >Advanced </strong>button on the left and then press <strong >Go to <em class="hc">Your App&rsquo;s Name</em> (unsafe)</strong>. We get another, less intimidating screen that looks like this:</p>
+                        <p><a class="imgPopup" href="images/gmailauth2/9.png"><img src="images/gmailauth2/9.png" alt="img" /></a></p>
+                        <p id="d594"  >Click <strong >Allow</strong> and you should get redirected back to the OAuth page. Now go to <strong >Step 2 </strong>of the sidebar on the left and press <strong >Exchange authorization code for tokens</strong>.</p>
+                        <p id="8423"  >This should populate the two boxes below called <strong >Refresh token </strong>and <strong >Access token</strong> with a couple of strings. Copy down the <strong >Refresh token </strong>as we&rsquo;ll need it for later!</p>
+                        <p  ><a class="imgPopup" href="images/gmailauth2/10.png"><img src="images/gmailauth2/10.png" alt="img"/></a></p>
+
+                    </div>
+                  </div>
+            </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+  <!--//page-wrapper-->
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <small class="copyright">Powered By PlayTubeVideo</small>
+    </div>
+  </footer>
+
+
+  <!-- Javascript -->
+  <script type="text/javascript" src="scripts/jquery-1.12.3.min.js"></script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js"></script>  
+  <script type="text/javascript" src="scripts/jquery.matchHeight-min.js"></script>
+  <script type="text/javascript" src="scripts/main.js"></script>
+
+</body>
+
+</html>

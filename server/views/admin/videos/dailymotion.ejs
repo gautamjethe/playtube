@@ -1,0 +1,364 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title"><%- title %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title form-search_title">Search</h3>
+            <div class="form-search">
+              <div class="clear">
+                <div class="search">
+                  <form   method="GET">
+                    <div>
+                      <label for="search" tag="" class="optional">Search Title</label>
+                      <input type="text" value="<%- query.search %>" class="form-control" name="search" id="search">
+                    </div>
+
+                    <div>
+                      <label for="limit" tag="" class="optional">Limit Number</label>
+                      <input type="text" onkeyup="return handleChange(this)"
+                        value="<%- query.limit ? query.limit : 50 %>" class="form-control" name="limit" id="limit">
+                    </div>
+
+                    <div>
+                      <div class="buttons">
+                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%if(results.length > 0){%>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title form-search_title">Import Video Default Data</h3>
+            <div class="form-search">
+              <div class="clear">
+                <div class="search">
+                  <form   method="GET">
+                    <div>
+                      <label for="owner" tag="" class="optional">Owner Email (leave blank if you want to post with your
+                        account)</label>
+                      <input type="text" value="<%- query.owner %>" class="form-control" name="owner" id="owner">
+                    </div>
+                    <%if(categories.length){%>
+                    <div>
+                      <label for="category_id" tag="" class="optional">Categories</label>
+                      <select name="category_id" class="form-control" id="category_id">
+                        <option value=""> </option>
+                        <%for (var i=0;i<categories.length;i++){ %>
+                        <option <% if(query.category_id == categories[i].category_id){ %> selected="selected" <% } %>
+                          value="<%- categories[i].category_id %>"><%- categories[i].title %>
+                        </option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div id="cat_subcategory_id" style="display: none;">
+                      <label for="subcategory_id" tag="" class="optional">Sub Categories</label>
+                      <select name="subcategory_id" class="form-control" id="subcategory_id">
+                      </select>
+                    </div>
+                    <div id="cat_subsubcategory_id" style="display: none;">
+                      <label for="subsubcategory_id" tag="" class="optional">Sub Sub
+                        Categories</label>
+                      <select name="subsubcategory_id" class="form-control" id="subsubcategory_id">
+                      </select>
+                    </div>
+                    <%}%>
+                      <div>
+                          <label for="view_count" tag="" class="optional">Views Count</label>
+                          <input type="text" onkeyup="return intValue(this)" value="<%- query.view_count %>"
+                    class="form-control" name="view_count" id="view_count">
+                </div>
+                <div>
+                  <label for="like_count" tag="" class="optional">Likes Count</label>
+                  <input type="text" onkeyup="return intValue(this)" value="<%- query.like_count %>"
+                    class="form-control" name="like_count" id="like_count">
+                </div>
+                <div>
+                  <label for="dislike_count" tag="" class="optional">Dislikes Count</label>
+                  <input type="text" onkeyup="return intValue(this)" value="<%- query.dislike_count %>"
+                    class="form-control" name="dislike_count" id="dislike_count">
+                </div>
+                <div>
+                  <label for="favourite_count" tag="" class="optional">Favourites Count</label>
+                  <input type="text" onkeyup="return intValue(this)" value="<%- query.favourite_count %>"
+                    class="form-control" name="favourite_count" id="favourite_count">
+                </div>
+                <div>
+                  <label for="adult" tag="" class="optional">Adult</label>
+                  <input type="checkbox" value="<%- query.adult %>" name="adult" id="adult">
+                </div>
+
+                  <div>
+                    <label for="is_featured" tag="" class="optional">Featured Video</label>
+                    <input type="checkbox" value="<%- query.is_featured %>" name="is_featured" id="is_featured">
+                  </div>
+                  <div>
+                    <label for="is_sponsored" tag="" class="optional">Sponsored Video</label>
+                    <input type="checkbox" value="<%- query.is_sponsored %>" name="is_sponsored" id="is_sponsored">
+                  </div>
+                  <div>
+                    <label for="is_hot" tag="" class="optional">Hot Video</label>
+                    <input type="checkbox" value="<%- query.is_hot %>" name="is_hot" id="is_hot">
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<%}%>
+<%if(results.length > 0){%>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-info">
+      <form method="POST" onsubmit="return submitForm(this);">
+        <div class="box-body">
+            <div class="container">
+                <div class="row">
+                    <%for(var i=0;i<results.length;i++){%>
+                    <%
+                        let title = results[i].title
+                        let length = 50
+                        if (title.length > length) {
+                            title =  title.substring(0, length - 4) + " ...";
+                        } 
+                    %>
+                    <%
+                        let description = results[i].description
+                        let lengthDes = 100
+                        if (description.length > lengthDes) {
+                          description =  description.substring(0, lengthDes - 4) + " ...";
+                        } 
+                    %>
+                    <div class="col-md-4 impVideoId" data-id="<%- results[i].id %>">
+                        <div class="card">
+                            <div class="card-image">
+                                <img class="img-responsive" src="<%- results[i].thumbnail_url %>">
+                            </div><!-- card image -->
+                            <div class="card-content">
+                                <span class="card-title"><%- title %></span>
+                                <p class="card-description"><%- description %></p>                    
+                            </div><!-- card content -->
+                            <input type="hidden" class="title" value="<%- results[i].title %>" />
+                            <input type="hidden" class="description" value="<%- results[i].description %>" />
+                            <input type="hidden" class="duration" value="<%- results[i].duration %>" />
+                            <input type="hidden" class="image" value="<%- results[i].thumbnail_url %>" />
+                            <input type="hidden" class="tags" value="<%- results[i].tags %>" />
+                            <div class="card-action">
+                                <div>
+                                    <input type="checkbox" class="selectVideo" value="" id="import_video_<%- results[i].id %>">&nbsp;
+                                    <label for="import_video_<%- results[i].id %>" tag="" class="optional">Import Video</label>
+                                  </div>
+                            </div><!-- card actions -->
+                            
+                        </div>
+                    </div>
+                  <%}%>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary btn-import">Import Selected Videos</button>
+        </div>
+      </form>
+    </div>
+    <%if (paggingData) { %>
+    <div class="box-footer clearfix">
+      <%- paggingData %>
+    </div>
+    <% } %>
+  </div>
+</div>
+<% }else{%>
+  <% if(Object.keys(query).length){%>
+  <div class="callout callout-info">
+      <p>No video found with your matching criteria.</p>
+  </div>
+  <% }else{ %>
+  <div class="callout callout-info">
+      <p>Please select criteria to search videos.</p>
+  </div>
+  <% } %>
+  <% } %>
+</section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script type="application/javascript">
+$(document).ready(function(e) {
+  $(".selectVideo").prop("checked",true)
+})
+  function submitForm(e) {
+    let data = [];
+    $('.btn-import').attr('disabled', true);
+    $('.btn-import').text('Please wait..');
+    $('.impVideoId').each(function(index, el) {
+    	var video_id = $(this).data('id');
+    	var is_checked = $(this).find('#import_video_'+video_id).is(":checked");
+    	if (is_checked) {
+    		object_video = {
+    			video_id: video_id, 
+    			title: $(this).find('.title').val(), 
+    			description: $(this).find('.description').val(),
+    			duration: $(this).find('.duration').val(),
+    			tags: $(this).find('.tags').val(),
+    			image: $(this).find('.image').val(),
+    		}
+    		data.push(object_video);
+    	}
+    });
+    $.post('<%- adminLink %>/videos/import/create', {type:1,videos: JSON.stringify(data),is_featured: $('#is_featured').val(),is_sponsored: $('#is_sponsored').val(),is_hot: $('#is_hot').val(), category_id: $('#category_id').val(),subcategory_id: $('#subcategory_id').val(),subsubcategory_id: $('#subsubcategory_id').val(),user_email:$('#owner').val(),like_count:$('#like_count').val(),dislike_count:$('#dislike_count').val(),view_count:$('#view_count').val(),favourite_count:$('#favourite_count').val(),adult:$('#adult').val()}, function () {
+        $('.btn-import').removeAttr('disabled');
+        $('.btn-import').text('Import Selected Videos');
+        if ($('.nextpage').length > 0) {
+        	$('.nextpage').find('a').trigger('click')
+        } else {
+        	$('.previouspage').find('a').trigger('click')
+        }
+    });
+    return false;
+  }
+  $(document).on("change", '#category_id', function (e) {
+    if ($(this).val()) {
+      const subCategories = getItemCategory($(this).val())
+      let subCategoriesData = ""
+      if (subCategories && subCategories.subcategories) {
+        subCategories.subcategories.forEach(sub => {
+          subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+        });
+        subCategoriesData = "<option></option>" + subCategoriesData
+        $('#subcategory_id').html(subCategoriesData)
+        $('#cat_subcategory_id').show()
+      } else {
+        $('#subcategory_id').html()
+        $('#subcategory_id').val('')
+        $('#cat_subcategory_id').hide()
+      }
+      $('#subsubcategory_id').html()
+      $('#subsubcategory_id').val('')
+      $('#cat_subsubcategory_id').hide()
+    } else {
+      $('#subcategory_id').html()
+      $('#cat_subcategory_id').hide()
+      $('#subcategory_id').val('')
+      $('#subsubcategory_id').html()
+      $('#subsubcategory_id').val('')
+      $('#cat_subsubcategory_id').hide()
+    }
+  })
+  $(document).on("change", '#subcategory_id', function (e) {
+    if ($(this).val()) {
+      const subCategories = getSubItemCategory($('#category_id').val(), $('#subcategory_id').val())
+      let subCategoriesData = ""
+      if (subCategories && subCategories.subsubcategories) {
+        subCategories.subsubcategories.forEach(sub => {
+          subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+        });
+        subCategoriesData = "<option></option>" + subCategoriesData
+        $('#subsubcategory_id').html(subCategoriesData)
+        $('#cat_subsubcategory_id').show()
+      } else {
+        $('#subsubcategory_id').html()
+        $('#subsubcategory_id').val('')
+        $('#cat_subsubcategory_id').hide()
+      }
+
+    } else {
+      $('#subsubcategory_id').html()
+      $('#subsubcategory_id').val('')
+      $('#cat_subsubcategory_id').hide()
+    }
+  })
+  function getItemCategory(category_id) {
+    return categoriesData.find(elem => elem.category_id == category_id)
+  }
+  function getSubItemCategory(category_id, subcategory_id) {
+    const categoryData = getItemCategory(category_id)
+    let subCat = []
+    if (categoryData) {
+      subCat = categoryData.subcategories.find(elem => elem.category_id == subcategory_id)
+    }
+    return subCat
+  }
+  var categoriesData = <%- JSON.stringify(categories) %>;
+
+  var category_id = <%- query.category_id ? query.category_id : 0 %>;
+  var subcategory_id = <%- query.subcategory_id ? query.subcategory_id : 0 %>;
+  var subsubcategory_id = <%- query.subsubcategory_id ? query.subsubcategory_id : 0 %>;
+
+  $(document).ready(function (e) {
+    if (category_id != 0) {
+      $('#category_id').val(category_id)
+      //if (subcategory_id != 0) {
+      const subCategories = getItemCategory(category_id)
+      let subCategoriesData = ""
+      if (subCategories && subCategories.subcategories) {
+        subCategories.subcategories.forEach(sub => {
+          subCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+        });
+      }
+      if (subCategoriesData != "") {
+        subCategoriesData = "<option></option>" + subCategoriesData
+        $('#subcategory_id').html(subCategoriesData)
+        $('#cat_subcategory_id').show()
+        $('#subcategory_id').val(subcategory_id)
+        //if (subsubcategory_id != 0) {
+        const subsubCategories = getSubItemCategory(category_id, subcategory_id)
+        let subsubCategoriesData = ""
+        if (subsubCategories && subsubCategories.subsubcategories) {
+          subsubCategories.subsubcategories.forEach(sub => {
+            subsubCategoriesData += "<option value='" + sub.category_id + "'>" + sub.title + "</option>"
+          });
+        }
+        if (subsubCategoriesData != "") {
+          subsubCategoriesData = "<option></option>" + subsubCategoriesData
+          $('#subsubcategory_id').html(subsubCategoriesData)
+          $('#cat_subsubcategory_id').show()
+          $('#subsubcategory_id').val(subsubcategory_id)
+        }
+        //} else {
+        //     $('#cat_subsubcategory_id').hide()
+        // }
+      } else {
+        $('#cat_subcategory_id').hide()
+      }
+      //}
+    }
+  })
+  function intValue(input) {
+    let value = parseInt(input.value)
+    if (parseInt(input.value) <= 0) value = 0;
+    $(input).val(value)
+  }
+  function handleChange(input) {
+    let value = parseInt(input.value)
+    if (parseInt(input.value) <= 0) value = 0;
+    if (input.value > 100) value = 100;
+    $(input).val(value)
+  }
+</script>
+<%- include('../includes/footer.ejs') %>

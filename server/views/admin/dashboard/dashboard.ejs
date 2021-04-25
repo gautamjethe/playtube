@@ -1,0 +1,716 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Data is updated every 5 minutes</small>
+      </h1>
+      <ol class="breadcrumb" style="display: none">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-video-camera"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL VIDEOS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.videos,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-file-video-o"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL CHANNELS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.channels,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-play-circle"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL PLAYLISTS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.playlists,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL USERS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.users,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-rss"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL BLOGS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.blogs,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-money"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL ADVERTISEMENTS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.advertisements,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-bug"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL REPORTS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.reports,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-dollar"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL SUBSCRIPTIONS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.subscriptions,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-comment"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL COMMENTS</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.comments,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-thumbs-o-up"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL LIKES</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.likes,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-thumbs-o-down"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL DISLIKES</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.dislikes,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-heart-o"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">TOTAL FAVOURITES</span>
+              <span class="info-box-number"><%- numAbbr.abbreviate(dataCounts.favourites,2)  %></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">User Stats</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="user-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+          </div>
+
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Video Stats</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="video-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+          </div>
+
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Channel Stats</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="channel-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+          </div>
+
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <i class="fa fa-bar-chart-o"></i>
+
+                <h3 class="box-title">Blogs Stats</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="box-body">
+                <div id="blogs-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.box-body-->
+            </div>
+            <!-- /.box -->
+          </div>
+        </div>
+      </div>
+      <% let recentContentsData = JSON.parse(JSON.stringify(recentContents)) %>
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <div class="col-md-12">
+          <!-- /.box -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- USERS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Latest Members</h3>
+                  
+                  
+                  <div class="box-tools pull-right">
+                    <% if(recentContentsData.unapprovedusers){ %>
+                        <a href="<%- admin_slug %>/users?approve=0"><span class="label label-danger"><%- recentContentsData.unapprovedusers %> Member(s) approval pending.</span></a>
+                    <%}%>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                  
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <ul class="users-list clearfix">
+                    <% let users = JSON.parse(JSON.stringify(recentContents.users));%>
+                    <%for(var i=0;i<users.length;i++){ %>
+                      <li>
+                        <img src="<%- imageSuffix+users[i].avtar %>" alt="<%- users[i].displayname %>">
+                        <a class="users-list-name" target="_blank" href="/<%- users[i].username %>"><%- users[i].displayname %></a>
+                        
+                        <span class="users-list-date"><%- timeago(moment(users[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %></span>
+                      </li>
+                    <%}%>
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="<%- admin_slug %>/users" class="uppercase">View All Users</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <!--/.box -->
+              <% let videos = JSON.parse(JSON.stringify(recentContents.videos ? recentContents.videos : []));%>
+              <%if(videos.length){%>
+              <!-- TABLE: LATEST Videos -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Recently Videos</h3>
+                  <div class="box-tools pull-right">
+                    <% if(recentContentsData.unapprovedvideos){ %>
+                      <a href="<%- admin_slug %>/videos?approve=0"><span class="label label-danger"><%- recentContentsData.unapprovedvideos %> Videos(s) approval pending.</span></a>
+                    <%}%>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <ul class="products-list product-list-in-box">
+                      
+                      <%for(var i=0;i<videos.length;i++){ %>
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="<%- videos[i].image.indexOf("http://") == 0 || videos[i].image.indexOf("https://") == 0 ? videos[i].image : imageSuffix+videos[i].image %>" alt="<%- videos[i].title %>">
+                      </div>
+                      <div class="product-info">
+                        <a href="/watch/<%- videos[i].custom_url %>" target="_blank" class="product-title"><%- videos[i].title %></a>
+                        <span class="product-description">
+                            <%
+                                let description = striptags(videos[i].description)
+                                let length = 200
+                                if (description.length > length) {
+                                  description =  description.substring(0, length - 4) + " ...";
+                                } 
+                            %>
+                            <%- description %>
+                        </span>
+                        <span class="product-description"><%- timeago(moment(videos[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %></span>
+                      </div>
+                    </li>
+                    <%}%>
+                  </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="<%- admin_slug %>/videos" class="uppercase">View All Videos</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <%}%>
+              <% let channels = JSON.parse(JSON.stringify(recentContents.channels ? recentContents.channels : []));%>
+              <%if(channels.length){%>
+              <!-- TABLE: LATEST Channels -->
+              <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Recently Channels</h3>
+                    <div class="box-tools pull-right">
+                        <% if(recentContentsData.unapprovedchannels){ %>
+                          <a href="<%- admin_slug %>/channels?approve=0"><span class="label label-danger"><%- recentContentsData.unapprovedchannels %> Channel(s) approval pending.</span></a>
+                        <%}%>
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                        
+                        <%for(var i=0;i<channels.length;i++){ %>
+                      <li class="item">
+                        <div class="product-img">
+                          <img src="<%- imageSuffix+channels[i].image %>" alt="<%- channels[i].title %>">
+                        </div>
+                        <div class="product-info">
+                          <a href="/channel/<%- channels[i].custom_url %>" target="_blank" class="product-title"><%- channels[i].title %></a>
+                          <span class="product-description">
+                              <%
+                              let description = striptags(channels[i].description)
+                              let length = 200
+                              if (description.length > length) {
+                                description =  description.substring(0, length - 4) + " ...";
+                              } 
+                          %>
+                          <%- description %>
+                          </span>
+                          <span class="product-description"><%- timeago(moment(channels[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %></span>
+                        </div>
+                      </li>
+                      <%}%>
+                    </ul>
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer text-center">
+                    <a href="<%- admin_slug %>/channels" class="uppercase">View All Channels</a>
+                  </div>
+                  <!-- /.box-footer -->
+                </div>
+                <%}%>
+                <% let blogs = JSON.parse(JSON.stringify(recentContents.blogs ? recentContents.blogs : []));%>
+                <%if(blogs.length){%>
+              <!-- TABLE: LATEST BLOGS -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Recently Blogs</h3>
+
+                  <div class="box-tools pull-right">
+                      <% if(recentContentsData.unapprovedblogs){ %>
+                        <a href="<%- admin_slug %>/blogs?approve=0"><span class="label label-danger"><%- recentContentsData.unapprovedblogs %> Blog(s) approval pending.</span></a>
+                      <%}%>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <ul class="products-list product-list-in-box">
+                      
+                      <%for(var i=0;i<blogs.length;i++){ %>
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="<%- imageSuffix+blogs[i].image %>" alt="<%- blogs[i].title %>">
+                      </div>
+                      <div class="product-info">
+                        <a href="/blog/<%- blogs[i].custom_url %>" target="_blank" class="product-title"><%- blogs[i].title %></a>
+                        <span class="product-description">
+                            <%
+                            let description = striptags(blogs[i].description)
+                            let length = 200
+                            if (description.length > length) {
+                              description =  description.substring(0, length - 4) + " ...";
+                            } 
+                        %>
+                        <%- description %>
+                        </span>
+                        <span class="product-description"><%- timeago(moment(blogs[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %></span>
+                      </div>
+                    </li>
+                    <%}%>
+                  </ul>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="<%- admin_slug %>/blogs" class="uppercase">View All Blogs</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <%}%>
+              <% let playlists = JSON.parse(JSON.stringify(recentContents.playlists ? recentContents.playlists : []));%>
+              <%if(playlists.length){%>
+              <!-- TABLE: LATEST Playlists -->
+              <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Recently Playlists</h3>
+                    <div class="box-tools pull-right">
+                        <% if(recentContentsData.unapprovedplaylists){ %>
+                          <a href="<%- admin_slug %>/playlists?approve=0"><span class="label label-danger"><%- recentContentsData.unapprovedplaylists %> Playlist(s) approval pending.</span></a>
+                        <%}%>
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <ul class="products-list product-list-in-box">
+                        
+                        <%for(var i=0;i<playlists.length;i++){ %>
+                      <li class="item">
+                        <div class="product-img">
+                          <img src="<%- imageSuffix+playlists[i].image %>" alt="<%- playlists[i].title %>">
+                        </div>
+                        <div class="product-info">
+                          <a href="/playlist/<%- playlists[i].custom_url %>" target="_blank" class="product-title"><%- playlists[i].title %></a>
+                          <span class="product-description">
+                              <%
+                              let description = striptags(playlists[i].description)
+                              let length = 200
+                              if (description.length > length) {
+                                description =  description.substring(0, length - 4) + " ...";
+                              } 
+                          %>
+                          <%- description %>
+                          </span>
+                          <span class="product-description"><%- timeago(moment(playlists[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %></span>
+                        </div>
+                      </li>
+                      <%}%>
+                    </ul>
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer text-center">
+                    <a href="<%- admin_slug %>/playlists" class="uppercase">View All Playlists</a>
+                  </div>
+                  <!-- /.box-footer -->
+                </div>
+              <%}%>
+              <% let reports = JSON.parse(JSON.stringify(recentContents.reports ? recentContents.reports : []));%>
+              <%if(reports.length){%>
+              <!-- TABLE: LATEST Reports -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Latest Reports</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table no-margin">
+                      <thead>
+                      <tr>
+                        <th>Description</th>
+                        <th>Reason</th>
+                        <th>Content Type</th>
+                        <th>Creation Date</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                          <%for(var i=0;i<reports.length;i++){ %>
+                      <tr>
+                        <td><%- reports[i].description %></td>
+                        <td><span class="label label-success"><%- reports[i].message_desc %></span></td>
+                        <td><%- reports[i].type %></td>
+                        <td>
+                            <%- timeago(moment(reports[i].creation_date).tz(defaultTimezone).format('YYYY-MM-DD HH:mm:ss ZZ')) %>
+                        </td>
+                      </tr>
+                      <%}%>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="<%- admin_slug %>/reports" class="uppercase">View All Video Reports</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <!-- /.box -->
+              <%}%>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <%- include('../includes/scripts.ejs') %>
+   <!-- FLOT CHARTS -->
+   <script src="/bower_components/Flot/jquery.flot.js"></script>
+   <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+   <script src="/bower_components/Flot/jquery.flot.resize.js"></script>
+   <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+   <script src="/bower_components/Flot/jquery.flot.categories.js"></script>
+  <script type="application/javascript">
+  $(document).ready(function(){
+
+        $.plot('#blogs-chart', [{
+          data : <%- JSON.stringify(statsData.blogs) %>,
+          color: '#3c8dbc'
+        }], {
+            grid  : {
+              hoverable: true, 
+                borderWidth: 1,
+                borderColor: '#f3f3f3',
+                tickColor  : '#f3f3f3'
+            },
+            series: {
+                bars: {
+                    show : true,
+                    barWidth: 0.5,
+                    align   : 'center'
+                }
+            },
+            xaxis : {
+                mode  : 'categories',
+                tickLength: 0
+            }
+        })
+        $.plot('#video-chart', [{
+          data : <%- JSON.stringify(statsData.videos) %>,
+          color: '#3c8dbc'
+        }], {
+            grid  : {
+                hoverable: true, 
+                borderWidth: 1,
+                borderColor: '#f3f3f3',
+                tickColor  : '#f3f3f3',
+            },
+            
+            series: {
+                bars: {
+                    show : true,
+                    barWidth: 0.5,
+                    align   : 'center'
+                }
+            },
+            yaxis: {
+                min: 0
+              } ,
+            selection: {
+              mode: "x"
+            },
+            xaxis : {
+                mode      : 'categories',
+                tickLength: 0
+            }
+        })
+
+        var previousPoint = null;
+ 
+        $.fn.UseTooltip = function () {
+            $(this).bind("plothover", function (event, pos, item) {                         
+                if (item) {
+                    if (previousPoint != item.dataIndex) {
+                        previousPoint = item.dataIndex;
+                        $("#tooltip").remove();
+                        var x = item.datapoint[0];
+                        var y = item.datapoint[1];                         
+                        showTooltip(item.pageX, item.pageY,
+                            "<div style='min-width:80px; text-align:center'><strong>" + item.series.data[x][0] + "</strong> - <strong>" + y +"</strong></div>");
+                    }
+                }
+                else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+        };
+         
+        function showTooltip(x, y, contents) {
+            $('<div id="tooltip">' + contents + '</div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: y + 5,
+                left: x + 20,
+                border: '2px solid #4572A7',
+                padding: '2px',     
+                size: '10',   
+                'border-radius': '6px 6px 6px 6px',
+                'background-color': '#fff',
+                opacity: 0.80
+            }).appendTo("body").fadeIn(200);
+        }
+         
+            
+            $("#video-chart").UseTooltip();
+        $("#blogs-chart").UseTooltip();
+        
+        $.plot('#user-chart', [{
+          data : <%- JSON.stringify(statsData.users) %>,
+          color: '#3c8dbc'
+        }], {
+            grid  : {
+                hoverable: true, 
+                clickable: true,
+                borderWidth: 1,
+                borderColor: '#f3f3f3',
+                tickColor  : '#f3f3f3'
+            },
+            series: {
+                bars: {
+                    show : true,
+                    barWidth: 0.5,
+                    align   : 'center'
+                }
+            },
+            xaxis : {
+                mode      : 'categories',
+                tickLength: 0
+            }
+        })
+        $("#user-chart").UseTooltip();
+    $.plot('#channel-chart', [{
+          data : <%- JSON.stringify(statsData.channels) %>,
+          color: '#3c8dbc'
+        }], {
+        grid  : {
+            hoverable: true, 
+            clickable: true,
+            borderWidth: 1,
+            borderColor: '#f3f3f3',
+            tickColor  : '#f3f3f3'
+        },
+        series: {
+            bars: {
+                show : true,
+                barWidth: 0.5,
+                align   : 'center'
+            }
+        },
+        xaxis : {
+            mode : 'categories',
+            tickLength: 0
+        }
+    })
+    $("#channel-chart").UseTooltip();
+  })
+</script>
+
+<%- include('../includes/footer.ejs') %>

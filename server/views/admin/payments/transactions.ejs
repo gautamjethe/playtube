@@ -1,0 +1,153 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title form-search_title">Search</h3>
+                        <div class="form-search">
+                            <div class="clear">
+                                <div class="search">
+                                    <form   method="GET">
+                                        <div>
+                                            <label for="transaction_id" tag="" class="optional">Transaction ID</label>
+                                            <input type="number" min="0" value="<%- query.transaction_id %>" class="form-control"
+                                                name="transaction_id" id="transaction_id">
+                                        </div>
+                                        <div>
+                                            <label for="order_id" min="0"  tag="" class="optional">Order ID</label>
+                                            <input type="number" value="<%- query.order_id %>" class="form-control"
+                                                name="order_id" id="order_id">
+                                        </div>
+                                        <div>
+                                            <label for="displayname" tag="" class="optional">Owner Name</label>
+                                            <input type="text" value="<%- query.displayname %>" class="form-control"
+                                                name="displayname" id="displayname">
+                                        </div>
+                                        <div>
+                                            <label for="email" tag="" class="optional">Owner Email</label>
+                                            <input type="text" value="<%- query.email %>" class="form-control"
+                                                name="email" id="email">
+                                        </div>
+                                        <%if(query.subscription_id){%>
+                                        <input type="hidden" value="<%- query.subscription_id %>" class="form-control"
+                                        name="subscription_id" id="subscription_id">
+                                        <%}%>
+                                        <div>
+                                            <label for="state" tag="" class="optional">State</label>
+                                            <select name="state" class="form-control" id="state">
+                                                <option value=""> </option>
+                                                <option value="completed" <% if(query.state == 'completed'){ %>
+                                                    selected="selected" <% } %>>Completed
+                                                </option>
+                                                <option value="pending"
+                                                    <% if(query.state && (query.state == 'pending')){ %>
+                                                    selected="selected" <% } %>>Pending</option>
+                                                <option value="refunded"
+                                                    <% if(query.state && (query.state == 'refunded')){ %>
+                                                    selected="selected" <% } %>>Refunded</option>
+                                                <option value="cancelled" <% if(query.state && (query.state == 'cancelled')){ %>
+                                                    selected="selected" <% } %>>Cancelled</option>
+                                                <option value="expired" <% if(query.state && (query.state == 'expired')){ %>
+                                                    selected="selected" <% } %>>Expired</option>
+
+                                            </select>
+                                        </div>
+                                <div>
+                                    <div class="buttons">
+                                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<%if(results.length > 0){%>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="callout callout-warning">
+            <p><%- totalCount %> Transaction(s) Found</p>
+        </div>
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Owner</th>
+                        <th>State</th>
+                        <th>Amount</th>
+                        <th>Creation Date</th>
+                        <th>Transaction ID</th>
+                    </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                    <tr>
+                        <td><%- results[i].transaction_id %></td>
+                        <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].displayname %></a></td>
+                        <td><%- results[i].state.charAt(0).toUpperCase() + results[i].state.slice(1) %></td>
+                        <td> 
+                            <%- getSymbolFromCurrency(results[i].currency)+results[i].price %>
+                        </td>
+                        <td>
+                            <%let dateS = moment(results[i].creation_date).locale("en")%>
+                            <%= 
+                                    dateS.tz(defaultTimezone).format(formatDate)
+                            
+                            %>
+                        </td>
+                        <td><%- ALLOWALLUSERINADMIN ? "*******" : results[i].gateway_transaction_id %></td>
+              </tr>
+              <% } %>
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        
+        <%if (paggingData) { %>
+        <div class="box-footer clearfix">
+            <%- paggingData %>
+        </div>
+        <% } %>
+        <!-- /.box -->
+    </div>
+</div>
+<% }else{%>
+<% if(Object.keys(query).length){%>
+<div class="callout callout-info">
+    <p>No record found with your matching criteria.</p>
+</div>
+<% }else{ %>
+<div class="callout callout-info">
+    <p>No transaction found on your website.</p>
+</div>
+<% } %>
+<% } %>
+<!-- /.error-page -->
+</section>
+<!-- /.content -->
+</div>
+
+
+<%- include('../includes/scripts.ejs') %>
+<%- include('../includes/footer.ejs') %>

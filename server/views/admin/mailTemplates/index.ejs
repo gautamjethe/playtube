@@ -1,0 +1,69 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <div class="box-header">
+            <h3 class="box-title"><%- title %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-info">
+          <form method="POST" class="ajaxForm">
+            <div class="box-body">
+              <%- reg_form.toHTML(); %>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script src="/bower_components/ckeditor/ckeditor.js"></script>
+<script type="application/javascript">
+$(document).ready(function(e){
+    CKEDITOR.replace('id_body')
+})
+$('#id_languageCode').change(function(e){
+    let type = $('#id_template_id').val()
+    let typeString = ""
+    if(type){
+        typeString = "/"+type 
+    }
+    window.location.href = "<%- admin_url %>/mail/templates/"+e.target.value+typeString
+})
+$('#id_template_id').change(function(e){
+    let type = $('#id_languageCode').val()
+    let typeString = ""
+    if(type){
+        typeString = type +"/"
+    }
+    window.location.href = "<%- admin_url %>/mail/templates/"+typeString+e.target.value
+})
+function hideShowField(){
+  if (jQuery('#id_email_type_smtp').length > 0) {
+        var value = jQuery('input[name="email_type"]:checked').val()
+        if(value == "gmail"){
+          jQuery('#id_email_smtp_host').parent().hide();
+          jQuery('#id_email_smtp_port').parent().hide();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().hide()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').hide()
+        }else{
+          jQuery('#id_email_smtp_host').parent().show();
+          jQuery('#id_email_smtp_port').parent().show();
+          jQuery('label[for="id_email_smtp_port_label"]').parent().show()
+          jQuery('#id_email_smtp_type_0').closest('.form-group').show()
+        }
+    }
+}
+</script>
+<%- include('../includes/footer.ejs') %>

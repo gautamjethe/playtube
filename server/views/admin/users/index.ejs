@@ -1,0 +1,628 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title"><%- title %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title form-search_title">Search</h3>
+            <div class="form-search">
+              <div class="clear">
+                <div class="search">
+                  <form   method="GET">
+                    <div>
+                      <label for="displayname" tag="" class="optional">Display Name</label>
+                      <input type="text" value="<%- query.displayname %>" class="form-control" name="displayname"
+                        id="displayname">
+                    </div>
+                    
+                    <div>
+                      <label for="username" tag="" class="optional">User Name</label>
+                      <input type="text" value="<%- query.username %>" class="form-control" name="username"
+                        id="username">
+                    </div>
+                    <div>
+                      <label for="email" tag="" class="optional">Email</label>
+                      <input type="text" value="<%- query.email %>" class="form-control" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="level_id" tag="" class="optional">Member Role</label>
+                        <select name="level_id" class="form-control" id="level_id">
+                          <option value=""> </option>
+                          <%for (var i=0;i<memberLevels.length;i++){ %>
+                            <%if(memberLevels[i].type != "public"){%>
+                          <option <% if(query.level_id == memberLevels[i].level_id){ %> selected="selected" <% } %>
+                            value="<%- memberLevels[i].level_id %>"><%- memberLevels[i].title %></option>
+                          <% } %>
+                          <%}%>
+                        </select>
+                      </div>
+                    <div>
+                      <label for="approve" tag="" class="optional">Approved</label>
+                      <select name="approve" class="form-control" id="approve">
+                        <option value=""> </option>
+                        <option value="1" <% if(query.approve == 1){ %> selected="selected" <% } %>>Yes</option>
+                        <option value="0" <% if(query.approve && (query.approve == 2 || query.approve == 0)){ %>
+                          selected="selected" <% } %>>No</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="active" tag="" class="optional">Active</label>
+                      <select name="active" class="form-control" id="active">
+                        <option value=""> </option>
+                        <option value="1" <% if(query.active == 1){ %> selected="selected" <% } %>>Yes</option>
+                        <option value="0" <% if(query.active && (query.active == 2 || query.active == 0)){ %>
+                          selected="selected" <% } %>>No</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="verified" tag="" class="optional">Verified</label>
+                      <select name="verified" class="form-control" id="verified">
+                        <option value=""> </option>
+                        <option value="1" <% if(query.verified == 1){ %> selected="selected" <% } %>>Yes</option>
+                        <option value="0" <% if(query.verified && (query.verified == 2 || query.verified == 0)){ %>
+                          selected="selected" <% } %>>No</option>
+                      </select>
+                    </div>
+                      <div>
+                          <label for="featured" tag="" class="optional">Featured</label>
+                          <select name="featured" class="form-control" id="featured">
+                            <option value=""> </option>
+                            <option value="1" <% if(query.featured == 1){ %> selected="selected" <% } %>>Yes</option>
+                            <option value="0" <% if(query.featured && (query.featured == 2 || query.featured == 0)){ %>
+                              selected="selected" <% } %>>No</option>
+                          </select>
+                        </div>
+
+                        <div>
+                            <label for="sponsored" tag="" class="optional">Sponsored</label>
+                            <select name="sponsored" class="form-control" id="sponsored">
+                              <option value=""> </option>
+                              <option value="1" <% if(query.sponsored == 1){ %> selected="selected" <% } %>>Yes</option>
+                              <option value="0" <% if(query.sponsored && (query.sponsored == 2 || query.sponsored == 0)){ %>
+                                selected="selected" <% } %>>No</option>
+                            </select>
+                          </div>
+                          <div>
+                              <label for="hot" tag="" class="optional">Hot</label>
+                              <select name="hot" class="form-control" id="hot">
+                                <option value=""> </option>
+                                <option value="1" <% if(query.hot == 1){ %> selected="selected" <% } %>>Yes</option>
+                                <option value="0" <% if(query.hot && (query.hot == 2 || query.hot == 0)){ %>
+                                  selected="selected" <% } %>>No</option>
+                              </select>
+                            </div>
+
+                            <div>
+                              <label for="popular" tag="" class="optional">Popular</label>
+                              <select name="popular" class="form-control" id="popular">
+                                <option value=""> </option>
+                                <option value="1" <% if(query.popular == 1){ %> selected="selected" <% } %>>Yes</option>
+                                <option value="0" <% if(query.popular && (query.popular == 2 || query.popular == 0)){ %>
+                                  selected="selected" <% } %>>No</option>
+                              </select>
+                            </div>
+
+                    <!-- <div>
+                      <label>Date range button:</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control float-right" id="reservationtime">
+                      </div>
+                    </div> -->
+                    <div>
+                      <div class="buttons">
+                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%if(results.length > 0){%>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="callout callout-warning">
+          <p><%- totalCount %> Users Found</p>
+        </div>
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th>ID</th>
+                <th>Displayname</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Wallet Amount</th>
+                <th>Amount Balance</th>
+                <th>Member Role</th>
+                <th>Signup Date</th>
+                <th>Access IP</th>
+                <th title="Active">Active</th>
+                <th title="Approved">A</th>
+                <th title="Verified">V</th>
+                <th title="Featured">F</th>
+                <th title="Sponsored">S</th>
+                <th title="Hot">H</th>
+                <th title="Popular Member">P</th>
+                <th>Options</th>
+              </tr>
+              <%for(var i=0;i<results.length;i++){%>
+              <tr>
+                <td><%- results[i].user_id %></td>
+                <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].displayname %></a></td>
+                <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].username %></a>
+                </td>
+                <td>
+                    <%if(typeof ALLOWALLUSERINADMIN == "undefined" || !ALLOWALLUSERINADMIN){%>
+                  <a href="mailto:<%= results[i].email %>"><%- results[i].email %></a>
+                      <%}else{%>-<%}%>
+                </td>
+                <td>
+                  <% let wallet = (results[i].wallet ? parseFloat(results[i].wallet) : 0).toFixed(2); %>
+                  <%- defaultCurrency+wallet %>
+              </td>
+              <td>
+                  <% let balance = (results[i].balance ? parseFloat(results[i].balance) : 0).toFixed(2); %>
+                  <%- defaultCurrency+balance %>
+              </td>
+                <td><a href="<%= process.env.ADMIN_SLUG %>/levels/edit/<%= results[i].level_id %>"><%- results[i].memberlevel %></a></td>
+                <td style="width: 150px;">
+                  <%let dateS = moment(results[i].creation_date).locale("en")%>
+                      <%=
+                        dateS.tz(defaultTimezone).format(formatDate)
+                      %>
+                </td>
+                <td>
+                      <%=
+                      results[i].ip_address ? results[i].ip_address : "-"
+                      %>
+                </td>
+                <td><%if(results[i].active == 1){ %>
+                  <a title="Unactive" class="activeuser" href="javascript:;" data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/check_image.png" />
+                  </a> <%}else{%> <a title="Active" class="activeuser" href="javascript:;"
+                    data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/error_image.png" />
+                  </a> <% } %></td>
+                <td><%if(results[i].approve == 1){ %>
+                  <a title="Un-Approved" class="approve" href="javascript:;" data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/check_image.png" />
+                  </a> <%}else{%> <a title="Approved" class="approve" href="javascript:;"
+                    data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/error_image.png" />
+                  </a> <% } %></td>
+                <td><%if(results[i].verified == 1){ %>
+                  <a title="Unverified" class="verified" href="javascript:;" data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/check_image.png" />
+                  </a> <%}else{%> <a title="Verified" class="verified" href="javascript:;"
+                    data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/error_image.png" />
+                  </a> <% } %></td>
+
+                <td><%if(results[i].is_featured == 1){ %>
+                  <a title="Remove Featured" class="is_featured" href="javascript:;" data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/check_image.png" />
+                  </a> <%}else{%> <a title="Mark as Featured" class="is_featured" href="javascript:;"
+                    data-id="<%- results[i].user_id %>">
+                    <img style="height: 20px;" src="/images/admin/error_image.png" />
+                  </a> <% } %></td>
+
+                  <td><%if(results[i].is_sponsored == 1){ %>
+                    <a title="Remove Sponsored" class="is_sponsored" href="javascript:;" data-id="<%- results[i].user_id %>">
+                      <img style="height: 20px;" src="/images/admin/check_image.png" />
+                    </a> <%}else{%> <a title="Mark as Sponsored" class="is_sponsored" href="javascript:;"
+                      data-id="<%- results[i].user_id %>">
+                      <img style="height: 20px;" src="/images/admin/error_image.png" />
+                    </a> <% } %></td>
+                    <td><%if(results[i].is_hot == 1){ %>
+                      <a title="Remove Hot" class="is_hot" href="javascript:;" data-id="<%- results[i].user_id %>">
+                        <img style="height: 20px;" src="/images/admin/check_image.png" />
+                      </a> <%}else{%> <a title="Mark as Hot" class="is_hot" href="javascript:;"
+                        data-id="<%- results[i].user_id %>">
+                        <img style="height: 20px;" src="/images/admin/error_image.png" />
+                      </a> <% } %></td>
+
+                      <td><%if(results[i].is_popular == 1){ %>
+                        <a title="Remove Popular" class="is_popular" href="javascript:;" data-id="<%- results[i].user_id %>">
+                          <img style="height: 20px;" src="/images/admin/check_image.png" />
+                        </a> <%}else{%> <a title="Mark as Popular" class="is_popular" href="javascript:;"
+                          data-id="<%- results[i].user_id %>">
+                          <img style="height: 20px;" src="/images/admin/error_image.png" />
+                        </a> <% } %></td>
+
+                <td>
+                  <a class="btn btn-primary btn-xs" href="/<%= results[i].username %>" target="_blank">View</a>
+                  <a class="btn btn-primary btn-xs" onclick="preEditFn(this)" data-id="<%-results[i].user_id;%>"
+                    data-toggle="modal" data-target="#modal-edit">Edit</a>
+                  
+                  
+
+                  <%if(typeof ALLOWALLUSERINADMIN == "undefined" || !ALLOWALLUSERINADMIN){%>
+                  <%if(loggedinLevel_id == 1 && results[i].level_id != 1){%>
+                  <a class="btn btn-danger btn-xs" onclick="preDeleteFn(this)" data-id="<%-results[i].user_id;%>"
+                    data-toggle="modal" data-target="#modal-danger">Delete</a>
+                  <%}%>
+                  <%if(loggedinLevel_id == 1 && loggedin_id != results[i].user_id){%>
+                  <a class="btn btn-danger btn-xs"
+                    href="<%= process.env.ADMIN_SLUG %>/users/login/<%= results[i].user_id %>">login</a>
+                  <%}%>
+                  <%}%>
+                </td>
+              </tr>
+              <% } %>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+
+        <div class="modal model-dialog-hide" id="modal-edit">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h1 class="modal-title" id="user_edit_title">Edit User</h1>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="POST" action="">
+                        <input type="hidden" name="_token" value="">
+                        <div class="form-group">
+                          <label class="control-label">E-Mail Address</label>
+                          <div>
+                              <input type="email" class="form-control input-lg" name="email" value="" id="emailUser" required>
+                          </div>
+                      </div>
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" name="username" value="" id="usernameUser" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label">First Name</label>
+                          <div>
+                              <input type="text" class="form-control input-lg" name="first_name" value="" id="first_name" required>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="control-label">Last Name</label>
+                        <div>
+                            <input type="text" class="form-control input-lg" name="last_name" value="" id="last_name">
+                        </div>
+                    </div>
+                    
+                        
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <div>
+                                <input type="password" class="form-control input-lg" name="password" id="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Confirm Password</label>
+                            <div>
+                                <input type="password" class="form-control input-lg" name="confirm_password" id="confirm_password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label">Member Role</label>
+                          <div>
+                              <select name="role" class="form-control input-lg" id="Userlevel_id" required>
+                                <option>Select Member Role</option>
+                                <%for (var i=0;i<memberLevels.length;i++){ %>
+                                  <%if(memberLevels[i].type != "public"){%>
+                                    <option value="<%- memberLevels[i].level_id %>"><%- memberLevels[i].title %></option>
+                                  <%}%>
+                               <% } %>
+                              </select>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label">Wallet Amount</label>
+                        <div>
+                            <input type="number" class="form-control input-lg" name="wallet" id="wallet">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label">Balance Amount</label>
+                        <div>
+                            <input type="number" class="form-control input-lg" name="balance" id="balance">
+                        </div>
+                      </div>
+
+                        <div class="form-group">
+                            <div>
+                                <button type="button" class="btn btn-success" onclick="editUser()">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+          <!-- /.modal-dialog -->
+        </div>
+
+
+        <div class="modal model-dialog-hide" id="modal-danger">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure want to delete this? It will not be recoverable after being deleted.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" onclick="deleteFunction()" class="btn btn-outline">Delete</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <%if (paggingData) { %>
+        <div class="box-footer clearfix">
+          <%- paggingData %>
+        </div>
+        <% } %>
+        <!-- /.box -->
+      </div>
+    </div>
+    <% }else{%>
+    <% if(Object.keys(query).length){%>
+    <div class="callout callout-info">
+      <p>No record found with your matching criteria.</p>
+    </div>
+    <% }else{ %>
+    <div class="callout callout-info">
+      <p>No User created signup yet on your website.</p>
+    </div>
+    <% } %>
+    <% } %>
+    <!-- /.error-page -->
+  </section>
+  <!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
+<style>
+  .error{
+    color: red;
+    margin-top: 10px;
+    font-style: italic;
+  }
+</style>
+<script>
+
+  var userData = <%- JSON.stringify(results) %>;
+
+  var deleteEdittId;
+  function preEditFn(obj) {
+    deleteEdittId = $(obj).attr('data-id');
+
+    var results = (userData);
+
+    const data = results.filter(item => item.user_id == deleteEdittId)
+
+    let user = data[0];
+    $("#user_edit_title").html("Edit User: "+user.displayname)
+    $("#emailUser").val(user['email']);
+    $("#usernameUser").val(user['username']);
+    $("#first_name").val(user['first_name']);
+    $("#last_name").val(user['last_name']);
+    $("#Userlevel_id").val(user['level_id']);
+    $("#wallet").val(user['wallet']);
+    $("#balance").val(user['balance']);
+
+  }
+
+  function editUser(){
+    let data = {}
+    data['email'] = $("#emailUser").val();
+    data['username'] = $("#usernameUser").val();
+    data['first_name'] = $("#first_name").val();
+    data['last_name']=  $("#last_name").val();
+        
+    data['level_id'] = $("#Userlevel_id").val();
+    data['wallet'] = $("#wallet").val();
+    data['balance'] = $("#balance").val();
+
+    var password = $("#password").val();
+    var confirm_password = $("#confirm_password").val();
+
+    if(password){
+      if(password != confirm_password){
+        alert("Password & Confirm Password not match.");
+        return false;
+      }else{
+        data['password'] = password
+      }
+    }
+
+    //send request
+    $.post("<%= process.env.ADMIN_SLUG %>/users/edit/"+deleteEdittId,data,function(response){
+      if(response){
+        if(response.error){
+          response.error.forEach(item => {
+              var fieldName = item.field
+              if(item.field == "email"){
+                fieldName = "emailUser"
+              }else if(item.field == "username"){
+                fieldName = "usernameUser"
+              }else if(item.field == "username"){
+                fieldName = "usernameUser"
+              }
+              if($("#"+fieldName).parent().find("p").length > 0){
+                $("#"+fieldName).parent().find("p").remove();
+              }
+              $("#"+fieldName).parent().append("<p class='error'>"+item.message+"</p>");
+          })
+        }else{
+          window.location.reload();
+        }
+      }
+    })
+
+
+  }
+
+
+  $(document).on('click', '.verified', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/verified/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+  $(document).on('click', '.activeuser', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/active/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+  $(document).on('click', '.approve', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/approve/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+  $(document).on('click', '.is_featured', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/featured/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+  $(document).on('click', '.is_hot', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/hot/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+
+  $(document).on('click', '.is_popular', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/popular/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+
+  $(document).on('click', '.is_sponsored', function (e) {
+    e.preventDefault()
+    var imageData = $(this).find("img").attr('src')
+    $(this).find("img").attr("src", '/images/admin/loading.gif');
+    var that = this
+    $.post("<%= process.env.ADMIN_SLUG %>/users/sponsored/" + $(this).attr("data-id"), {}, function (respose) {
+      if (respose.error) {
+        $(that).find('img').attr('src', imageData)
+      } else {
+        if (respose.status) {
+          $(that).find('img').attr('src', "/images/admin/check_image.png")
+        } else {
+          $(that).find('img').attr('src', "/images/admin/error_image.png")
+        }
+      }
+    })
+  })
+  var deleteObjectId;
+  function preDeleteFn(obj) {
+    deleteObjectId = $(obj).attr('data-id');
+  }
+  function deleteFunction() {
+    window.location.href = "<%= process.env.ADMIN_SLUG %>/users/delete/%>" + deleteObjectId;
+  }
+  
+</script>
+<%- include('../includes/footer.ejs') %>

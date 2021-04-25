@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+<style>
+#localVideo{
+	width: 100%;
+	height: calc(100vh - 200px);
+	margin-top:10px;
+}
+/* .main-container, .main-sub-container{
+	height: calc(100vh - 200px);
+} */
+</style>
+</head>
+<body>
+	<div class="main-container">
+		<div class="main-sub-container">
+			<div class="col-sm-12 form-group">
+				<video id="localVideo"  autoplay controls playsinline></video>
+			</div>
+			
+			<div class="form-group col-sm-12 text-left">
+				
+				<div class="dropdown-divider"></div>
+				<legend class="col-form-label video-source-legend" id="videosource"></legend>
+				<div id="browser_screen_share_doesnt_support_cnt">
+					<div class="form-check form-check-inline">	
+						<input class="form-check-input video-source" name="videoSource" type="radio" value="screen" 
+						id="screen_share_checkbox">
+						<label class="form-check-label font-weight-light" for="screen_share_checkbox" style="font-weight:normal" id="screen">
+								
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input video-source" name="videoSource" type="radio" value="screen+camera" 
+							id="screen_share_with_camera_checkbox">
+						<label class="form-check-label font-weight-light" for="screen_share_with_camera_checkbox" style="font-weight:normal" id="screenwithcamera">
+								
+						</label>
+							<a id="browser_screen_share_doesnt_support" href="https://caniuse.com/#search=getDisplayMedia"> </a>
+					</div>
+				</div>
+				<div class="dropdown-divider"></div>
+				<legend class="col-form-label audio-source-legend" id="audiosource"></legend>
+			</div>	
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>	
+</body>
+<script type="module" lang="javascript">
+	import {WebRTCAdaptor} from "./js/webrtc_adaptor.js"
+    import {getUrlParameter} from "./js/fetch.stream.js" 
+	
+
+	var defaultData = {}
+	if (window.addEventListener) {
+		window.addEventListener("message", receiveMessage);
+	} else {
+		window.attachEvent("onmessage", receiveMessage);
+	}
+	var defaultData = {}
+	function receiveMessage(event) {
+		const message = event.data.message;
+		switch (message) {
+		case 'getData':
+			defaultData = event.data.value
+			streamId = defaultData.streamId
+			websocketURL = defaultData.url
+			token = defaultData.token
+			document.getElementById("videosource").innerHTML = defaultData.videosource
+			document.getElementById("screen").innerHTML = defaultData.screen
+			document.getElementById("screenwithcamera").innerHTML = defaultData.screenwithcamera
+			document.getElementById("audiosource").innerHTML = defaultData.audiosource
+			document.getElementById("browser_screen_share_doesnt_support").innerHTML = defaultData.browser_screen_share_doesnt_support
+			// document.getElementById("connecting").innerHTML = defaultData.connecting
+
+			//initialize the WebRTCAdaptor
+			initWebRTCAdaptor(true, autoRepublishEnabled);
+			//startPublishing();
+			break;
+		case 'stop':
+			stopPublishing();
+			break;
+		}
+	}
+	function sendRequest(data){
+		window.top.postMessage(data, '*')
+	}
+
+	var maxVideoBitrateKbps = 1200;
+
+	//TODO: Migrate these methods to Jquery
+	
+	
+	/**
+	 * If publishing stops for any reason, it tries to republish again.
+	 */
+	var autoRepublishEnabled = true;
+	/**
+	 * Timer job that checks the WebRTC connection 
+	 */
+	var autoRepublishIntervalJob = null;
+	
+	var streamId;
+	
+	var token = getUrlParameter("token");
+	
+	// It should be true
+	var rtmpForward = getUrlParameter("rtmpForward");
+
+	function startPublishing() {
+		streamId = defaultData.streamId;
+		webRTCAdaptor.publish(streamId, token);
+	}
+
+	function stopPublishing() {
+		if (autoRepublishIntervalJob != null) {
+			clearInterval(autoRepublishIntervalJob);
+			autoRepublishIntervalJob = null;
+		}
+		webRTCAdaptor.stop(streamId);
+	}
+	
+  	function switchVideoMode(chbx) {
+  		if(chbx.value == "screen") {
+			  //webRTCAdaptor.switchDesktopWithMicAudio(streamId);
+			  webRTCAdaptor.switchDesktopCapture(streamId);
+  		}
+  		else if(chbx.value == "screen+camera"){
+			webRTCAdaptor.switchDesktopCaptureWithCamera(streamId);
+		}
+		else {
+  			webRTCAdaptor.switchVideoCameraCapture(streamId, chbx.value);
+  		}
+	}
+  	
+	function switchAudioMode(chbx) {
+		webRTCAdaptor.switchAudioInputSource(streamId, chbx.value);
+	}
+
+	function getCameraRadioButton(deviceName, deviceId) {
+		return "<div class=\"form-check form-check-inline\">" + 	
+							"<input class=\"form-check-input video-source\" name=\"videoSource\" type=\"radio\" value=\"" + deviceId + "\" id=\"" + deviceId + "\">" +
+							"<label class=\"form-check-label font-weight-light\" for=\"" + deviceId + "\" style=\"font-weight:normal\">" +
+								deviceName +
+							"</label>" +		
+						   "</div>";
+	}
+
+	function getAudioRadioButton(deviceName, deviceId) {
+		return "<div class=\"form-check form-check-inline\">" + 	
+							"<input class=\"form-check-input audio-source\" name=\"audioSource\" type=\"radio\" value=\"" + deviceId + "\" id=\"" + deviceId + "\">" +
+							"<label class=\"form-check-label font-weight-light\" for=\"" + deviceId + "\" style=\"font-weight:normal\">" +
+								deviceName +
+							"</label>" +		
+						   "</div>";
+	}
+
+	function toggleOptions() {
+		$(".options").toggle();
+	}
+	
+	function sendData() {
+		try {
+			var iceState = webRTCAdaptor.iceConnectionState(streamId);
+            if (iceState != null && iceState != "failed" && iceState != "disconnected") {
+            
+				webRTCAdaptor.sendData($("#streamName").val(), $("#dataTextbox").val());
+				$("#dataMessagesTextarea").append("Sent: " + $("#dataTextbox").val() + "\r\n");
+				$("#dataTextbox").val("");
+			}
+			else {
+				alert("WebRTC publishing is not active. Please click Start Publishing first")
+			}
+		}
+		catch (exception) {
+			console.error(exception);
+			alert("Message cannot be sent. Make sure you've enabled data channel on server web panel");
+		}
+	}
+	  
+	
+	function checkAndRepublishIfRequired() {
+	 	var iceState = webRTCAdaptor.iceConnectionState(streamId);
+		//console.log("Ice state checked = " + iceState);
+
+	  	if (iceState == null || iceState == "failed" || iceState == "disconnected"){
+	  		webRTCAdaptor.stop(streamId);
+	  		webRTCAdaptor.closePeerConnection(streamId);
+	  		webRTCAdaptor.closeWebSocket();
+	  		initWebRTCAdaptor(true, autoRepublishEnabled);
+		  }	
+	}
+
+    function startAnimation() {
+
+        $("#broadcastingInfo").fadeIn(800, function () {
+          $("#broadcastingInfo").fadeOut(800, function () {
+        		var state = webRTCAdaptor.signallingState(streamId);
+            if (state != null && state != "closed") {
+            	var iceState = webRTCAdaptor.iceConnectionState(streamId);
+            	if (iceState != null && iceState != "failed" && iceState != "disconnected") {
+              		startAnimation();
+            	}
+            }
+          });
+        });
+      }
+
+	var pc_config = {
+			'iceServers' : [ {
+				'urls' : 'stun:stun1.l.google.com:19302'
+			} ]
+		};
+	/* 
+	//sample turn configuration
+	{
+       iceServers: [
+                    { urls: "",
+                      username: "",
+                      credential: "",
+                    }
+                   ]
+    };
+    */
+
+	var sdpConstraints = {
+		OfferToReceiveAudio : false,
+		OfferToReceiveVideo : false
+	};
+	
+	var mediaConstraints = {
+		video : true,
+		audio : true
+	};
+
+	
+	var websocketURL =  "";
+	
+	var	webRTCAdaptor = null;
+	
+	function initWebRTCAdaptor(publishImmediately, autoRepublishEnabled) 
+	{
+		webRTCAdaptor = new WebRTCAdaptor({
+				websocket_url : websocketURL,
+				mediaConstraints : mediaConstraints,
+				peerconnection_config : pc_config,
+				sdp_constraints : sdpConstraints,
+				localVideoId : "localVideo",
+				debug:true,
+				bandwidth:maxVideoBitrateKbps,
+				callback : (info, obj) => {
+					console.log(info,obj);
+					if (info == "initialized") {
+						// console.log("initialized");
+						if (publishImmediately) {
+							webRTCAdaptor.publish(streamId, token)
+						}
+						
+					} else if (info == "publish_started") {
+						//stream is being published
+						// console.log("publish started");
+						startAnimation();
+						if (autoRepublishEnabled && autoRepublishIntervalJob == null) 
+						{
+							autoRepublishIntervalJob = setInterval(() => {
+								checkAndRepublishIfRequired();
+							}, 3000);
+						}
+						webRTCAdaptor.enableStats(obj.streamId);
+						sendRequest({message:"playStarted"})
+					} else if (info == "publish_finished") {
+						//stream is being finished
+						// console.log("publish finished");
+						sendRequest({message:"finished"})
+					}
+					else if (info == "browser_screen_share_supported") {						
+						// console.log("browser screen share supported");
+						document.getElementById("browser_screen_share_doesnt_support").style.display = "none";
+					}
+					else if (info == "screen_share_stopped") {
+						//choose the first video source. It may not be correct for all cases. 
+						// console.log("screen share stopped");
+					}
+					else if (info == "closed") {
+						//console.log("Connection closed");
+						if (typeof obj != "undefined") {
+							// console.log("Connecton closed: " + JSON.stringify(obj));
+						}
+						sendRequest({message:"finished"})
+					}
+					else if (info == "pong") {
+						//ping/pong message are sent to and received from server to make the connection alive all the time
+						//It's especially useful when load balancer or firewalls close the websocket connection due to inactivity
+					}
+					else if (info == "refreshConnection") {
+						checkAndRepublishIfRequired();
+					}
+					else if (info == "ice_connection_state_changed") {
+						//console.log("iceConnectionState Changed: ",JSON.stringify(obj));
+					}
+					else if (info == "updated_stats") {
+						//obj is the PeerStats which has fields
+						 //averageOutgoingBitrate - kbits/sec
+						//currentOutgoingBitrate - kbits/sec
+						// console.log("Average outgoing bitrate " + obj.averageOutgoingBitrate + " kbits/sec"
+						// 		+ " Current outgoing bitrate: " + obj.currentOutgoingBitrate + " kbits/sec"
+						// 		+ " video source width: " + obj.resWidth + " video source height: " + obj.resHeight
+						// 		+ "frame width: " + obj.frameWidth + " frame height: " + obj.frameHeight
+						// 		+ " video packetLost: "  + obj.videoPacketsLost + " audio packetsLost: " + obj.audioPacketsLost
+						// 		+ " video RTT: " + obj.videoRoundTripTime + " audio RTT: " + obj.audioRoundTripTime 
+						// 		+ " video jitter: " + obj.videoJitter + " audio jitter: " + obj.audioJitter);						
+					}
+					else if (info == "data_received") {
+						// console.log("Data received: " + obj.event.data + " type: " + obj.event.type + " for stream: " + obj.streamId);
+						//$("#dataMessagesTextarea").append("Received: " + obj.event.data + "\r\n");
+					}
+					else if (info == "available_devices") {
+						var videoHtmlContent = "";
+						var audioHtmlContent = "";
+						obj.forEach(function(device) {
+							if (device.kind == "videoinput") {
+								videoHtmlContent += getCameraRadioButton(device.label, device.deviceId);
+							}
+							else if (device.kind == "audioinput"){
+								audioHtmlContent += getAudioRadioButton(device.label, device.deviceId);
+							}
+						}); 
+						$(videoHtmlContent).insertAfter(".video-source-legend");
+						$(".video-source").first().prop("checked", true);	
+						
+						$(audioHtmlContent).insertAfter(".audio-source-legend");
+						$(".audio-source").first().prop("checked", true);	
+
+						if (document.querySelector('input[name="videoSource"]')) {
+							document.querySelectorAll('input[name="videoSource"]').forEach((elem) => {
+								elem.addEventListener("change", function(event) {
+								var item = event.target;
+								switchVideoMode(item)
+								});
+  							});
+						}
+						if (document.querySelector('input[name="audioSource"]')) {
+							document.querySelectorAll('input[name="audioSource"]').forEach((elem) => {
+								elem.addEventListener("change", function(event) {
+								var item = event.target;
+								switchAudioMode(item)
+								});
+  							});
+						}
+					}
+					else {
+						console.log( info + " notification received");
+					}
+				},
+				callbackError : function(error, message) {
+					//some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
+	
+					console.log("error callback: " +  JSON.stringify(error));
+					var errorMessage = JSON.stringify(error);
+					if (typeof message != "undefined") {
+						errorMessage = message;
+					}
+					var errorMessage = JSON.stringify(error);
+					if (error.indexOf("NotFoundError") != -1) {
+						errorMessage = "Camera or Mic are not found or not allowed in your device";
+					}
+					else if (error.indexOf("NotReadableError") != -1 || error.indexOf("TrackStartError") != -1) {
+						errorMessage = "Camera or Mic is being used by some other process that does not let read the devices";
+					}
+					else if(error.indexOf("OverconstrainedError") != -1 || error.indexOf("ConstraintNotSatisfiedError") != -1) {
+						errorMessage = "There is no device found that fits your video and audio constraints. You may change video and audio constraints"
+					}
+					else if (error.indexOf("NotAllowedError") != -1 || error.indexOf("PermissionDeniedError") != -1) {
+						errorMessage = "You are not allowed to access camera and mic.";
+					}
+					else if (error.indexOf("TypeError") != -1) {
+						errorMessage = "Video/Audio is required";
+					}
+					else if (error.indexOf("ScreenSharePermissionDenied") != -1) {
+						errorMessage = "You are not allowed to access screen share";
+						$(".video-source").first().prop("checked", true);						
+					}
+					else if (error.indexOf("WebSocketNotConnected") != -1) {
+						errorMessage = "WebSocket Connection is disconnected.";
+					}
+					alert(errorMessage);
+				}
+			});
+	}
+	
+	
+</script>
+</html>

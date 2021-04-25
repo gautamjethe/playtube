@@ -1,0 +1,162 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"><%- title %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title form-search_title">Search</h3>
+                        <div class="form-search">
+                            <div class="clear">
+                                <div class="search">
+                                    <form   method="GET">
+                                        <div>
+                                            <label for="displayname" tag="" class="optional">Owner Name</label>
+                                            <input type="text" value="<%- query.displayname %>" class="form-control"
+                                                name="displayname" id="displayname">
+                                        </div>
+                                        <div>
+                                            <label for="email" tag="" class="optional">Owner Email</label>
+                                            <input type="text" value="<%- query.email %>" class="form-control"
+                                                name="email" id="email">
+                                        </div>
+                                        <div>
+                                            <label for="package_id" tag="" class="optional">Packages</label>
+                                            <select name="package_id" class="form-control" id="package_id">
+                                                <option value=""> </option>
+                                                <%for (var i=0;i<packagesData.length;i++){ %>
+                                                    <option <% if(query.package_id == packagesData[i].package_id){ %> selected="selected" <% } %> value="<%- packagesData[i].package_id %>"><%- packagesData[i].title %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="level_id" tag="" class="optional">Member Role</label>
+                                            <select name="level_id" class="form-control" id="level_id">
+                                                <option value=""> </option>
+                                                <%for (var i=0;i<memberLevels.length;i++){ %>
+                                                    <option <% if(query.level_id == memberLevels[i].level_id){ %> selected="selected" <% } %> value="<%- memberLevels[i].level_id %>"><%- memberLevels[i].title %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="status" tag="" class="optional">Status</label>
+                                            <select name="status" class="form-control" id="status">
+                                                <option value=""> </option>
+                                                <option value="completed" <% if(query.status == 'completed'){ %>
+                                                    selected="selected" <% } %>>Completed
+                                                </option>
+                                                <option value="pending"
+                                                    <% if(query.status && (query.status == 'pending')){ %>
+                                                    selected="selected" <% } %>>Pending</option>
+                                                <option value="refunded"
+                                                    <% if(query.status && (query.status == 'refunded')){ %>
+                                                    selected="selected" <% } %>>Refunded</option>
+                                                <option value="cancelled" <% if(query.status && (query.status == 'cancelled')){ %>
+                                                    selected="selected" <% } %>>Cancelled</option>
+                                                <option value="expired" <% if(query.status && (query.status == 'expired')){ %>
+                                                    selected="selected" <% } %>>Expired</option>
+                                                <option value="overdue" <% if(query.status && (query.status == 'overdue')){ %>
+                                                        selected="selected" <% } %>>Overdue</option>
+                                                <option value="suspend"
+                                                    <% if(query.status && (query.status == 'suspend')){ %>
+                                                    selected="selected" <% } %>>Suspend</option>
+                                                <option value="dispute"
+                                                    <% if(query.status && (query.status == 'dispute')){ %>
+                                                    selected="selected" <% } %>>Dispute</option>
+                                            </select>
+                                        </div>
+                                    <div>
+                                    <div class="buttons">
+                                        <button id="search" class="btn btn-primary" type="submit">Search</button> or <a  href="javascript:;" onclick="window.location = window.location.pathname">reset</a>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<%if(results.length > 0){%>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="callout callout-warning">
+            <p><%- totalCount %> Subscription(s) Found</p>
+        </div>
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Owner</th>
+                            <th>Package</th>
+                            <th>Member Role</th>
+                            <th>Status</th>
+                            <th>Creation Date</th>
+                            <th>Options</th>
+                        </tr>
+                    <%for(var i=0;i<results.length;i++){%>
+                        <tr>
+                            <td><%- results[i].subscription_id %></td>
+                            <td><a href="/<%= results[i].username %>" target="_blank"><%- results[i].displayname %></a></td>
+                            <td>
+                                <a href="<%= process.env.ADMIN_SLUG %>/payments/packages/create/<%= results[i].packageId %>"><%- results[i].packageTitle %></a>
+                            </td>
+                            <td> 
+                                <a href="<%= process.env.ADMIN_SLUG %>/levels/edit/<%= results[i].levelID %>"><%- results[i].levelTitle %></a>
+                            </td>
+                            <td><%- results[i].status.charAt(0).toUpperCase() + results[i].status.slice(1) %></td>
+                            <td>
+                                <%let dateS = moment(results[i].creation_date).locale("en")%>
+                            <%= 
+                                    dateS.tz(defaultTimezone).format(formatDate)
+                            
+                            %>
+                            </td>
+                            <td><a href="<%= process.env.ADMIN_SLUG %>/payments/transactions?subscription_id=<%= results[i].subscription_id %>">View Transactions</a></td>
+                        </tr>
+                    <% } %>
+                    </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <%if (paggingData) { %>
+        <div class="box-footer clearfix">
+            <%- paggingData %>
+        </div>
+        <% } %>
+        <!-- /.box -->
+    </div>
+</div>
+<% }else{%>
+    <% if(Object.keys(query).length){%>
+        <div class="callout callout-info">
+            <p>No record found with your matching criteria.</p>
+        </div>
+    <% }else{ %>
+        <div class="callout callout-info">
+            <p>No subscription found on your website.</p>
+        </div>
+    <% } %>
+<% } %>
+<!-- /.error-page -->
+</section>
+<!-- /.content -->
+</div>
+<%- include('../includes/scripts.ejs') %>
+<%- include('../includes/footer.ejs') %>

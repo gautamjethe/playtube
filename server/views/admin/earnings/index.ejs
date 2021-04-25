@@ -1,0 +1,203 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/navigation.ejs') %>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+          Earning Stats
+          <small>Data is updated every 5 minutes</small>
+        </h1>
+      </section>
+  
+<section class="content">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Earnings With Commission</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_earning,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-red"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Earnings Without Commission</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_earning_withoutcommission,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <!-- /.col -->
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-red"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Commission</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_commission,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Earnings Today</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_earning_today,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Earnings This Month</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_earning_month,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-yellow"><i class="fa fa-dollar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Earnings This Year</span>
+            <span class="info-box-number"><%- numAbbr.abbreviate(statsData.total_earning_year,2)  %></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      
+      
+    </div>
+
+    <div class="col-md-12">
+          <!-- Bar chart -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Earning Stats</h3>
+              <br><br>
+              <b>Criteria:</b>
+              <select value="<%- type;%>" id="type">
+                  <option value="today">Today</option>
+                  <option value="this_week">This Week</option>
+                  <option value="this_month">This Month</option>
+                  <option value="this_year">This Year</option>
+              </select>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div id="graph-chart" style="height: 500px;"></div>
+            </div>
+            <!-- /.box-body-->
+          </div>
+          <!-- /.box -->
+    </div>
+</section>
+</div>
+<%- include('../includes/scripts.ejs') %>
+<!-- FLOT CHARTS -->
+<script src="/dist/js/highcharts/highcharts.js"></script>
+<script src="/dist/js/highcharts/exporting.js"></script>
+
+
+<script type="application/javascript">
+    
+    $(document).ready(function(){
+    
+    $("#type").val('<%- type;%>');
+
+    $("select#type").change(function(){
+        var type = $('#type').val();
+        window.location.href = "<%= process.env.ADMIN_SLUG %>/earnings?type="+type;
+    });
+       $(function () {
+    Highcharts.setOptions({
+      colors: ['#6abd46', '#ce3d3d', '#f2b92b', '#6abd46']
+    });
+    $('#graph-chart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: "<%- titleChart %>"
+        },
+        xAxis: {
+            categories:<%- JSON.stringify(xAxis) %>,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: "<%- yAxis %>"
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px;color:#fff;">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:#fff;padding:0">{series.name}: </td>' +
+                '<td style="color:#fff;"><b>${point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true,
+            backgroundColor: '#444'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Videos Earning',
+            data: <%- JSON.stringify(statsData.videos.spent) %>
+
+            },{
+            name: 'Subscribers Earning',
+            data: <%- JSON.stringify(statsData.users.spent) %>
+
+            },{
+            name: 'Wallet Earning',
+            data: <%- JSON.stringify(statsData.wallets.spent) %>
+            },{
+            name: 'Channel Support Earning',
+            data: <%- JSON.stringify(statsData.channelSupport.spent) %>
+            },{
+            name: 'Video Tip Earning',
+            data: <%- JSON.stringify(statsData.tipData.spent) %>
+            }]
+    });
+});
+
+         
+  
+        });
+</script>
+
+<%- include('../includes/footer.ejs') %>

@@ -1,0 +1,847 @@
+@media only screen and (max-width: 1450px) {
+    .miniPlay-shareWrap{
+        flex-direction: column;
+        align-items: start;
+    }
+    .miniPlay-shareWrap .LikeDislikeWrap{
+        margin-top: 10px;
+    }
+    .miniPlay-shareWrap .LikeDislikeWrap .LikeDislikeList li, .miniPlay-shareWrap .LikeDislikeWrap .LikeDislikeList li .videoListBtns{
+        margin:0 3px;
+    }
+    .search-input-box button {
+        padding: 0 5px;
+        margin-left: -30px;
+    }
+    .logo a {
+        margin-right: 15px;
+    }
+    .search-input-box input[type="text"] {
+        min-width: 120px;
+        width: 100%;
+    }
+    .notifNmbr {
+        top: -15px;
+        right: -12px;
+    }
+    .ptv_videoList_wrap .videoList_thumb {
+        height: 130px;
+    }
+    .ptv_videoList_wrap .videoList_thumb img {
+        min-height: auto;
+        max-height: auto;
+    }
+    .ptv_artists_wrap .ptv_artist_thumb {
+        height: 130px;
+    }
+    .ptv_artists_wrap .ptv_artist_thumb img {
+        min-height: auto;
+        max-height: auto;
+    }
+} 
+@media only screen and (max-width: 1366px) {
+    .search-btn {
+        display: block;
+        padding-left: 12px !important;
+    }
+    .ptv_videoList_wrap .videoList_thumb {
+        height: 120px;
+    }
+    .ptv_artists_wrap .ptv_artist_thumb {
+        height: 120px;
+    }
+    .sidevideoWrapOutr .ptv_videoList_wrap .videoList_content .videoTitle a h4 {
+        -webkit-line-clamp: 1;
+    }
+}
+@media only screen and (max-width: 1200px) {
+    .rightTopList .nav-item a.usepicHead .user_title{
+        display: none;
+    }
+    .headerRightMenu .nav-item a.usepicHead .userPic {
+        margin-left: 0;
+    }
+    .videoDetailsWrap-content .watchBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .vLDetailLikeShare .LikeDislikeWrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .videoDetailsLikeWatch {
+        display: block;
+    }
+    .mainMenu .nav-link {
+        margin: 0 5px;
+    }
+    .headerRightMenu .loginRgstrBtn a {
+        margin-right: 5px;
+    }
+    .headerRightMenu .loginRgstrBtn li div.darkModeSwitchFtr {
+        margin-left: 0;
+        line-height: 19px;
+        white-space: nowrap;
+    }
+    .headerRightMenu .loginRgstrBtn a {
+        margin-left: 0;
+    }
+    .footerContent {
+        flex-direction: column-reverse;
+    }
+    .footerCenter {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .paddingBottom0{
+        max-width: 60% !important;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .notificationMenu {
+        max-height: 80vh;
+    }
+    .postCard-box {
+        width: calc((100% / 3) - 10px);
+    }
+    .tableResponsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    .tableResponsive > .table {
+        margin-bottom: 0;
+    }
+    .tableResponsive > .table > tbody > tr > td,
+    .tableResponsive > .table > tbody > tr > th,
+    .tableResponsive > .table > tfoot > tr > td,
+    .tableResponsive > .table > tfoot > tr > th,
+    .tableResponsive > .table > thead > tr > td,
+    .tableResponsive > .table > thead > tr > th {
+        white-space: nowrap;
+    }
+    .header-wrap {
+        height: auto;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .playbar .track-info .userTrackName{
+        display: none;
+    }
+    .videoSidebar .ls_sidbar{
+        height:auto !important; 
+   }
+    .postCard-box {
+        width: calc((100% / 3) - 10px);
+    }
+    .live_host_end{
+        height: 550px;
+    }
+    .livestreaming_end .popup_cnt .comments .VideoDetails-commentWrap{
+        height:auto;
+    }
+    
+    .top_video_chat.ls_sidbar .chatList{
+        min-height: 200px;
+        max-height: 200px;
+    }
+    
+    .top_video_chat{
+        margin-bottom: 10px;
+    }
+    .videoSection2{
+        flex-direction: column;
+        height: auto;
+    }
+    .videoSection2 .ls_sidbar, .videoSection2 .videoWrap{
+        width: 100% !important;
+        max-width:100% !important;
+    }
+    .videoSection2 .ls_sidbar{
+        margin-top: 30px;
+    }
+    .sidevideoWrapOutr .ptv_videoList_wrap .videoList_content .videoTitle a h4 {
+        -webkit-line-clamp: 2;
+    }
+    .mobRightNav {
+        width: 100%;
+    }
+    .mobRightNav li a {
+        width: 100%;
+        height: 100%;
+    }
+    .Mobsearch-bar {
+        top: 100px;
+        z-index: 9999;
+    }
+    .MobSearchbox-loggedout {
+        top: 60px;
+    }
+    .artistDetailsWrap .playlistProfileRateshare {
+        margin-top: 15px;
+    }
+    .header-wrap {
+        display: none;
+    }
+    .copyright {
+        text-align: center;
+    }
+    .MobMenuSidebar li a {
+        padding: 18px 15px;
+    }
+    .MobeaderWrap {
+        display: block;
+    }
+    .content-wrap {
+        padding-top: 70px;
+    }
+    .user-logged-in .content-wrap {
+        padding-top: 0;
+    }
+    .user-logged-in .global-search-cnt {
+        padding-top: 10px;
+    }
+    .global-search-cnt {
+        padding-top: 70px;
+    }
+    .topvideos-wrap {
+        padding: 15px 0;
+    }
+    .fba-left .links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .fba-left .links li a {
+        margin-right: 12px;
+    }
+    .titleWrap .seemore_link {
+        display: block;
+    }
+    .ThumbnailBox-video {
+        height: 250px;
+    }
+    .ThumbnailBox-video .content {
+        bottom: 35px;
+        padding: 0 5px;
+    }
+    .ThumbnailBox-video .LikeDislikeWrap,
+    .ThumbnailBox-video .Share__container,
+    .ThumbnailBox-video .content .date,
+    .ThumbnailBox-video .rating,
+    .ThumbnailBox-video .socialfollowlikeNo {
+        display: none;
+    }
+    .ThumbnailBox-video .addPlaylist,
+    .ThumbnailBox-video .watchLater {
+        display: block;
+    }
+    .ThumbnailBox-video .content .duration {
+        transform: none;
+    }
+    .single-user .artistLikeRating,
+    .single-user .content .socialfollowlikeNo {
+        display: none;
+    }
+    .single-user .img {
+        height: 200px;
+    }
+    .snglChnnl-coverimg {
+        height: 100px;
+    }
+    .snglChnnl-content .userImg {
+        width: 75px;
+        height: 75px;
+        margin-top: -37px;
+        border-width: 2px;
+    }
+    .snglChnnl-content .subscribe {
+        padding: 1px 10px;
+    }
+    .snglChnnl-content .LikeDislikeWrap,
+    .snglChnnl-content .Share__container,
+    .snglChnnl-content .channelLista,
+    .snglChnnl-content .rating {
+        display: none;
+    }
+    .snglblog-block .blogImg {
+        height: 100px;
+    }
+    .snglblog-block .blogImg span img {
+        height: 100px;
+    }
+    .snglblog-block .blogFootr .authorDate {
+        border-bottom: none;
+    }
+    .playlistgrid {
+        height: 200px;
+    }
+    .playlistgrid .userdate .seprtr {
+        display: none;
+    }
+    .playlistgrid .userdate .date {
+        display: none;
+    }
+    .member-block .member-img-block .member-content .LikeDislikeWrap,
+    .member-block .member-img-block .member-content .Share__container {
+        display: none;
+    }
+    .member-block .member-img-block .member-content {
+        bottom: 60px;
+    }
+    .box-imgovrlptext-text .Share__container,
+    .box-imgovrlptext-text .socialfollowlikeNo {
+        display: none;
+    }
+    .userInfo-block-content .userInfo-field .animated-rater {
+        margin-bottom: 15px;
+    }
+    .videoDetailsWrap-content .watchBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    .videoDetailsWrap-content .socialfollowlikeNo {
+        display: block;
+    }
+    .videoDetailsWrap-content .socialfollowlikeNo .Share__container {
+        padding: 0;
+    }
+    #video_search_btn {
+        width: auto;
+        margin-bottom: 10px;
+    }
+    .tabsWrap {
+        margin: 15px 0;
+    }
+    .videoSidebar {
+        margin-top: 30px !important;
+    }
+    .header-info-wrap,
+    .header-info-wrap .coverphotoUsercnt img {
+        height: 200px;
+    }
+    .userInfo-block-content {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .userInfo-block-content .userphoto-profile-img {
+        width: 120px;
+        height: 120px;
+        top: -60px;
+    }
+    .userInfo-block-content .user-profile-title {
+        top: -60px;
+        margin-left: 135px;
+    }
+    .userInfo-content-left {
+        float: none;
+        margin: 0;
+    }
+    .userinfoRight {
+        margin-top: 0;
+        margin-left: 130px;
+    }
+    .filter-search {
+        margin-bottom: 0 !important;
+    }
+    .searchBtn {
+        display: flex;
+        align-items: center;
+    }
+    .searchBtn button {
+        margin-right: 15px;
+    }
+    .searchBtn a {
+        margin-left: 15px;
+    }
+    .search-form [type="button"],
+    .search-form [type="reset"],
+    .search-form [type="submit"],
+    .search-form button {
+        padding: 10px 20px;
+    }
+    .serachRsltsort {
+        justify-content: left;
+    }
+    .breadcumb-wrap {
+        padding: 50px 0;
+    }
+    .comparison .infoprice {
+        padding: 5px;
+    }
+    .ThumbnailBox-video .iconPlay {
+        font-size: 20px;
+        height: 35px;
+        line-height: 35px;
+        opacity: 0.6;
+        top: 40% !important;
+        width: 35px;
+    }
+    .ThumbnailBox-video .iconPlay {
+        opacity: 0.6;
+    }
+    .minimizeBox {
+        display: flex;
+        height: 90px;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    .minimizeBox .content {
+        display: flex;
+    }
+    .minimizeBox .PlayPause a {
+        -webkit-line-clamp: 4;
+    }
+    .ThumbnailBox-video .content .name,
+    .ThumbnailBox-video .content .name a {
+        -webkit-line-clamp: 1;
+    }
+    .mobRightNav .MobDropdownNav .iconMenuList a.dropdown-item {
+        margin: 0;
+    }
+    .mobRightNav .MobDropdownNav .iconMenuList a.dropdown-item i {
+        margin-right: 5px;
+    }
+    .MobSearchicon {
+        margin-right: 0;
+        position: absolute;
+        right: 15px;
+        z-index: 0;
+    }
+    .ChannelMoreinfo p {
+        margin: 0;
+    }
+    .channelRating {
+        margin-bottom: 0;
+    }
+    .channelInfo-wrap .userInfoList {
+        margin: 0;
+    }
+    .playlistgridText .LikeDislikeWrap,
+    .playlistgridText .Share__container {
+        display: none;
+    }
+    .details-tab-box .tabInTitle {
+        flex-direction: column;
+        align-items: self-start;
+    }
+    .MobmenuWrap .navbar-toggler {
+        color: var(--Textcolor-default);
+        z-index: 9;
+    }
+    .details-tab .tab-content .details-tab-box {
+        padding: 15px;
+    }
+    .notifNmbr {
+        border: 1px solid #fff;
+        top: -6px;
+        right: -12px;
+    }
+    .ptv_videoList_wrap .videoList_thumb {
+        height: 122px;
+    }
+    /* .userInfo-block-content .LikeDislikeWrap,
+    .userInfo-block-content .user_followed {
+        padding-left: 150px;
+    } */
+    .userInfo-block-content .user_followed {
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+    .paddingBottom0{
+        max-width: 80% !important;
+    }
+    .communty-content .content .text{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .postCard-box {
+        width: calc((100% / 2) - 10px);
+    }
+    .ptv_playlistGrid .playlistGrid_thumb:hover .overlayPlayBtn{
+        display: none;
+    }
+    .popup_cnt .comments .VideoDetails-commentWrap{
+        max-height:70vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .ptv_videoList_wrap .videoList_thumb {
+        height: 150px;
+    }
+    .titleform {
+        margin-top: 15px;
+    }
+    .btn-slide .tns-controls button[data-controls="next"],
+    .btn-slide .tns-controls button[data-controls="prev"] {
+        top: 0;
+    }
+    .details-tab .nav {
+        display: flex;
+        flex-flow: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .userinfoRight {
+        margin-top: 55px;
+        margin-left: 0;
+    }
+    .filesinput div.uploadicn {
+        padding: 30px 0 30px 0;
+    }
+    .popup_cnt .formFields .form-group textarea {
+        height: 60px;
+    }
+    .formFields .form-group textarea {
+        height: 100px;
+    }
+    .titleBarTop,
+    .titleBarTop .overlay,
+    .titleBarTopBg {
+        height: 250px;
+    }
+    .formBoxtop {
+        margin-top: -70px;
+        padding: 70px 15px;
+    }
+    .custom-control.image-checkbox label img {
+        height: 200px;
+    }
+    .VideoDetails-commentWrap .newCommentWrap .replyuser {
+        margin-left: 0;
+    }
+    .VideoDetails-commentWrap .newCommentWrap .userCommentsList li .userCommentWrap .comentBody {
+        width: calc(100% - 35px);
+    }
+    .VideoDetails-commentWrap .newCommentWrap .userCommentsList li .userCommentWrap .comentBody .commentCnt {
+        padding: 5px 5px;
+        border-radius: 5px;
+    }
+    .VideoDetails-commentWrap .newCommentWrap .userCommentsList li .userCommentWrap .comentBody .userInfo a {
+        font-size: 14px;
+    }
+    .VideoDetails-commentWrap .newCommentWrap .userCommentsList li .userCommentWrap .comentBody .userInfo .dateday {
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    .userCommentWrap .comentBody .create_new_comment {
+        padding: 0;
+        margin-left: -30px;
+    }
+    .userCommentWrap .comentBody .create_new_comment .input_comment {
+        width: calc(100% - 35px);
+    }
+    .userCommentWrap .comentBody .commentAction .input_comment {
+        padding: 5px;
+    }
+    .VideoDetails-commentWrap .newCommentWrap .userCommentsList li .userCommentWrap .user_avatar {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+    .commentListView li {
+        padding: 5px 5px;
+    }
+    .twoColumns {
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        columns: 2;
+    }
+    .loggedUer {
+        width: 25px;
+        height: 25px;
+    }
+    .mob2col {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .mob2col .col-6 {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+    .vLDetailLikeShare {
+        margin-bottom: 15px;
+    }
+    .artistDetailsWrap {
+        flex-direction: column;
+    }
+    .artistDetailsWrap .playList-profileRight .playlist-profile-title h4 {
+        text-align: center;
+    }
+    .videoDetailsWrap-content .videoName {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    .ptvBanner_blur_img {
+        height: 300px;
+    }
+    .ptvBanner_blur_img > div {
+        height: 300px;
+    }
+    .ptvBanner_Content .BnnrThumb {
+        min-height: 300px;
+        max-height: 300px;
+    }
+    .ptvBanner_Content .video-title .videoBnrShare {
+        display: none;
+    }
+    .snglFullWdth .tns-controls button[data-controls="prev"],
+    .snglFullWdth .tns-controls button[data-controls="next"] {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .pvtBannerLike{
+        display: none;
+    }
+    .snglFullWdth .tns-controls button[data-controls="prev"] .material-icons,
+    .snglFullWdth .tns-controls button[data-controls="next"] .material-icons{
+        line-height: 35px;
+    }
+    .ptvBanner_Content .ptvBanner_VideoInfo .video-title {
+        padding: 20px;
+    }
+    .ptvBanner_Content .ptvBanner_VideoInfo .video-big-title a {
+        font-size: 18px;
+    }
+    .ptvBanner_Content .video-title .VideoDtaeTime,
+    .pvtBannerLike ul li {
+        font-size: 14px;
+    }
+    .popupTabList {
+        display: flex;
+        flex-flow: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .popupTabList li {
+        white-space: nowrap;
+    }
+    .ptv_videoList_wrap .videoList_thumb .btnBoxHover {
+        display: block;
+    }
+    .ptv_videoList_wrap .videoList_thumb .playBtn {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .video_share{
+        display: none;
+    }
+    .LikeDislikeWrap .LikeDislikeList li{
+        margin: 0px 5px !important;
+    }
+    .videoDetailsUserInfo .userInfoSubs{
+        display: block;
+
+    }
+    .videoDetailsUserInfo .userInfoSubs .userSubs{
+        clear: both;
+        position: relative;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    #snglFullWdth .item img{
+        min-height: 100px;
+    }
+    .playbar .controller li i.fa-redo {
+        margin-right: 10px;
+    }
+    .playbar .controller li.volume{
+        display: none;
+    }
+    .audioBnr{
+        height: 250px;
+    }
+    .audioBnr .imgAudio{
+        height: 250px;
+        width: 100%;
+    }
+    .infoPlay .miniplay .playbtn{
+        top: 15%;
+        left:40%;
+    }
+    .infoPlay .trackCanvas{
+        width:93%;
+    }
+    .postCard-box {
+        width: 100%;
+    }
+    .purchase_video_content p{
+        top: 62% !important;
+    }
+    .details-tab-box .animated-rater {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        flex-flow: wrap;
+        margin-top: 5px;
+    }
+    .LikeDislikeWrap .LikeDislikeList li {
+        margin: 0 10px;
+    }
+    .userInfo-block-content {
+        display: block;
+    }
+    .userInfo-block-content .user_followed {
+        margin-left: 0;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+    .userInfo-block-content .LikeDislikeWrap {
+        margin-left: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .popupDesign .modal-content .modal-body button.close {
+        right: 0;
+    }
+    .ThumbnailBox-video {
+        height: 250px;
+    }
+    .website_signup_link {
+        display: none;
+    }
+    .ratingPpup {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .ratingpopup .rating-block h4,
+    h2 {
+        font-size: 18px;
+    }
+    .ratingpopup .rating-block {
+        margin: 0 !important;
+        padding: 10px;
+    }
+    .artistDetailsWrap .playlistProfileRateshare {
+        flex-direction: column;
+    }
+    .playlistProfileRateshare .ChannelMoreinfo {
+        margin-right: 0 !important;
+        margin-bottom: 15px !important;
+    }
+    .footer2Ul {
+        display: block;
+    }
+    ul.footerLinksRight {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+    }
+    .vLDetailLikeShare{
+        margin-bottom: 10px;
+    }
+    .vLDetailLikeShare .LikeDislikeWrap {
+        align-items: self-start;
+        flex-direction: column;
+    }
+    .vLDetailLikeShare .LikeDislikeWrap .LikeDislikeList {
+        margin-bottom: 15px;
+    }
+    .titleWrap {
+        margin-bottom: 15px;
+    }
+    .titleWrap .title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 25px;
+        padding: 0 0 10px;
+        display: flex;
+        align-items: center;
+    }
+    .lbl-Featured,
+    .lbl-Hot,
+    .lbl-Sponsored {
+        width: 25px;
+        height: 25px;
+        line-height: 27px;
+        font-size: 12px;
+        margin: 0 10px;
+    }
+    .titleWrap .seemore_link {
+        font-size: 14px;
+        padding: 3px 5px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+    .formBoxtop .btn-login,
+    .registerBox .btn-register {
+        padding: 6px 30px;
+    }
+    .ptv_videoList_wrap .videoList_content {
+        height: auto;
+        min-height: 100px;
+    }
+    .userInfo-block-content .LikeDislikeWrap,
+    .userInfo-block-content .user_followed {
+        padding-left: 0;
+    }
+    .userInfo-block-content .user_followed {
+        margin-top: 60px;
+        margin-bottom: 15px;
+    }
+}
+@media only screen and (max-width: 480px) {
+
+    .purchase_video_content h5, .purchase_video_content p{
+        top: 30%;
+    }
+    .slideshow-enable .snglFullWdth .tns-nav{
+        display: block;
+        bottom: -15px;
+        position: absolute;
+        right: 5px;
+    }
+    .slideshow-enable{
+        padding-top:0px !important;
+    }
+    .slideshow-enable .snglFullWdth .tns-nav button{
+        padding:5px;
+        margin-right: 5px;
+        background: rgb(167 169 170);
+    }
+    .slideshow-enable .snglFullWdth .tns-nav button.tns-nav-active{
+        background: var(--Bgcolor-primary);
+    }
+    .slideshow-enable .snglFullWdth-box .content{
+        top: 0%;
+        width: 100%;
+    }
+    .slideshow-enable .snglFullWdth-content-box .buttons{
+        display: none;
+    }
+    .slideshow-enable .snglFullWdth-content-box .title{
+        font-size: 20px;
+        width: 100%;
+    }
+    .slideshow-enable .snglFullWdth-content-box{
+        width: 100%;
+    }
+    .slideshow-enable .snglFullWdth .tns-controls button[data-controls="prev"], .slideshow-enable .snglFullWdth .tns-controls button[data-controls="next"]{
+        display: none;
+    }
+    .sidevideoWrapOutr .ptv_videoList_wrap .videoList_content .videoTitle a h4 {
+        -webkit-line-clamp: 1;
+    }
+    .ptv_videoList_wrap .videoList_thumb{
+        height: 140px;
+    }
+}
